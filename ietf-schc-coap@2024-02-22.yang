@@ -1,4 +1,4 @@
-module ietf-schc-compound-ack {
+module ietf-schc-coap-ext {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-schc-coap-ext";
   prefix schc-coap-ext;
@@ -47,7 +47,7 @@ module ietf-schc-compound-ack {
     reference
       "RFC YYYY Static Context Header Compression (SCHC) for the
                 Constrained Application Protocol (CoAP) (see
-                Section 6.4)";
+                Sections 5 and 6).";
   }
 
 // Field ID 
@@ -58,7 +58,7 @@ module ietf-schc-compound-ack {
       "Hop Limit option to avoid infinite forwarding loops.";
     reference
       "RFC 8768 Constrained Application Protocol (CoAP) 
-                Hop-Limit Option";
+                Hop-Limit Option.";
   }
 
   identity fid-coap-option-echo {
@@ -128,7 +128,7 @@ module ietf-schc-compound-ack {
        description
          "CoAP option OSCORE y field.";
        reference
-         "RFC 8824 Static Context Header Compression (SCHC) for the
+         "RFC YYYY Static Context Header Compression (SCHC) for the
                    Constrained Application Protocol (CoAP) (see
                    Section 6.4)
           RFC XXXX Key Update for OSCORE (KUDOS)";
@@ -161,22 +161,22 @@ module ietf-schc-compound-ack {
   identity fl-oscore-oscore-nonce-length {
        base fl-base-type;
        description
-         "Size in bytes of the OSCORE nonce (m).";
+         "Size in bytes of the OSCORE nonce corresponding to m+1.";
        reference
          "RFC 8824 Static Context Header Compression (SCHC) for the
                    Constrained Application Protocol (CoAP) (see
-                   Section 5.3)
+                   Section 6.4).
           RFC XXXX Key Update for OSCORE (KUDOS)";
   }
 
   identity fl-oscore-oscore-oldnonce-length {
        base fl-base-type;
        description
-         "Size in bytes of the OSCORE oldnonce (w).";
+         "Size in bytes of the OSCORE oldnonce corresponding to w+1.";
        reference
-         "RFC 8824 Static Context Header Compression (SCHC) for the
+         "RFC YYYY Static Context Header Compression (SCHC) for the
                    Constrained Application Protocol (CoAP) (see
-                   Section 5.3)
+                   Section 6.4).
           RFC XXXX Key Update for OSCORE (KUDOS)";
   }
 }
