@@ -99,8 +99,6 @@ module ietf-schc-coap-ext {
                 Robust Transmission";
   }
 
-
-
   identity fid-coap-option-oscore-x {
        base "schc:fid-coap-option";
        description
@@ -172,7 +170,7 @@ module ietf-schc-coap-ext {
   identity fl-oscore-oscore-oldnonce-length {
        base fl-base-type;
        description
-         "Size in bytes of the OSCORE oldnonce corresponding to w+1.";
+         "Size in bytes of the OSCORE old_nonce corresponding to w+1.";
        reference
          "RFC YYYY Static Context Header Compression (SCHC) for the
                    Constrained Application Protocol (CoAP) (see
