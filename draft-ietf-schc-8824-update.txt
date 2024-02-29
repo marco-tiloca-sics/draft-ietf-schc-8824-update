@@ -3198,9 +3198,11 @@ Appendix A.  YANG Data Model
    }
    <CODE ENDS>
 
-                      Figure 37: SCHC YANG Data Model
+               Figure 37: SCHC CoAP Extension YANG Data Model
 
 A.1.  Version -00 to -01
+
+   *  Added YANG data model for the ietf-schc-coap-ext module.
 
    *  Fixes and editorial improvements.
 
