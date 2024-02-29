@@ -2086,9 +2086,11 @@ module ietf-schc-coap-ext {
 <CODE ENDS>
 
 ~~~~~~~~~~~
-{: #fig-yang-data-model title="SCHC YANG Data Model" artwork-align="left"}
+{: #fig-yang-data-model title="SCHC CoAP Extension YANG Data Model" artwork-align="left"}
 
 ## Version -00 to -01 ## {#sec-00-01}
+
+* Added YANG data model for the ietf-schc-coap-ext module.
 
 * Fixes and editorial improvements.
 
