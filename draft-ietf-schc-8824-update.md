@@ -5,9 +5,6 @@ title: Static Context Header Compression (SCHC) for the Constrained Application 
 abbrev: SCHC for CoAP
 docname: draft-ietf-schc-8824-update-latest
 
-# stand_alone: true
-
-ipr: trust200902
 area: Internet
 wg: SCHC Working Group
 kw: Internet-Draft
@@ -16,11 +13,6 @@ submissiontype: IETF
 obsoletes: 8824
 
 coding: utf-8
-pi:    # can use array (if all yes) or hash here
-
-  toc: yes
-  sortrefs:   # defaults to yes
-  symrefs: yes
 
 author:
       -
@@ -1903,8 +1895,12 @@ This document has no actions for IANA.
 
 TBD
 
+## Version -00 to -01 ## {#sec-00-01}
+
+* Fixes and editorial improvements.
+
 # Acknowledgments # {#acknowledgments}
-{: numbered="no"}
+{:unnumbered}
 
 The authors sincerely thank {{{Christian Amsüss}}}, {{{Quentin Lampin}}}, {{{John Preuß Mattsson}}}, {{{Carles Gomez Montenegro}}}, {{{Göran Selander}}}, {{{Pascal Thubert}}}, and {{{Éric Vyncke}}} for their comments and feedback.
 
