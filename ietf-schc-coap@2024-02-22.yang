@@ -31,7 +31,7 @@ module ietf-schc-coap-ext {
      'MAY', and 'OPTIONAL' in this document are to be interpreted as
      described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
      they appear in all capitals, as shown here.
-     ******************************************************************
+     ****************************************************************
 
      This module extends the ietf-schc module defined in RFC 9363 to
      include the new CoAP options as defined in RFC YYYY.";
@@ -143,10 +143,10 @@ module ietf-schc-coap-ext {
       description
         "EDHOC option.";
       reference
-        "RFC XXXX Using Ephemeral Diffie-Hellman Over COSE (EDHOC) with
-                  the Constrained Application Protocol (CoAP) and
-                  Object Security for Constrained RESTful Environments
-                  (OSCORE)";
+        "RFC XXXX Using Ephemeral Diffie-Hellman Over COSE (EDHOC)
+                  with the Constrained Application Protocol (CoAP)
+                  and Object Security for Constrained RESTful
+                  Environments (OSCORE)";
   }
  
   // Function Length
@@ -165,7 +165,8 @@ module ietf-schc-coap-ext {
   identity fl-oscore-oscore-oldnonce-length {
        base fl-base-type;
        description
-         "Size in bytes of the OSCORE old_nonce corresponding to w+1.";
+         "Size in bytes of the OSCORE old_nonce corresponding to w+1.
+         ";
        reference
          "RFC YYYY Static Context Header Compression (SCHC) for the
                    Constrained Application Protocol (CoAP) (see
