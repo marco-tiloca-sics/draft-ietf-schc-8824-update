@@ -312,7 +312,7 @@ To compress these repeatable field values, SCHC can use a "match-mapping" MO to 
 For example, as per the Rule descriptions shown in {{table-complex-path}}, SCHC can use a single bit in the Compression Residue to code the path segments "/a/b" or the path segments "/c/d". If regrouping were not allowed, then 2 bits in the Compression Residue would be needed. At the same time, SCHC sends the third path element following "/a/b" or "/c/d" as a variable-size field in the Compression Residue.
 
 | Field    | FL  | FP | DI | TV                        | MO                      | CDA          |
-|----------+-----+----+----+---------------------------+-------------------------+--------------|
+|----------|-----|----|----|---------------------------|-------------------------|--------------|
 | Uri-Path |     | 1  | Up | `["/a/b",` <br> `"/c/d"]` | `match-` <br> `mapping` | mapping-sent |
 | Uri-Path | var | 3  | Up |                           | ignore                  | value-sent   |
 {: #table-complex-path title="Complex Path Example" align="center"}
@@ -325,7 +325,7 @@ For instance, for a CORECONF path /c/X6?k=eth0, the Rule description can be as s
 
 
 | Field     | FL  | FP | DI | TV     | MO      | CDA        |
-|-----------+-----+----+----+--------+---------+------------|
+|-----------|-----|----|----|--------|---------|------------|
 | Uri-Path  |     | 1  | Up | "c"    | equal   | not-sent   |
 | Uri-Path  | var | 2  | Up |        | ignore  | value-sent |
 | Uri-Query | var | 1  | Up | "k="   | MSB(16) | LSB        |
@@ -341,7 +341,7 @@ SCHC fixes the number of Uri-Path or Uri-Query elements in a Rule at Rule creati
 
    However, this adds 4 bits to the variable Compression Residue size (see {{Section 7.4.2 of RFC8724}}).
 
-## CoAP Option Size1, Size2, Proxy-URI, and Proxy-Scheme Fields # {#ssec-size1-size2-proxy-uri-proxy-scheme-option}
+## CoAP Option Size1, Size2, Proxy-Uri, and Proxy-Scheme Fields # {#ssec-size1-size2-proxy-uri-proxy-scheme-option}
 
 The SCHC Rule description MAY define sending some field values by not setting the TV, while setting the MO to "ignore" and the CDA to "value-sent". A Rule MAY also use a "match-mapping" MO when there are different options for the same FID. Otherwise, the Rule sets the TV to a specific value, the MO to "equal", and the CDA to "not-sent".
 
@@ -538,7 +538,7 @@ In this first scenario, the SCHC compressor on the NGW side receives a POST mess
 ~~~~
 
 | Field                   | FL  | FP | DI | TV                                | MO                      | CDA                    | `Sent` <br> `[bits]` |
-|-------------------------+-----+----+----+-----------------------------------+-------------------------+------------------------|----------------------|
+|-------------------------|-----|----|----|-----------------------------------|-------------------------|------------------------|----------------------|
 | `CoAP` <br> `Version`   | 2   | 1  | Bi | 01                                | equal                   | not-sent               |                      |
 | CoAP Type               | 2   | 1  | Dw | CON                               | equal                   | not-sent               |                      |
 | CoAP Type               | 2   | 1  | Up | `[ACK,` <br> `RST]`               | `match-` <br> `mapping` | `mapping-` <br> `sent` | T                    |
@@ -570,7 +570,7 @@ In particular, the CoAP options are arranged into three classes, each of which i
 
 As per these classes, the Outer options comprise the OSCORE Option, which indicates that the message is protected with OSCORE and carries the information necessary for the recipient endpoint to retrieve the Security Context for decrypting the message.
 
-~~~~
+~~~~~~~~~~~ aasvg
                     Original CoAP Message
                  +-+-+---+-------+---------------+
                  |v|t|TKL| code  | Message ID    |
@@ -604,7 +604,7 @@ As per these classes, the Outer options comprise the OSCORE Option, which indica
 | 0xFF |                                    |                   |
 +------+                                    +-------------------+
 
-~~~~
+~~~~~~~~~~~
 {: #fig-inner-outer title="CoAP Packet Split into OSCORE Outer Header and Plaintext" artwork-align="center"}
 
 {{fig-inner-outer}} shows the packet format for the OSCORE Outer header and Plaintext.
@@ -655,23 +655,25 @@ The SCHC compression scheme consists of compressing both the Plaintext before en
 | 0xFF |                                      |                     |
 +------+------------+                         +---------------------+
 |                   |                                 |
-| Ciphertext        |<---------\                      |
+| Ciphertext        |<---------+                      |
 |                   |          |                      v
 +-------------------+          |              +-----------------+
         |                      |              |   Inner SCHC    |
-        v                      |              |   Compression   |
-  +-----------------+          |              +-----------------+
+        |                      |              |   Compression   |
+        v                      |              +-----------------+
+  +-----------------+          |                      |
   |   Outer SCHC    |          |                      |
   |   Compression   |          |                      v
   +-----------------+          |                +----------+
         |                      |                | RuleID   |
-        v                      |                +----------+----------+
-  +---------+               +------------+      | Compression Residue |
-  | RuleID' |               | Encryption | <--- +---------------------+
-  +---------+------------+  +------------+      |                     |
-  | Compression Residue' |                      | Payload             |
-  +----------------------+                      |                     |
-  |                      |                      +---------------------+
+        |                      |                +----------+----------+
+        v                      |                | Compression Residue |
+  +---------+               +------------+      +---------------------+
+  | RuleID' |               | Encryption |<-----|                     |
+  +---------+------------+  +------------+      | Payload             |
+  | Compression Residue' |                      |                     |
+  +----------------------+                      +---------------------+
+  |                      |
   | Ciphertext           |
   |                      |
   +----------------------+
@@ -716,7 +718,7 @@ Header:
 Options:
 
 0xbb74656d7065726174757265
-Option 11: Uri_Path
+Option 11: Uri-Path
 Value = temperature
 
 Original message length: 17 bytes
@@ -758,7 +760,7 @@ The SCHC Rules for the Inner Compression include all the fields present in a reg
 ~~~~
 
 | Field                   | FL | FP | DI | TV            | MO                      | CDA                    | `Sent` <br> `[bits]` |
-|-------------------------+----+----+----+---------------+-------------------------+------------------------|----------------------|
+|-------------------------|----|----|----|---------------|-------------------------|------------------------|----------------------|
 | CoAP Code               | 8  | 1  | Up | 1             | equal                   | not-sent               |                      |
 | CoAP Code               | 8  | 1  | Dw | \[69,132\]    | `match-` <br> `mapping` | `mapping-` <br> `sent` | C                    |
 | `CoAP` <br> `Uri-Path`  |    | 1  | Up | "temperature" | equal                   | not-sent               |                      |
@@ -767,7 +769,7 @@ The SCHC Rules for the Inner Compression include all the fields present in a reg
 {{fig-Inner-Compression-GET}} shows the Plaintext obtained for the example GET request. The packet follows the process of Inner Compression and encryption until the payload. The Outer OSCORE message adds the result of the Inner process.
 
 ~~~~~~~~~~~ aasvg
- ___________________________________________________
++---------------------------------------------------+
 |                                                   |
 | OSCORE Plaintext                                  |
 |                                                   |
@@ -775,16 +777,15 @@ The SCHC Rules for the Inner Compression include all the fields present in a reg
 |                                                   |
 | 0x01 Request Code GET                             |
 |                                                   |
-|      bb74656d7065726174757265 Option 11: URI_PATH |
+|      bb74656d7065726174757265 Option 11: Uri-Path |
 |                               Value = temperature |
-|___________________________________________________|
-
-                            |
+|                                                   |
++---------------------------------------------------+
                             |
                             | Inner SCHC Compression
                             |
                             v
-               __________________________
+              +--------------------------+
               |                          |
               | Compressed Plaintext     |
               |                          |
@@ -792,19 +793,21 @@ The SCHC Rules for the Inner Compression include all the fields present in a reg
               |                          |
               | RuleID = 0x00 (1 byte)   |
               | (No Compression Residue) |
-              |__________________________|
-
+              |                          |
+              +--------------------------+
                             |
                             | AEAD Encryption
                             |  (piv = 0x04)
+                            |
                             v
-      ______________________________________________
+     +----------------------------------------------+
      |                                              |
      |  encrypted_plaintext = 0xa2 (1 byte)         |
      |  tag = 0xc54fe1b434297b62 (8 bytes)          |
      |                                              |
      |  ciphertext = 0xa2c54fe1b434297b62 (9 bytes) |
-     |______________________________________________|
+     |                                              |
+     +----------------------------------------------+
 ~~~~~~~~~~~
 {: #fig-Inner-Compression-GET title="Plaintext Compression and Encryption for GET Request" artwork-align="center"}
 
@@ -813,7 +816,7 @@ In this case, the original message has no payload, and its resulting Plaintext i
 {{fig-Inner-Compression-CONTENT}} shows the process for the example Content response. The Compression Residue is 1 bit long. Note that since SCHC adds padding after the payload, this misalignment causes the hexadecimal code from the payload to differ from the original, even if SCHC cannot compress the tag. The overhead for the tag bytes limits SCHC's performance but adds security to the exchange.
 
 ~~~~~~~~~~~ aasvg
- _________________________________________________
++-------------------------------------------------+
 |                                                 |
 | OSCORE Plaintext                                |
 |                                                 |
@@ -824,14 +827,13 @@ In this case, the original message has no payload, and its resulting Plaintext i
 |     ff Payload marker                           |
 |                                                 |
 |       32332043 Payload                          |
-|_________________________________________________|
-
-                            |
+|                                                 |
++-------------------------------------------------+
                             |
                             | Inner SCHC Compression
                             |
                             v
-  ________________________________________________
+ +------------------------------------------------+
  |                                                |
  | Compressed Plaintext                           |
  |                                                |
@@ -842,19 +844,21 @@ In this case, the original message has no payload, and its resulting Plaintext i
  |  0b0 (1 bit match-mapping Compression Residue) |
  |       0x32332043 >> 1 (shifted payload)        |
  |                        0b0000000 Padding       |
- |________________________________________________|
-
+ |                                                |
+ +------------------------------------------------+
                             |
                             | AEAD Encryption
                             |  (piv = 0x04)
+                            |
                             v
- _________________________________________________________
+ +---------------------------------------------------------+
  |                                                         |
  |  encrypted_plaintext = 0x10c6d7c26cc1 (6 bytes)         |
  |  tag = 0xe9aef3f2461e0c29 (8 bytes)                     |
  |                                                         |
  |  ciphertext = 0x10c6d7c26cc1e9aef3f2461e0c29 (14 bytes) |
- |_________________________________________________________|
+ |                                                         |
+ +---------------------------------------------------------+
 ~~~~~~~~~~~
 {: #fig-Inner-Compression-CONTENT title="Plaintext Compression and Encryption for Content Response" artwork-align="center"}
 
@@ -869,7 +873,7 @@ The Outer SCHC Rule shown in {{table-Outer-Rules}} is used, also to process the 
 ~~~~
 
 | Field                         | FL      | FP | DI | TV             | MO      | CDA                | `Sent` <br> `[bits]` |
-|-------------------------------+---------+----+----+----------------+---------+--------------------|----------------------|
+|-------------------------------|---------|----|----|----------------|---------|--------------------|----------------------|
 | `CoAP` <br> `Version`         | 2       | 1  | Bi | 01             | equal   | `not-` <br> `sent` |                      |
 | `CoAP` <br> `Type`            | 2       | 1  | Up | 0              | equal   | `not-` <br> `sent` |                      |
 | `CoAP` <br> `Type`            | 2       | 1  | Dw | 2              | equal   | `not-` <br> `sent` |                      |
@@ -1007,7 +1011,7 @@ In contrast, the following compares these results with what would be obtained by
 ~~~~
 
 | Field                  | FL  | FP | DI | TV            | MO                      | CDA                    | `Sent` <br> `[bits]` |
-|------------------------+-----+----+----+---------------+-------------------------+------------------------|----------------------|
+|------------------------|-----|----|----|---------------|-------------------------|------------------------|----------------------|
 | `CoAP` <br> `Version`  | 2   | 1  | Bi | 01            | equal                   | `not-sent`             |                      |
 | CoAP Type              | 2   | 1  | Up | 0             | equal                   | `not-sent`             |                      |
 | CoAP Type              | 2   | 1  | Dw | 2             | equal                   | `not-sent`             |                      |
@@ -1205,7 +1209,7 @@ The Device and the proxy share the SCHC Rule shown in {{fig-rules-device-proxy}}
 ~~~~
 
 | Field                      | FL               | FP | DI | TV                         | MO                      | CDA                    | `Sent` <br> `[bits]` |
-|----------------------------+------------------+----+----+----------------------------+-------------------------+------------------------|----------------------|
+|----------------------------|------------------|----|----|----------------------------|-------------------------|------------------------|----------------------|
 | `CoAP` <br> `Version`      | 2                | 1  | Bi | 01                         | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`         | 2                | 1  | Up | 0                          | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`         | 2                | 1  | Dw | \[0,2\]                    | `match-` <br> `mapping` | `mapping-` <br> `sent` | T                    |
@@ -1228,7 +1232,7 @@ Instead, the proxy and the Application Server share the SCHC Rule shown in {{fig
 ~~~~
 
 | Field                      | FL               | FP | DI | TV                         | MO                      | CDA                    | `Sent` <br> `[bits]` |
-|----------------------------+------------------+----+----+----------------------------+-------------------------+------------------------|----------------------|
+|----------------------------|------------------|----|----|----------------------------|-------------------------|------------------------|----------------------|
 | `CoAP` <br> `Version`      | 2                | 1  | Bi | 01                         | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`         | 2                | 1  | Up | 0                          | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`         | 2                | 1  | Dw | \[0,2\]                    | `match-` <br> `mapping` | `mapping-` <br> `sent` | T                    |
@@ -1416,7 +1420,7 @@ The Device and the Application Server share the SCHC Rule shown in {{fig-rules-o
 ~~~~
 
 | Field                      | FL               | FP | DI | TV                         | MO                      | CDA                    | `Sent` <br> `[bits]` |
-|----------------------------+------------------+----+----+----------------------------+-------------------------+------------------------|----------------------|
+|----------------------------|------------------|----|----|----------------------------|-------------------------|------------------------|----------------------|
 | `CoAP` <br> `Code`         | 8                | 1  | Up | `[1, 2,` <br> `3, 4]`      | `match-` <br> `mapping` | `mapping-` <br> `sent` | CC                   |
 | `CoAP` <br> `Code`         | 8                | 1  | Dw | `[65, 68,` <br> `69, 132]` | `match-` <br> `mapping` | `mapping-` <br> `sent` | CC                   |
 | `CoAP` <br> `Uri-Path`     | var              | 1  | Up | "temperature"              | equal                   | not-sent               |                      |
@@ -1431,7 +1435,7 @@ The Device and the proxy share the SCHC Rule shown in {{fig-rules-oscore-device-
 ~~~~
 
 | Field                               | FL               | FP | DI | TV      | MO                      | CDA                    | `Sent` <br> `[bits]` |
-|-------------------------------------+------------------+----+----+---------+-------------------------+------------------------|----------------------|
+|-------------------------------------|------------------|----|----|---------|-------------------------|------------------------|----------------------|
 | `CoAP` <br> `Version`               | 2                | 1  | Bi | 01      | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`                  | 2                | 1  | Up | 0       | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`                  | 2                | 1  | Dw | \[0,2\] | `match-` <br> `mapping` | `mapping-` <br> `sent` | T                    |
@@ -1464,7 +1468,7 @@ The proxy and the Application Server share the SCHC Rule shown in {{fig-rules-os
 ~~~~
 
 | Field                         | FL               | FP | DI | TV      | MO                      | CDA                    | `Sent` <br> `[bits]` |
-|-------------------------------+------------------+----+----+---------+-------------------------+------------------------|----------------------|
+|-------------------------------|------------------|----|----|---------|-------------------------|------------------------|----------------------|
 | `CoAP` <br> `Version`         | 2                | 1  | Bi | 01      | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`            | 2                | 1  | Up | 0       | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`            | 2                | 1  | Dw | \[0,2\] | `match-` <br> `mapping` | `mapping-` <br> `sent` | T                    |
@@ -1491,53 +1495,54 @@ When the Device applies the Rule in {{fig-rules-oscore-device-server}} shared wi
 
 As per {{ssec-examples-oscore}}, the message follows the process of SCHC Inner Compression and encryption until the payload (if any). The ciphertext resulting from the overall Inner process is used as payload of the Outer OSCORE message.
 
-~~~~~~~~~~~
+~~~~~~~~~~~ aasvg
 
-      _____________________________________________________
-     |                                                     |
-     | OSCORE Plaintext                                    |
-     |                                                     |
-     | 0x01bb74656d7065726174757265  (13 bytes)            |
-     |                                                     |
-     | 0x01 Request Code GET                               |
-     |                                                     |
-     |      0xbb74656d7065726174757265 Option 11: URI_PATH |
-     |                                 Value = temperature |
-     |_____________________________________________________|
-
-                                 |
-                                 | Inner SCHC Compression
-                                 |
-                                 v
-          _________________________________________________
-         |                                                 |
-         | Compressed Plaintext                            |
-         |                                                 |
-         | 0x0200 (2 bytes)                                |
-         |                                                 |
-         |                                                 |
-         | RuleID = 0x02 (1 byte)                          |
-         |                                                 |
-         |                                                 |
-         | Compression residue                             |
-         | and padded payload = 0x00 (1 byte)              |
-         |                                                 |
-         | 0b00 (2 bits match-mapping Compression Residue) |
-         | 0b000000 (6 bit padding)                        |
-         |_________________________________________________|
-
-                                 |
-                                 | AEAD Encryption
-                                 |  (piv = 0x04)
-                                 |
-                                 v
-           ________________________________________________
-          |                                                |
-          | encrypted_plaintext = 0xa2cf (2 bytes)         |
-          | tag = 0xc54fe1b434297b62 (8 bytes)             |
-          |                                                |
-          | ciphertext = 0xa2cfc54fe1b434297b62 (10 bytes) |
-          |________________________________________________|
++-----------------------------------------------------+
+|                                                     |
+| OSCORE Plaintext                                    |
+|                                                     |
+| 0x01bb74656d7065726174757265  (13 bytes)            |
+|                                                     |
+| 0x01 Request Code GET                               |
+|                                                     |
+|      0xbb74656d7065726174757265 Option 11: Uri-Path |
+|                                 Value = temperature |
+|                                                     |
++-----------------------------------------------------+
+                        |
+                        | Inner SCHC Compression
+                        |
+                        v
++-------------------------------------------------+
+|                                                 |
+| Compressed Plaintext                            |
+|                                                 |
+| 0x0200 (2 bytes)                                |
+|                                                 |
+|                                                 |
+| RuleID = 0x02 (1 byte)                          |
+|                                                 |
+|                                                 |
+| Compression residue                             |
+| and padded payload = 0x00 (1 byte)              |
+|                                                 |
+| 0b00 (2 bits match-mapping Compression Residue) |
+| 0b000000 (6 bit padding)                        |
+|                                                 |
++-------------------------------------------------+
+                        |
+                        | AEAD Encryption
+                        |  (piv = 0x04)
+                        |
+                        v
++------------------------------------------------+
+|                                                |
+| encrypted_plaintext = 0xa2cf (2 bytes)         |
+| tag = 0xc54fe1b434297b62 (8 bytes)             |
+|                                                |
+| ciphertext = 0xa2cfc54fe1b434297b62 (10 bytes) |
+|                                                |
++------------------------------------------------+
 
 ~~~~~~~~~~~
 {: #fig-plaintext-req title="Plaintext Compression and Encryption for the GET Request" artwork-align="center"}
@@ -1546,55 +1551,56 @@ When the Application Server applies the Rule in {{fig-rules-oscore-device-server
 
 As per {{ssec-examples-oscore}}, the message follows the process of SCHC Inner Compression and encryption until the payload (if any). The ciphertext resulting from the overall Inner process is used as payload of the Outer OSCORE message.
 
-~~~~~~~~~~~
+~~~~~~~~~~~ aasvg
 
-              _________________________________________________
-             |                                                 |
-             | OSCORE Plaintext                                |
-             |                                                 |
-             | 0x45ff32332043  (6 bytes)                       |
-             |                                                 |
-             | 0x45 Successful Response Code 69 "2.05 Content" |
-             |                                                 |
-             |     0xff Payload marker                         |
-             |                                                 |
-             |         0x32332043 Payload                      |
-             |_________________________________________________|
-
-                                 |
-                                 | Inner SCHC Compression
-                                 |
-                                 v
-              _________________________________________________
-             |                                                 |
-             | Compressed Plaintext                            |
-             |                                                 |
-             | 0x028c8cc810c0 (6 bytes)                        |
-             |                                                 |
-             |                                                 |
-             | RuleID = 0x02                                   |
-             |                                                 |
-             |                                                 |
-             | Compression residue                             |
-             | and padded payload = 0x8c8cc810c0 (5 bytes)     |
-             |                                                 |
-             | 0b10 (2 bits match-mapping Compression Residue) |
-             |       0x32332043 >> 2 (shifted payload)         |
-             |                        0b000000 Padding         |
-             |_________________________________________________|
-
-                                 |
-                                 | AEAD Encryption
-                                 |  (piv = 0x04)
-                                 |
-                                 v
-      _________________________________________________________
-     |                                                         |
-     |  encrypted_plaintext = 0x10c6d7c26cc1 (6 bytes)         |
-     |  tag = 0xe9aef3f2461e0c29 (8 bytes)                     |
-     |                                                         |
-     |  ciphertext = 0x10c6d7c26cc1e9aef3f2461e0c29 (14 bytes) |
-     |_________________________________________________________|
++-------------------------------------------------+
+|                                                 |
+| OSCORE Plaintext                                |
+|                                                 |
+| 0x45ff32332043  (6 bytes)                       |
+|                                                 |
+| 0x45 Successful Response Code 69 "2.05 Content" |
+|                                                 |
+|     0xff Payload marker                         |
+|                                                 |
+|         0x32332043 Payload                      |
+|                                                 |
++-------------------------------------------------+
+                    |
+                    | Inner SCHC Compression
+                    |
+                    v
++-------------------------------------------------+
+|                                                 |
+| Compressed Plaintext                            |
+|                                                 |
+| 0x028c8cc810c0 (6 bytes)                        |
+|                                                 |
+|                                                 |
+| RuleID = 0x02                                   |
+|                                                 |
+|                                                 |
+| Compression residue                             |
+| and padded payload = 0x8c8cc810c0 (5 bytes)     |
+|                                                 |
+| 0b10 (2 bits match-mapping Compression Residue) |
+|       0x32332043 >> 2 (shifted payload)         |
+|                        0b000000 Padding         |
+|                                                 |
++-------------------------------------------------+
+                    |
+                    | AEAD Encryption
+                    |  (piv = 0x04)
+                    |
+                    v
++---------------------------------------------------------+
+|                                                         |
+|  encrypted_plaintext = 0x10c6d7c26cc1 (6 bytes)         |
+|  tag = 0xe9aef3f2461e0c29 (8 bytes)                     |
+|                                                         |
+|  ciphertext = 0x10c6d7c26cc1e9aef3f2461e0c29 (14 bytes) |
+|                                                         |
++---------------------------------------------------------+
 
 ~~~~~~~~~~~
 {: #fig-plaintext-resp title="Plaintext Compression and Encryption for the Content Response" artwork-align="center"}
