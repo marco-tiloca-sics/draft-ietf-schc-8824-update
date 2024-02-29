@@ -1196,7 +1196,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
-                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-coap-option-size1-size2-pro" class="internal xref">CoAP Option Size1, Size2, Proxy-URI, and Proxy-Scheme Fields</a></p>
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-coap-option-size1-size2-pro" class="internal xref">CoAP Option Size1, Size2, Proxy-Uri, and Proxy-Scheme Fields</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5">
                 <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-coap-option-etag-if-match-i" class="internal xref">CoAP Option ETag, If-Match, If-None-Match, Location-Path, and Location-Query Fields</a></p>
@@ -1885,7 +1885,7 @@ However, this adds 4 bits to the variable Compression Residue size (see <span><a
 <div id="ssec-size1-size2-proxy-uri-proxy-scheme-option">
 <section id="section-5.4">
         <h3 id="name-coap-option-size1-size2-pro">
-<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-coap-option-size1-size2-pro" class="section-name selfRef">CoAP Option Size1, Size2, Proxy-URI, and Proxy-Scheme Fields</a>
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-coap-option-size1-size2-pro" class="section-name selfRef">CoAP Option Size1, Size2, Proxy-Uri, and Proxy-Scheme Fields</a>
         </h3>
 <p id="section-5.4-1">The SCHC Rule description MAY define sending some field values by not setting the TV, while setting the MO to "ignore" and the CDA to "value-sent". A Rule MAY also use a "match-mapping" MO when there are different options for the same FID. Otherwise, the Rule sets the TV to a specific value, the MO to "equal", and the CDA to "not-sent".<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 </section>
@@ -2294,42 +2294,106 @@ Otherwise, if the old_nonce field is present, then the corresponding Field Descr
 <p id="section-8.2-5">As per these classes, the Outer options comprise the OSCORE Option, which indicates that the message is protected with OSCORE and carries the information necessary for the recipient endpoint to retrieve the Security Context for decrypting the message.<a href="#section-8.2-5" class="pilcrow">¶</a></p>
 <span id="name-coap-packet-split-into-osco"></span><div id="fig-inner-outer">
 <figure id="figure-6">
-          <div class="alignCenter art-text artwork" id="section-8.2-6.1">
-<pre>
-                    Original CoAP Message
-                 +-+-+---+-------+---------------+
-                 |v|t|TKL| code  | Message ID    |
-                 +-+-+---+-------+---------------+....+
-                 | Token                              |
-                 +-------------------------------.....+
-                 | Options (IEU)            |
-                 .                          .
-                 .                          .
-                 +------+-------------------+
-                 | 0xFF |
-                 +------+------------------------+
-                 |                               |
-                 |     Payload                   |
-                 |                               |
-                 +-------------------------------+
-                        /                \
-                       /                  \
-                      /                    \
-                     /                      \
-   Outer Header     v                        v  Plaintext
-+-+-+---+--------+---------------+          +-------+
-|v|t|TKL|new code| Message ID    |          | code  |
-+-+-+---+--------+---------------+....+     +-------+-----......+
-| Token                               |     | Options (E)       |
-+--------------------------------.....+     +-------+------.....+
-| Options (IU)             |                | 0xFF  |
-.                          .                +-------+-----------+
-. OSCORE Option            .                |                   |
-+------+-------------------+                | Payload           |
-| 0xFF |                                    |                   |
-+------+                                    +-------------------+
-
-</pre>
+          <div id="section-8.2-6.1">
+            <div class="alignCenter art-svg artwork" id="section-8.2-6.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="560" width="528" viewBox="0 0 528 560" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 8,368 L 8,456" fill="none" stroke="black"></path>
+                <path d="M 8,480 L 8,528" fill="none" stroke="black"></path>
+                <path d="M 24,368 L 24,400" fill="none" stroke="black"></path>
+                <path d="M 40,368 L 40,400" fill="none" stroke="black"></path>
+                <path d="M 64,496 L 64,528" fill="none" stroke="black"></path>
+                <path d="M 72,368 L 72,400" fill="none" stroke="black"></path>
+                <path d="M 144,48 L 144,136" fill="none" stroke="black"></path>
+                <path d="M 144,160 L 144,272" fill="none" stroke="black"></path>
+                <path d="M 144,368 L 144,400" fill="none" stroke="black"></path>
+                <path d="M 160,48 L 160,80" fill="none" stroke="black"></path>
+                <path d="M 176,48 L 176,80" fill="none" stroke="black"></path>
+                <path d="M 200,176 L 200,208" fill="none" stroke="black"></path>
+                <path d="M 208,48 L 208,80" fill="none" stroke="black"></path>
+                <path d="M 224,480 L 224,496" fill="none" stroke="black"></path>
+                <path d="M 272,48 L 272,80" fill="none" stroke="black"></path>
+                <path d="M 272,368 L 272,400" fill="none" stroke="black"></path>
+                <path d="M 312,400 L 312,432" fill="none" stroke="black"></path>
+                <path d="M 360,160 L 360,176" fill="none" stroke="black"></path>
+                <path d="M 360,368 L 360,528" fill="none" stroke="black"></path>
+                <path d="M 400,48 L 400,80" fill="none" stroke="black"></path>
+                <path d="M 400,208 L 400,272" fill="none" stroke="black"></path>
+                <path d="M 424,368 L 424,400" fill="none" stroke="black"></path>
+                <path d="M 424,432 L 424,464" fill="none" stroke="black"></path>
+                <path d="M 440,80 L 440,112" fill="none" stroke="black"></path>
+                <path d="M 520,400 L 520,432" fill="none" stroke="black"></path>
+                <path d="M 520,464 L 520,528" fill="none" stroke="black"></path>
+                <path d="M 144,48 L 400,48" fill="none" stroke="black"></path>
+                <path d="M 144,80 L 408,80" fill="none" stroke="black"></path>
+                <path d="M 144,112 L 400,112" fill="none" stroke="black"></path>
+                <path d="M 144,176 L 360,176" fill="none" stroke="black"></path>
+                <path d="M 144,208 L 400,208" fill="none" stroke="black"></path>
+                <path d="M 144,272 L 400,272" fill="none" stroke="black"></path>
+                <path d="M 8,368 L 272,368" fill="none" stroke="black"></path>
+                <path d="M 360,368 L 424,368" fill="none" stroke="black"></path>
+                <path d="M 8,400 L 280,400" fill="none" stroke="black"></path>
+                <path d="M 360,400 L 472,400" fill="none" stroke="black"></path>
+                <path d="M 8,432 L 272,432" fill="none" stroke="black"></path>
+                <path d="M 360,432 L 480,432" fill="none" stroke="black"></path>
+                <path d="M 360,464 L 520,464" fill="none" stroke="black"></path>
+                <path d="M 8,496 L 224,496" fill="none" stroke="black"></path>
+                <path d="M 8,528 L 64,528" fill="none" stroke="black"></path>
+                <path d="M 360,528 L 520,528" fill="none" stroke="black"></path>
+                <path d="M 332,280 L 372,360" fill="none" stroke="black"></path>
+                <path d="M 164,360 L 204,280" fill="none" stroke="black"></path>
+                <polygon class="arrowhead" points="380,360 368,354.4 368,365.6" fill="black" transform="rotate(63.43494882292201,372,360)"></polygon>
+                <polygon class="arrowhead" points="172,360 160,354.4 160,365.6" fill="black" transform="rotate(116.56505117707799,164,360)"></polygon>
+                <g class="text">
+                  <text x="196" y="36">Original</text>
+                  <text x="252" y="36">CoAP</text>
+                  <text x="304" y="36">Message</text>
+                  <text x="152" y="68">v</text>
+                  <text x="168" y="68">t</text>
+                  <text x="192" y="68">TKL</text>
+                  <text x="236" y="68">code</text>
+                  <text x="312" y="68">Message</text>
+                  <text x="356" y="68">ID</text>
+                  <text x="424" y="84">...</text>
+                  <text x="176" y="100">Token</text>
+                  <text x="420" y="116">....</text>
+                  <text x="184" y="132">Options</text>
+                  <text x="240" y="132">(IEU)</text>
+                  <text x="360" y="132">|</text>
+                  <text x="144" y="148">.</text>
+                  <text x="360" y="148">.</text>
+                  <text x="172" y="196">0xFF</text>
+                  <text x="216" y="244">Payload</text>
+                  <text x="48" y="356">Outer</text>
+                  <text x="100" y="356">Header</text>
+                  <text x="424" y="356">Plaintext</text>
+                  <text x="16" y="388">v</text>
+                  <text x="32" y="388">t</text>
+                  <text x="56" y="388">TKL</text>
+                  <text x="88" y="388">new</text>
+                  <text x="124" y="388">code</text>
+                  <text x="184" y="388">Message</text>
+                  <text x="228" y="388">ID</text>
+                  <text x="388" y="388">code</text>
+                  <text x="296" y="404">...</text>
+                  <text x="496" y="404">.....</text>
+                  <text x="40" y="420">Token</text>
+                  <text x="400" y="420">Options</text>
+                  <text x="448" y="420">(E)</text>
+                  <text x="292" y="436">....</text>
+                  <text x="500" y="436">....</text>
+                  <text x="48" y="452">Options</text>
+                  <text x="100" y="452">(IU)</text>
+                  <text x="224" y="452">|</text>
+                  <text x="388" y="452">0xFF</text>
+                  <text x="8" y="468">.</text>
+                  <text x="224" y="468">.</text>
+                  <text x="44" y="484">OSCORE</text>
+                  <text x="100" y="484">Option</text>
+                  <text x="400" y="500">Payload</text>
+                  <text x="36" y="516">0xFF</text>
+                </g>
+              </svg><a href="#section-8.2-6.1.1" class="pilcrow">¶</a>
+</div>
 </div>
 <figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
 <a href="#name-coap-packet-split-into-osco" class="selfRef">CoAP Packet Split into OSCORE Outer Header and Plaintext</a>
@@ -2373,40 +2437,40 @@ Otherwise, if the old_nonce field is present, then the corresponding Field Descr
 <figure id="figure-8">
           <div id="section-8.2-14.1">
             <div class="alignCenter art-svg artwork" id="section-8.2-14.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="560" width="576" viewBox="0 0 576 560" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="592" width="576" viewBox="0 0 576 592" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
                 <path d="M 8,48 L 8,136" fill="none" stroke="black"></path>
                 <path d="M 8,160 L 8,272" fill="none" stroke="black"></path>
                 <path d="M 24,48 L 24,80" fill="none" stroke="black"></path>
-                <path d="M 24,320 L 24,368" fill="none" stroke="black"></path>
-                <path d="M 24,416 L 24,544" fill="none" stroke="black"></path>
+                <path d="M 24,336 L 24,384" fill="none" stroke="black"></path>
+                <path d="M 24,448 L 24,576" fill="none" stroke="black"></path>
                 <path d="M 40,48 L 40,80" fill="none" stroke="black"></path>
                 <path d="M 64,176 L 64,208" fill="none" stroke="black"></path>
                 <path d="M 72,48 L 72,80" fill="none" stroke="black"></path>
-                <path d="M 72,280 L 72,312" fill="none" stroke="black"></path>
-                <path d="M 72,376 L 72,408" fill="none" stroke="black"></path>
-                <path d="M 104,416 L 104,448" fill="none" stroke="black"></path>
+                <path d="M 72,280 L 72,328" fill="none" stroke="black"></path>
+                <path d="M 72,392 L 72,440" fill="none" stroke="black"></path>
+                <path d="M 104,448 L 104,480" fill="none" stroke="black"></path>
                 <path d="M 144,48 L 144,80" fill="none" stroke="black"></path>
                 <path d="M 168,208 L 168,272" fill="none" stroke="black"></path>
-                <path d="M 168,320 L 168,368" fill="none" stroke="black"></path>
-                <path d="M 208,448 L 208,544" fill="none" stroke="black"></path>
+                <path d="M 168,336 L 168,384" fill="none" stroke="black"></path>
+                <path d="M 208,480 L 208,576" fill="none" stroke="black"></path>
                 <path d="M 224,160 L 224,176" fill="none" stroke="black"></path>
-                <path d="M 232,416 L 232,448" fill="none" stroke="black"></path>
-                <path d="M 256,256 L 256,408" fill="none" stroke="black"></path>
+                <path d="M 232,448 L 232,480" fill="none" stroke="black"></path>
+                <path d="M 256,240 L 256,440" fill="none" stroke="black"></path>
                 <path d="M 272,48 L 272,80" fill="none" stroke="black"></path>
                 <path d="M 312,80 L 312,112" fill="none" stroke="black"></path>
-                <path d="M 336,416 L 336,448" fill="none" stroke="black"></path>
+                <path d="M 336,448 L 336,480" fill="none" stroke="black"></path>
                 <path d="M 376,48 L 376,208" fill="none" stroke="black"></path>
                 <path d="M 376,272 L 376,320" fill="none" stroke="black"></path>
-                <path d="M 392,368 L 392,496" fill="none" stroke="black"></path>
+                <path d="M 392,384 L 392,512" fill="none" stroke="black"></path>
                 <path d="M 440,48 L 440,80" fill="none" stroke="black"></path>
                 <path d="M 440,112 L 440,144" fill="none" stroke="black"></path>
                 <path d="M 440,216 L 440,264" fill="none" stroke="black"></path>
-                <path d="M 440,328 L 440,360" fill="none" stroke="black"></path>
-                <path d="M 480,368 L 480,400" fill="none" stroke="black"></path>
+                <path d="M 440,328 L 440,376" fill="none" stroke="black"></path>
+                <path d="M 480,384 L 480,416" fill="none" stroke="black"></path>
                 <path d="M 520,272 L 520,320" fill="none" stroke="black"></path>
                 <path d="M 552,80 L 552,112" fill="none" stroke="black"></path>
                 <path d="M 552,144 L 552,208" fill="none" stroke="black"></path>
-                <path d="M 568,400 L 568,496" fill="none" stroke="black"></path>
+                <path d="M 568,416 L 568,512" fill="none" stroke="black"></path>
                 <path d="M 8,48 L 272,48" fill="none" stroke="black"></path>
                 <path d="M 376,48 L 440,48" fill="none" stroke="black"></path>
                 <path d="M 8,80 L 280,80" fill="none" stroke="black"></path>
@@ -2417,29 +2481,29 @@ Otherwise, if the old_nonce field is present, then the corresponding Field Descr
                 <path d="M 8,176 L 224,176" fill="none" stroke="black"></path>
                 <path d="M 8,208 L 168,208" fill="none" stroke="black"></path>
                 <path d="M 376,208 L 552,208" fill="none" stroke="black"></path>
-                <path d="M 176,240 L 248,240" fill="none" stroke="black"></path>
+                <path d="M 176,240 L 256,240" fill="none" stroke="black"></path>
                 <path d="M 8,272 L 168,272" fill="none" stroke="black"></path>
                 <path d="M 376,272 L 520,272" fill="none" stroke="black"></path>
-                <path d="M 24,320 L 168,320" fill="none" stroke="black"></path>
                 <path d="M 376,320 L 520,320" fill="none" stroke="black"></path>
-                <path d="M 24,368 L 168,368" fill="none" stroke="black"></path>
-                <path d="M 392,368 L 480,368" fill="none" stroke="black"></path>
-                <path d="M 392,400 L 568,400" fill="none" stroke="black"></path>
-                <path d="M 24,416 L 104,416" fill="none" stroke="black"></path>
-                <path d="M 232,416 L 336,416" fill="none" stroke="black"></path>
-                <path d="M 352,432 L 376,432" fill="none" stroke="black"></path>
-                <path d="M 392,432 L 568,432" fill="none" stroke="black"></path>
-                <path d="M 24,448 L 208,448" fill="none" stroke="black"></path>
+                <path d="M 24,336 L 168,336" fill="none" stroke="black"></path>
+                <path d="M 24,384 L 168,384" fill="none" stroke="black"></path>
+                <path d="M 392,384 L 480,384" fill="none" stroke="black"></path>
+                <path d="M 392,416 L 568,416" fill="none" stroke="black"></path>
+                <path d="M 24,448 L 104,448" fill="none" stroke="black"></path>
                 <path d="M 232,448 L 336,448" fill="none" stroke="black"></path>
+                <path d="M 392,448 L 568,448" fill="none" stroke="black"></path>
+                <path d="M 344,464 L 384,464" fill="none" stroke="black"></path>
                 <path d="M 24,480 L 208,480" fill="none" stroke="black"></path>
-                <path d="M 392,496 L 568,496" fill="none" stroke="black"></path>
-                <path d="M 24,544 L 208,544" fill="none" stroke="black"></path>
-                <polygon class="arrowhead" points="448,360 436,354.4 436,365.6" fill="black" transform="rotate(90,440,360)"></polygon>
+                <path d="M 232,480 L 336,480" fill="none" stroke="black"></path>
+                <path d="M 24,512 L 208,512" fill="none" stroke="black"></path>
+                <path d="M 392,512 L 568,512" fill="none" stroke="black"></path>
+                <path d="M 24,576 L 208,576" fill="none" stroke="black"></path>
+                <polygon class="arrowhead" points="448,376 436,370.4 436,381.6" fill="black" transform="rotate(90,440,376)"></polygon>
                 <polygon class="arrowhead" points="448,264 436,258.4 436,269.6" fill="black" transform="rotate(90,440,264)"></polygon>
-                <polygon class="arrowhead" points="360,432 348,426.4 348,437.6" fill="black" transform="rotate(180,352,432)"></polygon>
+                <polygon class="arrowhead" points="352,464 340,458.4 340,469.6" fill="black" transform="rotate(180,344,464)"></polygon>
                 <polygon class="arrowhead" points="184,240 172,234.4 172,245.6" fill="black" transform="rotate(180,176,240)"></polygon>
-                <polygon class="arrowhead" points="80,408 68,402.4 68,413.6" fill="black" transform="rotate(90,72,408)"></polygon>
-                <polygon class="arrowhead" points="80,312 68,306.4 68,317.6" fill="black" transform="rotate(90,72,312)"></polygon>
+                <polygon class="arrowhead" points="80,440 68,434.4 68,445.6" fill="black" transform="rotate(90,72,440)"></polygon>
+                <polygon class="arrowhead" points="80,328 68,322.4 68,333.6" fill="black" transform="rotate(90,72,328)"></polygon>
                 <g class="text">
                   <text x="48" y="36">Outer</text>
                   <text x="104" y="36">Message</text>
@@ -2471,22 +2535,21 @@ Otherwise, if the old_nonce field is present, then the corresponding Field Descr
                   <text x="416" y="180">Payload</text>
                   <text x="36" y="196">0xFF</text>
                   <text x="60" y="244">Ciphertext</text>
-                  <text x="256" y="244">\</text>
                   <text x="424" y="292">Inner</text>
                   <text x="468" y="292">SCHC</text>
                   <text x="448" y="308">Compression</text>
-                  <text x="72" y="340">Outer</text>
-                  <text x="116" y="340">SCHC</text>
-                  <text x="96" y="356">Compression</text>
-                  <text x="428" y="388">RuleID</text>
-                  <text x="448" y="420">Compression</text>
-                  <text x="528" y="420">Residue</text>
-                  <text x="64" y="436">RuleID'</text>
-                  <text x="284" y="436">Encryption</text>
-                  <text x="80" y="468">Compression</text>
-                  <text x="164" y="468">Residue'</text>
-                  <text x="432" y="468">Payload</text>
-                  <text x="76" y="516">Ciphertext</text>
+                  <text x="72" y="356">Outer</text>
+                  <text x="116" y="356">SCHC</text>
+                  <text x="96" y="372">Compression</text>
+                  <text x="428" y="404">RuleID</text>
+                  <text x="448" y="436">Compression</text>
+                  <text x="528" y="436">Residue</text>
+                  <text x="64" y="468">RuleID'</text>
+                  <text x="284" y="468">Encryption</text>
+                  <text x="432" y="484">Payload</text>
+                  <text x="80" y="500">Compression</text>
+                  <text x="164" y="500">Residue'</text>
+                  <text x="76" y="548">Ciphertext</text>
                 </g>
               </svg><a href="#section-8.2-14.1.1" class="pilcrow">¶</a>
 </div>
@@ -2540,7 +2603,7 @@ Header:
 Options:
 
 0xbb74656d7065726174757265
-Option 11: Uri_Path
+Option 11: Uri-Path
 Value = temperature
 
 Original message length: 17 bytes
@@ -2652,23 +2715,23 @@ Original message length: 10 bytes
 <figure id="figure-11">
           <div id="section-8.3-10.1">
             <div class="alignCenter art-svg artwork" id="section-8.3-10.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="640" width="432" viewBox="0 0 432 640" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-                <path d="M 8,40 L 8,200" fill="none" stroke="black"></path>
-                <path d="M 48,536 L 48,632" fill="none" stroke="black"></path>
-                <path d="M 120,312 L 120,440" fill="none" stroke="black"></path>
-                <path d="M 232,224 L 232,288" fill="none" stroke="black"></path>
-                <path d="M 232,464 L 232,512" fill="none" stroke="black"></path>
-                <path d="M 336,312 L 336,440" fill="none" stroke="black"></path>
-                <path d="M 424,40 L 424,200" fill="none" stroke="black"></path>
-                <path d="M 424,536 L 424,632" fill="none" stroke="black"></path>
-                <path d="M 8,40 L 424,40" fill="none" stroke="black"></path>
-                <path d="M 8,200 L 424,200" fill="none" stroke="black"></path>
-                <path d="M 120,312 L 336,312" fill="none" stroke="black"></path>
-                <path d="M 120,440 L 336,440" fill="none" stroke="black"></path>
-                <path d="M 48,536 L 424,536" fill="none" stroke="black"></path>
-                <path d="M 48,632 L 424,632" fill="none" stroke="black"></path>
-                <polygon class="arrowhead" points="240,512 228,506.4 228,517.6" fill="black" transform="rotate(90,232,512)"></polygon>
-                <polygon class="arrowhead" points="240,288 228,282.4 228,293.6" fill="black" transform="rotate(90,232,288)"></polygon>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="656" width="432" viewBox="0 0 432 656" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 8,32 L 8,208" fill="none" stroke="black"></path>
+                <path d="M 48,528 L 48,640" fill="none" stroke="black"></path>
+                <path d="M 120,288 L 120,432" fill="none" stroke="black"></path>
+                <path d="M 232,216 L 232,280" fill="none" stroke="black"></path>
+                <path d="M 232,440 L 232,520" fill="none" stroke="black"></path>
+                <path d="M 336,288 L 336,432" fill="none" stroke="black"></path>
+                <path d="M 424,32 L 424,208" fill="none" stroke="black"></path>
+                <path d="M 424,528 L 424,640" fill="none" stroke="black"></path>
+                <path d="M 8,32 L 424,32" fill="none" stroke="black"></path>
+                <path d="M 8,208 L 424,208" fill="none" stroke="black"></path>
+                <path d="M 120,288 L 336,288" fill="none" stroke="black"></path>
+                <path d="M 120,432 L 336,432" fill="none" stroke="black"></path>
+                <path d="M 48,528 L 424,528" fill="none" stroke="black"></path>
+                <path d="M 48,640 L 424,640" fill="none" stroke="black"></path>
+                <polygon class="arrowhead" points="240,520 228,514.4 228,525.6" fill="black" transform="rotate(90,232,520)"></polygon>
+                <polygon class="arrowhead" points="240,280 228,274.4 228,285.6" fill="black" transform="rotate(90,232,280)"></polygon>
                 <g class="text">
                   <text x="44" y="68">OSCORE</text>
                   <text x="112" y="68">Plaintext</text>
@@ -2682,29 +2745,29 @@ Original message length: 10 bytes
                   <text x="156" y="164">bb74656d7065726174757265</text>
                   <text x="284" y="164">Option</text>
                   <text x="328" y="164">11:</text>
-                  <text x="380" y="164">URI_PATH</text>
+                  <text x="380" y="164">Uri-Path</text>
                   <text x="280" y="180">Value</text>
                   <text x="312" y="180">=</text>
                   <text x="368" y="180">temperature</text>
-                  <text x="264" y="260">Inner</text>
-                  <text x="308" y="260">SCHC</text>
-                  <text x="376" y="260">Compression</text>
-                  <text x="172" y="340">Compressed</text>
-                  <text x="256" y="340">Plaintext</text>
-                  <text x="148" y="372">0x00</text>
-                  <text x="156" y="404">RuleID</text>
-                  <text x="192" y="404">=</text>
-                  <text x="220" y="404">0x00</text>
-                  <text x="252" y="404">(1</text>
-                  <text x="288" y="404">byte)</text>
-                  <text x="144" y="420">(No</text>
-                  <text x="208" y="420">Compression</text>
-                  <text x="292" y="420">Residue)</text>
-                  <text x="260" y="484">AEAD</text>
-                  <text x="324" y="484">Encryption</text>
-                  <text x="268" y="500">(piv</text>
-                  <text x="296" y="500">=</text>
-                  <text x="328" y="500">0x04)</text>
+                  <text x="264" y="244">Inner</text>
+                  <text x="308" y="244">SCHC</text>
+                  <text x="376" y="244">Compression</text>
+                  <text x="172" y="324">Compressed</text>
+                  <text x="256" y="324">Plaintext</text>
+                  <text x="148" y="356">0x00</text>
+                  <text x="156" y="388">RuleID</text>
+                  <text x="192" y="388">=</text>
+                  <text x="220" y="388">0x00</text>
+                  <text x="252" y="388">(1</text>
+                  <text x="288" y="388">byte)</text>
+                  <text x="144" y="404">(No</text>
+                  <text x="208" y="404">Compression</text>
+                  <text x="292" y="404">Residue)</text>
+                  <text x="260" y="468">AEAD</text>
+                  <text x="324" y="468">Encryption</text>
+                  <text x="268" y="484">(piv</text>
+                  <text x="296" y="484">=</text>
+                  <text x="328" y="484">0x04)</text>
                   <text x="144" y="564">encrypted_plaintext</text>
                   <text x="232" y="564">=</text>
                   <text x="260" y="564">0xa2</text>
@@ -2734,23 +2797,23 @@ Original message length: 10 bytes
 <figure id="figure-12">
           <div id="section-8.3-13.1">
             <div class="alignCenter art-svg artwork" id="section-8.3-13.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="704" width="488" viewBox="0 0 488 704" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-                <path d="M 8,40 L 8,216" fill="none" stroke="black"></path>
-                <path d="M 16,328 L 16,504" fill="none" stroke="black"></path>
-                <path d="M 16,600 L 16,696" fill="none" stroke="black"></path>
-                <path d="M 232,240 L 232,304" fill="none" stroke="black"></path>
-                <path d="M 232,528 L 232,576" fill="none" stroke="black"></path>
-                <path d="M 408,40 L 408,216" fill="none" stroke="black"></path>
-                <path d="M 408,328 L 408,504" fill="none" stroke="black"></path>
-                <path d="M 480,608 L 480,696" fill="none" stroke="black"></path>
-                <path d="M 8,40 L 408,40" fill="none" stroke="black"></path>
-                <path d="M 8,216 L 408,216" fill="none" stroke="black"></path>
-                <path d="M 16,328 L 408,328" fill="none" stroke="black"></path>
-                <path d="M 16,504 L 408,504" fill="none" stroke="black"></path>
-                <path d="M 12,600 L 468,600" fill="none" stroke="black"></path>
-                <path d="M 16,696 L 480,696" fill="none" stroke="black"></path>
-                <polygon class="arrowhead" points="240,576 228,570.4 228,581.6" fill="black" transform="rotate(90,232,576)"></polygon>
-                <polygon class="arrowhead" points="240,304 228,298.4 228,309.6" fill="black" transform="rotate(90,232,304)"></polygon>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="720" width="488" viewBox="0 0 488 720" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 8,32 L 8,224" fill="none" stroke="black"></path>
+                <path d="M 16,304 L 16,496" fill="none" stroke="black"></path>
+                <path d="M 16,592 L 16,704" fill="none" stroke="black"></path>
+                <path d="M 232,232 L 232,296" fill="none" stroke="black"></path>
+                <path d="M 232,504 L 232,584" fill="none" stroke="black"></path>
+                <path d="M 408,32 L 408,224" fill="none" stroke="black"></path>
+                <path d="M 408,304 L 408,496" fill="none" stroke="black"></path>
+                <path d="M 480,592 L 480,704" fill="none" stroke="black"></path>
+                <path d="M 8,32 L 408,32" fill="none" stroke="black"></path>
+                <path d="M 8,224 L 408,224" fill="none" stroke="black"></path>
+                <path d="M 16,304 L 408,304" fill="none" stroke="black"></path>
+                <path d="M 16,496 L 408,496" fill="none" stroke="black"></path>
+                <path d="M 16,592 L 480,592" fill="none" stroke="black"></path>
+                <path d="M 16,704 L 480,704" fill="none" stroke="black"></path>
+                <polygon class="arrowhead" points="240,584 228,578.4 228,589.6" fill="black" transform="rotate(90,232,584)"></polygon>
+                <polygon class="arrowhead" points="240,296 228,290.4 228,301.6" fill="black" transform="rotate(90,232,296)"></polygon>
                 <g class="text">
                   <text x="44" y="68">OSCORE</text>
                   <text x="112" y="68">Plaintext</text>
@@ -2769,34 +2832,34 @@ Original message length: 10 bytes
                   <text x="164" y="164">marker</text>
                   <text x="100" y="196">32332043</text>
                   <text x="168" y="196">Payload</text>
-                  <text x="264" y="276">Inner</text>
-                  <text x="308" y="276">SCHC</text>
-                  <text x="376" y="276">Compression</text>
-                  <text x="68" y="356">Compressed</text>
-                  <text x="152" y="356">Plaintext</text>
-                  <text x="84" y="388">0x001919902180</text>
-                  <text x="156" y="388">(6</text>
-                  <text x="196" y="388">bytes)</text>
-                  <text x="52" y="420">00</text>
-                  <text x="92" y="420">RuleID</text>
-                  <text x="48" y="452">0b0</text>
-                  <text x="76" y="452">(1</text>
-                  <text x="104" y="452">bit</text>
-                  <text x="176" y="452">match-mapping</text>
-                  <text x="280" y="452">Compression</text>
-                  <text x="364" y="452">Residue)</text>
-                  <text x="116" y="468">0x32332043</text>
-                  <text x="172" y="468">&gt;&gt;</text>
-                  <text x="192" y="468">1</text>
-                  <text x="236" y="468">(shifted</text>
-                  <text x="308" y="468">payload)</text>
-                  <text x="248" y="484">0b0000000</text>
-                  <text x="320" y="484">Padding</text>
-                  <text x="260" y="548">AEAD</text>
-                  <text x="324" y="548">Encryption</text>
-                  <text x="268" y="564">(piv</text>
-                  <text x="296" y="564">=</text>
-                  <text x="328" y="564">0x04)</text>
+                  <text x="264" y="260">Inner</text>
+                  <text x="308" y="260">SCHC</text>
+                  <text x="376" y="260">Compression</text>
+                  <text x="68" y="340">Compressed</text>
+                  <text x="152" y="340">Plaintext</text>
+                  <text x="84" y="372">0x001919902180</text>
+                  <text x="156" y="372">(6</text>
+                  <text x="196" y="372">bytes)</text>
+                  <text x="52" y="404">00</text>
+                  <text x="92" y="404">RuleID</text>
+                  <text x="48" y="436">0b0</text>
+                  <text x="76" y="436">(1</text>
+                  <text x="104" y="436">bit</text>
+                  <text x="176" y="436">match-mapping</text>
+                  <text x="280" y="436">Compression</text>
+                  <text x="364" y="436">Residue)</text>
+                  <text x="116" y="452">0x32332043</text>
+                  <text x="172" y="452">&gt;&gt;</text>
+                  <text x="192" y="452">1</text>
+                  <text x="236" y="452">(shifted</text>
+                  <text x="308" y="452">payload)</text>
+                  <text x="248" y="468">0b0000000</text>
+                  <text x="320" y="468">Padding</text>
+                  <text x="260" y="532">AEAD</text>
+                  <text x="324" y="532">Encryption</text>
+                  <text x="268" y="548">(piv</text>
+                  <text x="296" y="548">=</text>
+                  <text x="328" y="548">0x04)</text>
                   <text x="112" y="628">encrypted_plaintext</text>
                   <text x="200" y="628">=</text>
                   <text x="268" y="628">0x10c6d7c26cc1</text>
@@ -4868,55 +4931,97 @@ Compressed message length: 7 bytes
 <p id="section-10.2-12">As per <a href="#ssec-examples-oscore" class="auto internal xref">Section 8.2</a>, the message follows the process of SCHC Inner Compression and encryption until the payload (if any). The ciphertext resulting from the overall Inner process is used as payload of the Outer OSCORE message.<a href="#section-10.2-12" class="pilcrow">¶</a></p>
 <span id="name-plaintext-compression-and-enc"></span><div id="fig-plaintext-req">
 <figure id="figure-27">
-          <div class="alignCenter art-text artwork" id="section-10.2-13.1">
-<pre>
-      _____________________________________________________
-     |                                                     |
-     | OSCORE Plaintext                                    |
-     |                                                     |
-     | 0x01bb74656d7065726174757265  (13 bytes)            |
-     |                                                     |
-     | 0x01 Request Code GET                               |
-     |                                                     |
-     |      0xbb74656d7065726174757265 Option 11: URI_PATH |
-     |                                 Value = temperature |
-     |_____________________________________________________|
-
-                                 |
-                                 | Inner SCHC Compression
-                                 |
-                                 v
-          _________________________________________________
-         |                                                 |
-         | Compressed Plaintext                            |
-         |                                                 |
-         | 0x0200 (2 bytes)                                |
-         |                                                 |
-         |                                                 |
-         | RuleID = 0x02 (1 byte)                          |
-         |                                                 |
-         |                                                 |
-         | Compression residue                             |
-         | and padded payload = 0x00 (1 byte)              |
-         |                                                 |
-         | 0b00 (2 bits match-mapping Compression Residue) |
-         | 0b000000 (6 bit padding)                        |
-         |_________________________________________________|
-
-                                 |
-                                 | AEAD Encryption
-                                 |  (piv = 0x04)
-                                 |
-                                 v
-           ________________________________________________
-          |                                                |
-          | encrypted_plaintext = 0xa2cf (2 bytes)         |
-          | tag = 0xc54fe1b434297b62 (8 bytes)             |
-          |                                                |
-          | ciphertext = 0xa2cfc54fe1b434297b62 (10 bytes) |
-          |________________________________________________|
-
-</pre>
+          <div id="section-10.2-13.1">
+            <div class="alignCenter art-svg artwork" id="section-10.2-13.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="784" width="448" viewBox="0 0 448 784" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 8,32 L 8,208" fill="none" stroke="black"></path>
+                <path d="M 8,288 L 8,544" fill="none" stroke="black"></path>
+                <path d="M 8,640 L 8,752" fill="none" stroke="black"></path>
+                <path d="M 200,216 L 200,280" fill="none" stroke="black"></path>
+                <path d="M 200,552 L 200,632" fill="none" stroke="black"></path>
+                <path d="M 400,640 L 400,752" fill="none" stroke="black"></path>
+                <path d="M 408,288 L 408,544" fill="none" stroke="black"></path>
+                <path d="M 440,32 L 440,208" fill="none" stroke="black"></path>
+                <path d="M 8,32 L 440,32" fill="none" stroke="black"></path>
+                <path d="M 8,208 L 440,208" fill="none" stroke="black"></path>
+                <path d="M 8,288 L 408,288" fill="none" stroke="black"></path>
+                <path d="M 8,544 L 408,544" fill="none" stroke="black"></path>
+                <path d="M 8,640 L 400,640" fill="none" stroke="black"></path>
+                <path d="M 8,752 L 400,752" fill="none" stroke="black"></path>
+                <polygon class="arrowhead" points="208,632 196,626.4 196,637.6" fill="black" transform="rotate(90,200,632)"></polygon>
+                <polygon class="arrowhead" points="208,280 196,274.4 196,285.6" fill="black" transform="rotate(90,200,280)"></polygon>
+                <g class="text">
+                  <text x="44" y="68">OSCORE</text>
+                  <text x="112" y="68">Plaintext</text>
+                  <text x="132" y="100">0x01bb74656d7065726174757265</text>
+                  <text x="272" y="100">(13</text>
+                  <text x="316" y="100">bytes)</text>
+                  <text x="36" y="132">0x01</text>
+                  <text x="88" y="132">Request</text>
+                  <text x="140" y="132">Code</text>
+                  <text x="176" y="132">GET</text>
+                  <text x="164" y="164">0xbb74656d7065726174757265</text>
+                  <text x="300" y="164">Option</text>
+                  <text x="344" y="164">11:</text>
+                  <text x="396" y="164">Uri-Path</text>
+                  <text x="296" y="180">Value</text>
+                  <text x="328" y="180">=</text>
+                  <text x="384" y="180">temperature</text>
+                  <text x="232" y="244">Inner</text>
+                  <text x="276" y="244">SCHC</text>
+                  <text x="344" y="244">Compression</text>
+                  <text x="60" y="324">Compressed</text>
+                  <text x="144" y="324">Plaintext</text>
+                  <text x="44" y="356">0x0200</text>
+                  <text x="84" y="356">(2</text>
+                  <text x="124" y="356">bytes)</text>
+                  <text x="44" y="404">RuleID</text>
+                  <text x="80" y="404">=</text>
+                  <text x="108" y="404">0x02</text>
+                  <text x="140" y="404">(1</text>
+                  <text x="176" y="404">byte)</text>
+                  <text x="64" y="452">Compression</text>
+                  <text x="144" y="452">residue</text>
+                  <text x="32" y="468">and</text>
+                  <text x="76" y="468">padded</text>
+                  <text x="136" y="468">payload</text>
+                  <text x="176" y="468">=</text>
+                  <text x="204" y="468">0x00</text>
+                  <text x="236" y="468">(1</text>
+                  <text x="272" y="468">byte)</text>
+                  <text x="36" y="500">0b00</text>
+                  <text x="68" y="500">(2</text>
+                  <text x="100" y="500">bits</text>
+                  <text x="176" y="500">match-mapping</text>
+                  <text x="280" y="500">Compression</text>
+                  <text x="364" y="500">Residue)</text>
+                  <text x="52" y="516">0b000000</text>
+                  <text x="100" y="516">(6</text>
+                  <text x="128" y="516">bit</text>
+                  <text x="180" y="516">padding)</text>
+                  <text x="228" y="580">AEAD</text>
+                  <text x="292" y="580">Encryption</text>
+                  <text x="236" y="596">(piv</text>
+                  <text x="264" y="596">=</text>
+                  <text x="296" y="596">0x04)</text>
+                  <text x="96" y="676">encrypted_plaintext</text>
+                  <text x="184" y="676">=</text>
+                  <text x="220" y="676">0xa2cf</text>
+                  <text x="260" y="676">(2</text>
+                  <text x="300" y="676">bytes)</text>
+                  <text x="32" y="692">tag</text>
+                  <text x="56" y="692">=</text>
+                  <text x="140" y="692">0xc54fe1b434297b62</text>
+                  <text x="228" y="692">(8</text>
+                  <text x="268" y="692">bytes)</text>
+                  <text x="60" y="724">ciphertext</text>
+                  <text x="112" y="724">=</text>
+                  <text x="212" y="724">0xa2cfc54fe1b434297b62</text>
+                  <text x="320" y="724">(10</text>
+                  <text x="364" y="724">bytes)</text>
+                </g>
+              </svg><a href="#section-10.2-13.1.1" class="pilcrow">¶</a>
+</div>
 </div>
 <figcaption><a href="#figure-27" class="selfRef">Figure 27</a>:
 <a href="#name-plaintext-compression-and-enc" class="selfRef">Plaintext Compression and Encryption for the GET Request</a>
@@ -4926,57 +5031,99 @@ Compressed message length: 7 bytes
 <p id="section-10.2-15">As per <a href="#ssec-examples-oscore" class="auto internal xref">Section 8.2</a>, the message follows the process of SCHC Inner Compression and encryption until the payload (if any). The ciphertext resulting from the overall Inner process is used as payload of the Outer OSCORE message.<a href="#section-10.2-15" class="pilcrow">¶</a></p>
 <span id="name-plaintext-compression-and-encr"></span><div id="fig-plaintext-resp">
 <figure id="figure-28">
-          <div class="alignCenter art-text artwork" id="section-10.2-16.1">
-<pre>
-              _________________________________________________
-             |                                                 |
-             | OSCORE Plaintext                                |
-             |                                                 |
-             | 0x45ff32332043  (6 bytes)                       |
-             |                                                 |
-             | 0x45 Successful Response Code 69 "2.05 Content" |
-             |                                                 |
-             |     0xff Payload marker                         |
-             |                                                 |
-             |         0x32332043 Payload                      |
-             |_________________________________________________|
-
-                                 |
-                                 | Inner SCHC Compression
-                                 |
-                                 v
-              _________________________________________________
-             |                                                 |
-             | Compressed Plaintext                            |
-             |                                                 |
-             | 0x028c8cc810c0 (6 bytes)                        |
-             |                                                 |
-             |                                                 |
-             | RuleID = 0x02                                   |
-             |                                                 |
-             |                                                 |
-             | Compression residue                             |
-             | and padded payload = 0x8c8cc810c0 (5 bytes)     |
-             |                                                 |
-             | 0b10 (2 bits match-mapping Compression Residue) |
-             |       0x32332043 &gt;&gt; 2 (shifted payload)         |
-             |                        0b000000 Padding         |
-             |_________________________________________________|
-
-                                 |
-                                 | AEAD Encryption
-                                 |  (piv = 0x04)
-                                 |
-                                 v
-      _________________________________________________________
-     |                                                         |
-     |  encrypted_plaintext = 0x10c6d7c26cc1 (6 bytes)         |
-     |  tag = 0xe9aef3f2461e0c29 (8 bytes)                     |
-     |                                                         |
-     |  ciphertext = 0x10c6d7c26cc1e9aef3f2461e0c29 (14 bytes) |
-     |_________________________________________________________|
-
-</pre>
+          <div id="section-10.2-16.1">
+            <div class="alignCenter art-svg artwork" id="section-10.2-16.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="816" width="480" viewBox="0 0 480 816" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 8,32 L 8,224" fill="none" stroke="black"></path>
+                <path d="M 8,304 L 8,576" fill="none" stroke="black"></path>
+                <path d="M 8,672 L 8,784" fill="none" stroke="black"></path>
+                <path d="M 168,232 L 168,296" fill="none" stroke="black"></path>
+                <path d="M 168,584 L 168,664" fill="none" stroke="black"></path>
+                <path d="M 408,32 L 408,224" fill="none" stroke="black"></path>
+                <path d="M 408,304 L 408,576" fill="none" stroke="black"></path>
+                <path d="M 472,672 L 472,784" fill="none" stroke="black"></path>
+                <path d="M 8,32 L 408,32" fill="none" stroke="black"></path>
+                <path d="M 8,224 L 408,224" fill="none" stroke="black"></path>
+                <path d="M 8,304 L 408,304" fill="none" stroke="black"></path>
+                <path d="M 8,576 L 408,576" fill="none" stroke="black"></path>
+                <path d="M 8,672 L 472,672" fill="none" stroke="black"></path>
+                <path d="M 8,784 L 472,784" fill="none" stroke="black"></path>
+                <polygon class="arrowhead" points="176,664 164,658.4 164,669.6" fill="black" transform="rotate(90,168,664)"></polygon>
+                <polygon class="arrowhead" points="176,296 164,290.4 164,301.6" fill="black" transform="rotate(90,168,296)"></polygon>
+                <g class="text">
+                  <text x="44" y="68">OSCORE</text>
+                  <text x="112" y="68">Plaintext</text>
+                  <text x="76" y="100">0x45ff32332043</text>
+                  <text x="156" y="100">(6</text>
+                  <text x="196" y="100">bytes)</text>
+                  <text x="36" y="132">0x45</text>
+                  <text x="100" y="132">Successful</text>
+                  <text x="180" y="132">Response</text>
+                  <text x="236" y="132">Code</text>
+                  <text x="268" y="132">69</text>
+                  <text x="304" y="132">"2.05</text>
+                  <text x="364" y="132">Content"</text>
+                  <text x="68" y="164">0xff</text>
+                  <text x="120" y="164">Payload</text>
+                  <text x="180" y="164">marker</text>
+                  <text x="124" y="196">0x32332043</text>
+                  <text x="200" y="196">Payload</text>
+                  <text x="200" y="260">Inner</text>
+                  <text x="244" y="260">SCHC</text>
+                  <text x="312" y="260">Compression</text>
+                  <text x="60" y="340">Compressed</text>
+                  <text x="144" y="340">Plaintext</text>
+                  <text x="76" y="372">0x028c8cc810c0</text>
+                  <text x="148" y="372">(6</text>
+                  <text x="188" y="372">bytes)</text>
+                  <text x="44" y="420">RuleID</text>
+                  <text x="80" y="420">=</text>
+                  <text x="108" y="420">0x02</text>
+                  <text x="64" y="468">Compression</text>
+                  <text x="144" y="468">residue</text>
+                  <text x="32" y="484">and</text>
+                  <text x="76" y="484">padded</text>
+                  <text x="136" y="484">payload</text>
+                  <text x="176" y="484">=</text>
+                  <text x="236" y="484">0x8c8cc810c0</text>
+                  <text x="300" y="484">(5</text>
+                  <text x="340" y="484">bytes)</text>
+                  <text x="36" y="516">0b10</text>
+                  <text x="68" y="516">(2</text>
+                  <text x="100" y="516">bits</text>
+                  <text x="176" y="516">match-mapping</text>
+                  <text x="280" y="516">Compression</text>
+                  <text x="364" y="516">Residue)</text>
+                  <text x="108" y="532">0x32332043</text>
+                  <text x="164" y="532">&gt;&gt;</text>
+                  <text x="184" y="532">2</text>
+                  <text x="228" y="532">(shifted</text>
+                  <text x="300" y="532">payload)</text>
+                  <text x="236" y="548">0b000000</text>
+                  <text x="304" y="548">Padding</text>
+                  <text x="196" y="612">AEAD</text>
+                  <text x="260" y="612">Encryption</text>
+                  <text x="204" y="628">(piv</text>
+                  <text x="232" y="628">=</text>
+                  <text x="264" y="628">0x04)</text>
+                  <text x="104" y="708">encrypted_plaintext</text>
+                  <text x="192" y="708">=</text>
+                  <text x="260" y="708">0x10c6d7c26cc1</text>
+                  <text x="332" y="708">(6</text>
+                  <text x="372" y="708">bytes)</text>
+                  <text x="40" y="724">tag</text>
+                  <text x="64" y="724">=</text>
+                  <text x="148" y="724">0xe9aef3f2461e0c29</text>
+                  <text x="236" y="724">(8</text>
+                  <text x="276" y="724">bytes)</text>
+                  <text x="68" y="756">ciphertext</text>
+                  <text x="120" y="756">=</text>
+                  <text x="252" y="756">0x10c6d7c26cc1e9aef3f2461e0c29</text>
+                  <text x="392" y="756">(14</text>
+                  <text x="436" y="756">bytes)</text>
+                </g>
+              </svg><a href="#section-10.2-16.1.1" class="pilcrow">¶</a>
+</div>
 </div>
 <figcaption><a href="#figure-28" class="selfRef">Figure 28</a>:
 <a href="#name-plaintext-compression-and-encr" class="selfRef">Plaintext Compression and Encryption for the Content Response</a>
