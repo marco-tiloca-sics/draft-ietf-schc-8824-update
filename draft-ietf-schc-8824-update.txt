@@ -6,11 +6,11 @@ SCHC Working Group                                             M. Tiloca
 Internet-Draft                                                   RISE AB
 Obsoletes: 8824 (if approved)                                 L. Toutain
 Intended status: Standards Track                          IMT Atlantique
-Expires: 1 September 2024                                    I. Martinez
+Expires: 2 September 2024                                    I. Martinez
                                                          Nokia Bell Labs
                                                              A. Minaburo
                                                               Consultant
-                                                        29 February 2024
+                                                            1 March 2024
 
 
 Static Context Header Compression (SCHC) for the Constrained Application
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 September 2024.
+   This Internet-Draft will expire on 2 September 2024.
 
 Copyright Notice
 
@@ -1038,34 +1038,36 @@ Table of Contents
    | RuleID 1 |
    +----------+
 
-    +==========+=====+====+====+========+=========+==========+========+
-    | Field    | FL  | FP | DI | TV     | MO      | CDA      | Sent   |
-    |          |     |    |    |        |         |          | [bits] |
-    +==========+=====+====+====+========+=========+==========+========+
-    | CoAP     | 2   | 1  | Bi | 01     | equal   | not-sent |        |
-    | Version  |     |    |    |        |         |          |        |
-    +----------+-----+----+----+--------+---------+----------+--------+
-    | CoAP     | 2   | 1  | Dw | CON    | equal   | not-sent |        |
-    | Type     |     |    |    |        |         |          |        |
-    +----------+-----+----+----+--------+---------+----------+--------+
-    | CoAP     | 2   | 1  | Up | [ACK,  | match-  | mapping- | T      |
-    | Type     |     |    |    | RST]   | mapping | sent     |        |
-    +----------+-----+----+----+--------+---------+----------+--------+
-    | CoAP     | 4   | 1  | Bi | 0      | equal   | not-sent |        |
-    | TKL      |     |    |    |        |         |          |        |
-    +----------+-----+----+----+--------+---------+----------+--------+
-    | CoAP     | 8   | 1  | Bi | [0.00, | match-  | mapping- | CC CCC |
-    | Code     |     |    |    | ...    | mapping | sent     |        |
-    |          |     |    |    | 5.05]  |         |          |        |
-    +----------+-----+----+----+--------+---------+----------+--------+
-    | CoAP     | 16  | 1  | Bi | 0000   | MSB(7)  | LSB      | MID    |
-    | MID      |     |    |    |        |         |          |        |
-    +----------+-----+----+----+--------+---------+----------+--------+
-    | CoAP     | var | 1  | Dw | path   | equal   | not-sent |        |
-    | Uri-Path |     |    |    |        |         |          |        |
-    +----------+-----+----+----+--------+---------+----------+--------+
+   +==========+=====+====+====+=========+=========+==========+========+
+   | Field    | FL  | FP | DI | TV      | MO      | CDA      | Sent   |
+   |          |     |    |    |         |         |          | [bits] |
+   +==========+=====+====+====+=========+=========+==========+========+
+   | CoAP     | 2   | 1  | Bi | 01      | equal   | not-sent |        |
+   | Version  |     |    |    |         |         |          |        |
+   +----------+-----+----+----+---------+---------+----------+--------+
+   | CoAP     | 2   | 1  | Dw | CON     | equal   | not-sent |        |
+   | Type     |     |    |    |         |         |          |        |
+   +----------+-----+----+----+---------+---------+----------+--------+
+   | CoAP     | 2   | 1  | Up | [ACK,   | match-  | mapping- | T      |
+   | Type     |     |    |    | RST]    | mapping | sent     |        |
+   +----------+-----+----+----+---------+---------+----------+--------+
+   | CoAP     | 4   | 1  | Bi | 0       | equal   | not-sent |        |
+   | TKL      |     |    |    |         |         |          |        |
+   +----------+-----+----+----+---------+---------+----------+--------+
+   | CoAP     | 8   | 1  | Bi | [0.00,  | match-  | mapping- | CC CCC |
+   | Code     |     |    |    | ...     | mapping | sent     |        |
+   |          |     |    |    | 5.05]   |         |          |        |
+   +----------+-----+----+----+---------+---------+----------+--------+
+   | CoAP     | 16  | 1  | Bi | 0000    | MSB(7)  | LSB      | MID    |
+   | MID      |     |    |    |         |         |          |        |
+   +----------+-----+----+----+---------+---------+----------+--------+
+   | CoAP     | var | 1  | Dw | 1st     | equal   | not-sent |        |
+   | Uri-Path |     |    |    | element |         |          |        |
+   |          |     |    |    | of the  |         |          |        |
+   |          |     |    |    | path    |         |          |        |
+   +----------+-----+----+----+---------+---------+----------+--------+
 
-           Table 3: CoAP Context to compress header without Token
+          Table 3: CoAP Context to compress header without Token
 
    In this example, SCHC compression elides the version and Token Length
    fields.  The 25 Method and Response Codes defined in [RFC7252] have
@@ -3201,6 +3203,8 @@ Appendix A.  YANG Data Model
                Figure 37: SCHC CoAP Extension YANG Data Model
 
 A.1.  Version -00 to -01
+
+   *  Fixed an example, as per the erratum with Errata ID 7623.
 
    *  Added YANG data model for the ietf-schc-coap-ext module.
 
