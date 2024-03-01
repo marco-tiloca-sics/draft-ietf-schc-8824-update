@@ -280,13 +280,17 @@ For the Token Value, SCHC MUST NOT send it as variable-size data in the Compress
 
 # Compression of CoAP Options # {#sec-coap-options}
 
-CoAP defines options placed after the mandatory header and the Token field, ordered by option number (see {{Section 3 of RFC7252}}). Each option instance in a message uses the format Delta-Type (D-T), Length (L), Value (V). The SCHC Rule builds the description of each option as follows:
+CoAP defines options placed after the mandatory header and the Token field, ordered by option number (see {{Section 3 of RFC7252}}). As per {{Section 3.1 of RFC7252}}, each option instance in a message uses the format Option Delta (D), Option Length (L), Option Value (V).
 
-* in the FID: an identifier of the option with option number built from the D-T;
+In particular, the Option Delta is used to express the option number of a CoAP option within a CoAP message, as the difference between the Option Number of that option and the Option Number of the previous option in that message (or zero for the first option). Also, the Option Length specifies the length of the Option Value, in bytes.
 
-* in the FL: the option length, consistent with what is specified in {{Sections 7.4.1 and 7.4.2 of RFC8724}}; and
+In a SCHC Rule, the Field Descriptor related to a CoAP option is as follows:
 
-* in the TV: the option value.
+* the FID is set to an unambiguous identifier of the CoAP option associated with the corresponding option number;
+
+* the FL is set to the Option Length L of the CoAP option, encoded as per {{Section 7.1 of RFC8724}}; and
+
+* the TV is set to the Option Value V of the CoAP option.
 
 When the Option Length has a well-known size, the Rule may keep the length value. Therefore, SCHC compression does not send it. Otherwise, SCHC compression carries the length of the Compression Residue, in addition to the Compression Residue value. Note that the length coding differs between CoAP options and SCHC variable size Compression Residue.
 
@@ -2091,6 +2095,8 @@ module ietf-schc-coap-ext {
 ## Version -00 to -01 ## {#sec-00-01}
 
 * Fixed an example, as per the erratum with Errata ID 7623.
+
+* Clarified building of Field Descriptor for CoAP options.
 
 * Added YANG data model for the ietf-schc-coap-ext module.
 
