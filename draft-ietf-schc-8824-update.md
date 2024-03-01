@@ -292,7 +292,11 @@ In a SCHC Rule, the Field Descriptor related to a CoAP option is as follows:
 
 * the TV is set to the Option Value V of the CoAP option.
 
-When the Option Length has a well-known size, the Rule may keep the length value. Therefore, SCHC compression does not send it. Otherwise, SCHC compression carries the length of the Compression Residue, in addition to the Compression Residue value. Note that the length coding differs between CoAP options and SCHC variable size Compression Residue.
+Note that the MO and the CDA specified in the Field Descriptor operates only on the Option Value V. That is, SCHC compression produces a residue from the Option Value V, while ignoring the option number, the Option Delta, and the Option Length. Therefore, the residue of a SCHC packet conveying a compressed COAP header does not include the option number, the Option Delta, and the Option Length, which the recipient will be able to reconstruct by performing SCHC Decompression.
+
+When the Option Length has a well-known value, the Rule may specify the Option Length value in the FL of the Field Descriptor (see above). In such a case, SCHC compression treats the Option Value as a fixed-length field (see {{Section 7.4.1 of RFC8724}}).
+
+Otherwise, the Rule specifies the FL of the Field Descriptor as indicating a variable length, and SCHC compression treats the Option Value as a variable-length field (see {{Section 7.4.2 of RFC8724}}). That is, SCHC compression additionally carries the length of the Compression Residue, as prepended to the Compression Residue value. Note that the length coding differs between CoAP options and the Compression Residue of SCHC variable-length fields.
 
 CoAP requests and responses do not include the same options. Compression Rules may reflect this asymmetry by using the DI.
 
@@ -2097,6 +2101,8 @@ module ietf-schc-coap-ext {
 * Fixed an example, as per the erratum with Errata ID 7623.
 
 * Clarified building of Field Descriptor for CoAP options.
+
+* Clarified what SCHC compression considers for CoAP options.
 
 * Added YANG data model for the ietf-schc-coap-ext module.
 
