@@ -98,8 +98,7 @@ Table of Contents
      5.4.  CoAP Option Size1, Size2, Proxy-Uri, and Proxy-Scheme
             Fields
      5.5.  CoAP Location-Path and Location-Query Fields
-     5.6.  CoAP Option ETag, If-Match, Location-Path, and
-            Location-Query Fields
+     5.6.  CoAP Option ETag and If-Match Fields
      5.7.  CoAP Option If-None-Match
      5.8.  CoAP Option Hop-Limit Field
      5.9.  CoAP Option Echo Field
@@ -686,8 +685,7 @@ Table of Contents
    That is, in the SCHC Rule, the TV is not set, while the MO is set to
    "ignore" and the CDA is set to "value-sent".
 
-5.6.  CoAP Option ETag, If-Match, Location-Path, and Location-Query
-      Fields
+5.6.  CoAP Option ETag and If-Match Fields
 
    When a CoAP message uses the ETag Option or the If-Match Option, SCHC
    compression MAY send its content in the Compression Residue.  That
