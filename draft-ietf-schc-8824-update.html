@@ -1742,10 +1742,12 @@ When doing SCHC compression of a variable-length field, <span><a href="https://r
           <p id="section-5-4.3.1">the TV is set to the Option Value V of the CoAP option.<a href="#section-5-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-5-5">When the Option Length has a well-known size, the Rule may keep the length value. Therefore, SCHC compression does not send it. Otherwise, SCHC compression carries the length of the Compression Residue, in addition to the Compression Residue value. Note that the length coding differs between CoAP options and SCHC variable size Compression Residue.<a href="#section-5-5" class="pilcrow">¶</a></p>
-<p id="section-5-6">CoAP requests and responses do not include the same options. Compression Rules may reflect this asymmetry by using the DI.<a href="#section-5-6" class="pilcrow">¶</a></p>
-<p id="section-5-7">The following sections present how SCHC compresses some specific CoAP options.<a href="#section-5-7" class="pilcrow">¶</a></p>
-<p id="section-5-8">If the use of an additional CoAP option is later introduced, the SCHC Rules MAY be updated, in which case a new FID description MUST be assigned to perform the compression of the CoAP option. Otherwise, if no Rule describes that CoAP option, SCHC compression is not achieved, and SCHC sends the CoAP header without compression.<a href="#section-5-8" class="pilcrow">¶</a></p>
+<p id="section-5-5">Note that the MO and the CDA specified in the Field Descriptor operates only on the Option Value V. That is, SCHC compression produces a residue from the Option Value V, while ignoring the option number, the Option Delta, and the Option Length. Therefore, the residue of a SCHC packet conveying a compressed COAP header does not include the option number, the Option Delta, and the Option Length, which the recipient will be able to reconstruct by performing SCHC Decompression.<a href="#section-5-5" class="pilcrow">¶</a></p>
+<p id="section-5-6">When the Option Length has a well-known value, the Rule may specify the Option Length value in the FL of the Field Descriptor (see above). In such a case, SCHC compression treats the Option Value as a fixed-length field (see <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.4.1" class="relref">Section 7.4.1</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>).<a href="#section-5-6" class="pilcrow">¶</a></p>
+<p id="section-5-7">Otherwise, the Rule specifies the FL of the Field Descriptor as indicating a variable length, and SCHC compression treats the Option Value as a variable-length field (see <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.4.2" class="relref">Section 7.4.2</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>). That is, SCHC compression additionally carries the length of the Compression Residue, as prepended to the Compression Residue value. Note that the length coding differs between CoAP options and the Compression Residue of SCHC variable-length fields.<a href="#section-5-7" class="pilcrow">¶</a></p>
+<p id="section-5-8">CoAP requests and responses do not include the same options. Compression Rules may reflect this asymmetry by using the DI.<a href="#section-5-8" class="pilcrow">¶</a></p>
+<p id="section-5-9">The following sections present how SCHC compresses some specific CoAP options.<a href="#section-5-9" class="pilcrow">¶</a></p>
+<p id="section-5-10">If the use of an additional CoAP option is later introduced, the SCHC Rules MAY be updated, in which case a new FID description MUST be assigned to perform the compression of the CoAP option. Otherwise, if no Rule describes that CoAP option, SCHC compression is not achieved, and SCHC sends the CoAP header without compression.<a href="#section-5-10" class="pilcrow">¶</a></p>
 <div id="ssec-content-format-accept-option">
 <section id="section-5.1">
         <h3 id="name-coap-option-content-format-">
@@ -5765,10 +5767,13 @@ module ietf-schc-coap-ext {
             <p id="appendix-A.1-1.2.1">Clarified building of Field Descriptor for CoAP options.<a href="#appendix-A.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.1-1.3">
-            <p id="appendix-A.1-1.3.1">Added YANG data model for the ietf-schc-coap-ext module.<a href="#appendix-A.1-1.3.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.1-1.3.1">Clarified what SCHC compression considers for CoAP options.<a href="#appendix-A.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.1-1.4">
-            <p id="appendix-A.1-1.4.1">Fixes and editorial improvements.<a href="#appendix-A.1-1.4.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.1-1.4.1">Added YANG data model for the ietf-schc-coap-ext module.<a href="#appendix-A.1-1.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.1-1.5">
+            <p id="appendix-A.1-1.5.1">Fixes and editorial improvements.<a href="#appendix-A.1-1.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
