@@ -356,9 +356,13 @@ The Size2 field is an option defined in {{RFC7959}}.
 
 The SCHC Rule description MAY define sending some field values by not setting the TV, while setting the MO to "ignore" and the CDA to "value-sent". A Rule MAY also use a "match-mapping" MO when there are different options for the same FID. Otherwise, the Rule sets the TV to a specific value, the MO to "equal", and the CDA to "not-sent".
 
-## CoAP Option ETag, If-Match, If-None-Match, Location-Path, and Location-Query Fields # {#ssec-etag-if-match-location-path-location-query-option}
+## CoAP Location-Path and Location-Query Fields # {#ssec-location-path-location-query-option}
 
 A Rule entry cannot store these fields' values. Therefore, SCHC compression MUST always send these values in the Compression Residue. That is, in the SCHC Rule, the TV is not set, while the MO is set to "ignore" and the CDA is set to "value-sent".
+
+## CoAP Option ETag, If-Match, Location-Path, and Location-Query Fields # {#ssec-etag-if-match-option}
+
+When a packet uses the ETag Option or the If-Match Option, SCHC compression MAY send its content in the Compression Residue. That is, in the SCHC Rule, the TV is not set, while the MO is set to "ignore" and the CDA is set to "value-sent". Alternatively, if a pre-defined set of values determined by the server is known and is used by the client as ETag values or If-Match values, then a Rule MAY use a "match-mapping" MO when there are different options for the same FID.
 
 ## CoAP Option If-None-Match # {#ssec-if-none-match}
 
@@ -2109,6 +2113,8 @@ module ietf-schc-coap-ext {
 * Clarified building of Field Descriptor for CoAP options.
 
 * Clarified what SCHC compression considers for CoAP options.
+
+* Revised SCHC Compression of the ETag and If-Match CoAP option.
 
 * Revised SCHC Compression of the If-None-Match CoAP option.
 
