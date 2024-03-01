@@ -1728,22 +1728,24 @@ When doing SCHC compression of a variable-length field, <span><a href="https://r
       <h2 id="name-compression-of-coap-options">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-compression-of-coap-options" class="section-name selfRef">Compression of CoAP Options</a>
       </h2>
-<p id="section-5-1">CoAP defines options placed after the mandatory header and the Token field, ordered by option number (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-3" class="relref">Section 3</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>). Each option instance in a message uses the format Delta-Type (D-T), Length (L), Value (V). The SCHC Rule builds the description of each option as follows:<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">CoAP defines options placed after the mandatory header and the Token field, ordered by option number (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-3" class="relref">Section 3</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>). As per <span><a href="https://rfc-editor.org/rfc/rfc7252#section-3.1" class="relref">Section 3.1</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>, each option instance in a message uses the format Option Delta (D), Option Length (L), Option Value (V).<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">In particular, the Option Delta is used to express the option number of a CoAP option within a CoAP message, as the difference between the Option Number of that option and the Option Number of the previous option in that message (or zero for the first option). Also, the Option Length specifies the length of the Option Value, in bytes.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">In a SCHC Rule, the Field Descriptor related to a CoAP option is as follows:<a href="#section-5-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5-2.1">
-          <p id="section-5-2.1.1">in the FID: an identifier of the option with option number built from the D-T;<a href="#section-5-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5-4.1">
+          <p id="section-5-4.1.1">the FID is set to an unambiguous identifier of the CoAP option associated with the corresponding option number;<a href="#section-5-4.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-5-2.2">
-          <p id="section-5-2.2.1">in the FL: the option length, consistent with what is specified in Sections <a href="https://rfc-editor.org/rfc/rfc8724#section-7.4.1" class="relref">7.4.1</a> and <a href="https://rfc-editor.org/rfc/rfc8724#section-7.4.2" class="relref">7.4.2</a> of <span>[<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>; and<a href="#section-5-2.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-5-4.2">
+          <p id="section-5-4.2.1">the FL is set to the Option Length L of the CoAP option, encoded as per <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.1" class="relref">Section 7.1</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>; and<a href="#section-5-4.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-5-2.3">
-          <p id="section-5-2.3.1">in the TV: the option value.<a href="#section-5-2.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-5-4.3">
+          <p id="section-5-4.3.1">the TV is set to the Option Value V of the CoAP option.<a href="#section-5-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-5-3">When the Option Length has a well-known size, the Rule may keep the length value. Therefore, SCHC compression does not send it. Otherwise, SCHC compression carries the length of the Compression Residue, in addition to the Compression Residue value. Note that the length coding differs between CoAP options and SCHC variable size Compression Residue.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<p id="section-5-4">CoAP requests and responses do not include the same options. Compression Rules may reflect this asymmetry by using the DI.<a href="#section-5-4" class="pilcrow">¶</a></p>
-<p id="section-5-5">The following sections present how SCHC compresses some specific CoAP options.<a href="#section-5-5" class="pilcrow">¶</a></p>
-<p id="section-5-6">If the use of an additional CoAP option is later introduced, the SCHC Rules MAY be updated, in which case a new FID description MUST be assigned to perform the compression of the CoAP option. Otherwise, if no Rule describes that CoAP option, SCHC compression is not achieved, and SCHC sends the CoAP header without compression.<a href="#section-5-6" class="pilcrow">¶</a></p>
+<p id="section-5-5">When the Option Length has a well-known size, the Rule may keep the length value. Therefore, SCHC compression does not send it. Otherwise, SCHC compression carries the length of the Compression Residue, in addition to the Compression Residue value. Note that the length coding differs between CoAP options and SCHC variable size Compression Residue.<a href="#section-5-5" class="pilcrow">¶</a></p>
+<p id="section-5-6">CoAP requests and responses do not include the same options. Compression Rules may reflect this asymmetry by using the DI.<a href="#section-5-6" class="pilcrow">¶</a></p>
+<p id="section-5-7">The following sections present how SCHC compresses some specific CoAP options.<a href="#section-5-7" class="pilcrow">¶</a></p>
+<p id="section-5-8">If the use of an additional CoAP option is later introduced, the SCHC Rules MAY be updated, in which case a new FID description MUST be assigned to perform the compression of the CoAP option. Otherwise, if no Rule describes that CoAP option, SCHC compression is not achieved, and SCHC sends the CoAP header without compression.<a href="#section-5-8" class="pilcrow">¶</a></p>
 <div id="ssec-content-format-accept-option">
 <section id="section-5.1">
         <h3 id="name-coap-option-content-format-">
@@ -5760,10 +5762,13 @@ module ietf-schc-coap-ext {
             <p id="appendix-A.1-1.1.1">Fixed an example, as per the erratum with Errata ID 7623.<a href="#appendix-A.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.1-1.2">
-            <p id="appendix-A.1-1.2.1">Added YANG data model for the ietf-schc-coap-ext module.<a href="#appendix-A.1-1.2.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.1-1.2.1">Clarified building of Field Descriptor for CoAP options.<a href="#appendix-A.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-A.1-1.3">
-            <p id="appendix-A.1-1.3.1">Fixes and editorial improvements.<a href="#appendix-A.1-1.3.1" class="pilcrow">¶</a></p>
+            <p id="appendix-A.1-1.3.1">Added YANG data model for the ietf-schc-coap-ext module.<a href="#appendix-A.1-1.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-A.1-1.4">
+            <p id="appendix-A.1-1.4.1">Fixes and editorial improvements.<a href="#appendix-A.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
