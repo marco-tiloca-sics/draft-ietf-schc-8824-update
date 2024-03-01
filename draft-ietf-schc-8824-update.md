@@ -362,7 +362,7 @@ The SCHC Rule description MAY define sending some field values by not setting th
 
 A Rule entry cannot store these fields' values. Therefore, SCHC compression MUST always send these values in the Compression Residue. That is, in the SCHC Rule, the TV is not set, while the MO is set to "ignore" and the CDA is set to "value-sent".
 
-## CoAP Option ETag, If-Match, Location-Path, and Location-Query Fields # {#ssec-etag-if-match-option}
+## CoAP Option ETag and If-Match Fields # {#ssec-etag-if-match-option}
 
 When a CoAP message uses the ETag Option or the If-Match Option, SCHC compression MAY send its content in the Compression Residue. That is, in the SCHC Rule, the TV is not set, while the MO is set to "ignore" and the CDA is set to "value-sent". Alternatively, if a pre-defined set of values determined by the server is known and is used by the client as ETag values or If-Match values, then a Rule MAY use a "match-mapping" MO when there are different options for the same FID.
 
