@@ -546,7 +546,7 @@ In this first scenario, the SCHC compressor on the NGW side receives a POST mess
 | `CoAP` <br> `TKL`       | 4   | 1  | Bi | 0                                 | equal                   | not-sent               |                      |
 | CoAP Code               | 8   | 1  | Bi | `[0.00,` <br> `...` <br> `5.05]`  | `match-` <br> `mapping` | `mapping-` <br> `sent` | CC CCC               |
 | `CoAP` <br> `MID`       | 16  | 1  | Bi | 0000                              | MSB(7)                  | LSB                    | MID                  |
-| `CoAP` <br> `Uri-Path`  | var | 1  | Dw | path                              | equal                   | not-sent               |                      |
+| `CoAP` <br> `Uri-Path`  | var | 1  | Dw | `1st element` <br> `of the path`  | equal                   | not-sent               |                      |
 {: #table-CoAP-header-1 title="CoAP Context to compress header without Token" align="center"}
 
 In this example, SCHC compression elides the version and Token Length fields. The 25 Method and Response Codes defined in {{RFC7252}} have been shrunk to 5 bits using a "match-mapping" MO. The Uri-Path contains a single element indicated in the TV and elided with the CDA "not-sent".
@@ -2089,6 +2089,8 @@ module ietf-schc-coap-ext {
 {: #fig-yang-data-model title="SCHC CoAP Extension YANG Data Model" artwork-align="left"}
 
 ## Version -00 to -01 ## {#sec-00-01}
+
+* Fixed an example, as per the erratum with Errata ID 7623.
 
 * Added YANG data model for the ietf-schc-coap-ext module.
 
