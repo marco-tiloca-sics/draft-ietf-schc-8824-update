@@ -218,8 +218,12 @@ Table of Contents
       specification text, based on collected feedback and reported
       errata.
 
-   *  It clarifies the SCHC compression for the CoAP options Size1,
-      Size2, Proxy-Uri, and Proxy-Scheme (see Section 5.4).
+   *  It clarifies how the SCHC compression handles CoAP options in
+      general (see Section 5).
+
+   *  It clarifies the SCHC compression for the CoAP options: Size1,
+      Size2, Proxy-Uri, and Proxy-Scheme (see Section 5.4); ETag and If-
+      Match (see Section 5.6); and If-None-Match (see Section 5.7).
 
    *  It defines the SCHC compression for the CoAP option Hop-Limit (see
       Section 5.8).
@@ -382,8 +386,8 @@ Table of Contents
    As for other header compression protocols, when the compressor does
    not find a correct Rule to compress the header, the packet MUST be
    sent uncompressed using the RuleID dedicated to this purpose, and
-   where the Compression Residue is the complete header of the packet.
-   See Section 6 of [RFC8724].
+   where the Compression Residue is the complete header of the packet
+   (see Section 6 of [RFC8724]).
 
 3.1.  Differences between CoAP and UDP/IP Compression
 
@@ -685,7 +689,7 @@ Table of Contents
 5.6.  CoAP Option ETag, If-Match, Location-Path, and Location-Query
       Fields
 
-   When a packet uses the ETag Option or the If-Match Option, SCHC
+   When a CoAP message uses the ETag Option or the If-Match Option, SCHC
    compression MAY send its content in the Compression Residue.  That
    is, in the SCHC Rule, the TV is not set, while the MO is set to
    "ignore" and the CDA is set to "value-sent".  Alternatively, if a
@@ -711,13 +715,13 @@ Table of Contents
    different than zero, or returns a 5.08 (Hop Limit Reached) error
    response otherwise.
 
-   When a packet uses the Hop-Limit Option, SCHC compression SHOULD send
-   its content in the Compression Residue.  That is, in the SCHC Rule,
-   the TV is not set, while the MO is set to "ignore" and the CDA is set
-   to "value-sent".  As an exception, and consistently with the default
-   value 16 defined for the Hop-Limit Option in Section 3 of [RFC8768],
-   a Rule MAY describe a TV with value 16, with the MO set to "equal"
-   and the CDA set to "not-sent".
+   When a CoAP message uses the Hop-Limit Option, SCHC compression
+   SHOULD send its content in the Compression Residue.  That is, in the
+   SCHC Rule, the TV is not set, while the MO is set to "ignore" and the
+   CDA is set to "value-sent".  As an exception, and consistently with
+   the default value 16 defined for the Hop-Limit Option in Section 3 of
+   [RFC8768], a Rule MAY describe a TV with value 16, with the MO set to
+   "equal" and the CDA set to "not-sent".
 
 5.9.  CoAP Option Echo Field
 
@@ -729,15 +733,15 @@ Table of Contents
    forces the client to demonstrate reachability at its claimed network
    address.
 
-   When a packet uses the Echo Option, SCHC compression SHOULD send its
-   content in the Compression Residue.  That is, in the SCHC Rule, the
-   TV is not set, while the MO is set to "ignore" and the CDA is set to
-   "value-sent".  An exception applies in case the server generates the
-   values to use for the Echo Option by means of a persistent counter
-   (see Appendix A of [RFC9175]).  In such a case, a Rule MAY use the
-   MSB MO and the LSB CDA.  This would be effectively applicable until
-   the persistent counter at the server becomes greater than the maximum
-   threshold value that produces an MSB-matching.
+   When a CoAP message uses the Echo Option, SCHC compression SHOULD
+   send its content in the Compression Residue.  That is, in the SCHC
+   Rule, the TV is not set, while the MO is set to "ignore" and the CDA
+   is set to "value-sent".  An exception applies in case the server
+   generates the values to use for the Echo Option by means of a
+   persistent counter (see Appendix A of [RFC9175]).  In such a case, a
+   Rule MAY use the MSB MO and the LSB CDA.  This would be effectively
+   applicable until the persistent counter at the server becomes greater
+   than the maximum threshold value that produces an MSB-matching.
 
 5.10.  CoAP Option Request-Tag Field
 
@@ -751,12 +755,12 @@ Table of Contents
    protected, this also protects against interchange of fragments
    between different block-wise request operations.
 
-   When a packet uses the Request-Tag Option, SCHC compression MAY send
-   its content in the Compression Residue.  That is, in the SCHC Rule,
-   the TV is not set, while the MO is set to "ignore" and the CDA is set
-   to "value-sent".  Alternatively, if a pre-defined set of Request-Tag
-   values used by the client is known, a Rule MAY use a "match-mapping"
-   MO when there are different options for the same FID.
+   When a CoAP message uses the Request-Tag Option, SCHC compression MAY
+   send its content in the Compression Residue.  That is, in the SCHC
+   Rule, the TV is not set, while the MO is set to "ignore" and the CDA
+   is set to "value-sent".  Alternatively, if a pre-defined set of
+   Request-Tag values used by the client is known, a Rule MAY use a
+   "match-mapping" MO when there are different options for the same FID.
 
 5.11.  CoAP Option EDHOC Field
 
@@ -776,11 +780,11 @@ Table of Contents
 
 6.1.  Block
 
-   When a packet uses a Block1 or Block2 Option [RFC7959] or a Q-Block1
-   or Q-Block2 Option [RFC9177], SCHC compression MUST send its content
-   in the Compression Residue.  In the SCHC Rule, the TV is not set,
-   while the MO is set to "ignore" and the CDA is set to "value-sent".
-   The Block1, Block2, Q-Block1, and Q-Block2 options allow
+   When a CoAP message uses a Block1 or Block2 Option [RFC7959] or a
+   Q-Block1 or Q-Block2 Option [RFC9177], SCHC compression MUST send its
+   content in the Compression Residue.  In the SCHC Rule, the TV is not
+   set, while the MO is set to "ignore" and the CDA is set to "value-
+   sent".  The Block1, Block2, Q-Block1, and Q-Block2 options allow
    fragmentation at the CoAP level that is compatible with SCHC
    fragmentation.  Both fragmentation mechanisms are complementary, and
    the node may use them for the same packet as needed.
@@ -1196,7 +1200,7 @@ Table of Contents
      | 0xFF |                                    |                   |
      +------+                                    +-------------------+
 
-     Figure 6: CoAP Packet Split into OSCORE Outer Header and Plaintext
+    Figure 6: CoAP Message Split into OSCORE Outer Header and Plaintext
 
    Figure 6 shows the packet format for the OSCORE Outer header and
    Plaintext.
