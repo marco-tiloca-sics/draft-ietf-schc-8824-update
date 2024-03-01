@@ -97,13 +97,14 @@ Table of Contents
        5.3.1.  Variable Number of Path or Query Elements
      5.4.  CoAP Option Size1, Size2, Proxy-Uri, and Proxy-Scheme
             Fields
-     5.5.  CoAP Option ETag, If-Match, If-None-Match, Location-Path,
-            and Location-Query Fields
-     5.6.  CoAP Option If-None-Match
-     5.7.  CoAP Option Hop-Limit Field
-     5.8.  CoAP Option Echo Field
-     5.9.  CoAP Option Request-Tag Field
-     5.10. CoAP Option EDHOC Field
+     5.5.  CoAP Location-Path and Location-Query Fields
+     5.6.  CoAP Option ETag, If-Match, Location-Path, and
+            Location-Query Fields
+     5.7.  CoAP Option If-None-Match
+     5.8.  CoAP Option Hop-Limit Field
+     5.9.  CoAP Option Echo Field
+     5.10. CoAP Option Request-Tag Field
+     5.11. CoAP Option EDHOC Field
    6.  Compression of CoAP Extensions
      6.1.  Block
      6.2.  Observe
@@ -221,11 +222,11 @@ Table of Contents
       Size2, Proxy-Uri, and Proxy-Scheme (see Section 5.4).
 
    *  It defines the SCHC compression for the CoAP option Hop-Limit (see
-      Section 5.7).
+      Section 5.8).
 
    *  It defines the SCHC compression for the recently defined CoAP
-      options Echo (see Section 5.8), Request-Tag (see Section 5.9),
-      EDHOC (see Section 5.10), as well as Q-Block1 and Q-Block2 (see
+      options Echo (see Section 5.9), Request-Tag (see Section 5.10),
+      EDHOC (see Section 5.11), as well as Q-Block1 and Q-Block2 (see
       Section 6.1).
 
    *  It updates the SCHC compression processing for the CoAP option
@@ -674,21 +675,32 @@ Table of Contents
    are different options for the same FID.  Otherwise, the Rule sets the
    TV to a specific value, the MO to "equal", and the CDA to "not-sent".
 
-5.5.  CoAP Option ETag, If-Match, If-None-Match, Location-Path, and
-      Location-Query Fields
+5.5.  CoAP Location-Path and Location-Query Fields
 
    A Rule entry cannot store these fields' values.  Therefore, SCHC
    compression MUST always send these values in the Compression Residue.
    That is, in the SCHC Rule, the TV is not set, while the MO is set to
    "ignore" and the CDA is set to "value-sent".
 
-5.6.  CoAP Option If-None-Match
+5.6.  CoAP Option ETag, If-Match, Location-Path, and Location-Query
+      Fields
+
+   When a packet uses the ETag Option or the If-Match Option, SCHC
+   compression MAY send its content in the Compression Residue.  That
+   is, in the SCHC Rule, the TV is not set, while the MO is set to
+   "ignore" and the CDA is set to "value-sent".  Alternatively, if a
+   pre-defined set of values determined by the server is known and is
+   used by the client as ETag values or If-Match values, then a Rule MAY
+   use a "match-mapping" MO when there are different options for the
+   same FID.
+
+5.7.  CoAP Option If-None-Match
 
    The If-None-Match Option occurs at most once and is always empty.
    The SCHC Rule MUST describe an empty TV, with the MO set to "equal"
    and the CDA set to "not-sent".
 
-5.7.  CoAP Option Hop-Limit Field
+5.8.  CoAP Option Hop-Limit Field
 
    The Hop-Limit field is an option defined in [RFC8768] that can be
    used to detect forwarding loops through a chain of CoAP proxies.  The
@@ -707,7 +719,7 @@ Table of Contents
    a Rule MAY describe a TV with value 16, with the MO set to "equal"
    and the CDA set to "not-sent".
 
-5.8.  CoAP Option Echo Field
+5.9.  CoAP Option Echo Field
 
    The Echo field is an option defined in [RFC9175] that a server can
    include in a CoAP response as a challenge to the client, and that the
@@ -727,7 +739,7 @@ Table of Contents
    the persistent counter at the server becomes greater than the maximum
    threshold value that produces an MSB-matching.
 
-5.9.  CoAP Option Request-Tag Field
+5.10.  CoAP Option Request-Tag Field
 
    The Request-Tag field is an option defined in [RFC9175] that the
    client can set in CoAP requests throughout block-wise operations,
@@ -746,7 +758,7 @@ Table of Contents
    values used by the client is known, a Rule MAY use a "match-mapping"
    MO when there are different options for the same FID.
 
-5.10.  CoAP Option EDHOC Field
+5.11.  CoAP Option EDHOC Field
 
    The EDHOC field is an option defined in [I-D.ietf-core-oscore-edhoc]
    that a client can include in a CoAP request, in order to perform an
@@ -3242,6 +3254,8 @@ A.1.  Version -00 to -01
    *  Clarified building of Field Descriptor for CoAP options.
 
    *  Clarified what SCHC compression considers for CoAP options.
+
+   *  Revised SCHC Compression of the ETag and If-Match CoAP option.
 
    *  Revised SCHC Compression of the If-None-Match CoAP option.
 
