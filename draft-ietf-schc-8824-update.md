@@ -300,7 +300,7 @@ Otherwise, the Rule specifies the FL of the Field Descriptor as indicating a var
 
 CoAP requests and responses do not include the same options. Compression Rules may reflect this asymmetry by using the DI.
 
-The following sections present how SCHC compresses some specific CoAP options.
+The following sections present how SCHC compresses some specific CoAP options. Unless otherwise indicated, the referred CoAP options are specified in {{RFC7252}}.
 
 If the use of an additional CoAP option is later introduced, the SCHC Rules MAY be updated, in which case a new FID description MUST be assigned to perform the compression of the CoAP option. Otherwise, if no Rule describes that CoAP option, SCHC compression is not achieved, and SCHC sends the CoAP header without compression.
 
@@ -352,11 +352,17 @@ SCHC fixes the number of Uri-Path or Uri-Query elements in a Rule at Rule creati
 
 ## CoAP Option Size1, Size2, Proxy-Uri, and Proxy-Scheme Fields # {#ssec-size1-size2-proxy-uri-proxy-scheme-option}
 
+The Size2 field is an option defined in {{RFC7959}}.
+
 The SCHC Rule description MAY define sending some field values by not setting the TV, while setting the MO to "ignore" and the CDA to "value-sent". A Rule MAY also use a "match-mapping" MO when there are different options for the same FID. Otherwise, the Rule sets the TV to a specific value, the MO to "equal", and the CDA to "not-sent".
 
-## CoAP Option ETag, If-Match, If-None-Match, Location-Path, and Location-Query Fields # {#ssec-etag-if-match-none-match-location-path-location-query-option}
+## CoAP Option ETag, If-Match, If-None-Match, Location-Path, and Location-Query Fields # {#ssec-etag-if-match-location-path-location-query-option}
 
 A Rule entry cannot store these fields' values. Therefore, SCHC compression MUST always send these values in the Compression Residue. That is, in the SCHC Rule, the TV is not set, while the MO is set to "ignore" and the CDA is set to "value-sent".
+
+## CoAP Option If-None-Match # {#ssec-if-none-match}
+
+The If-None-Match Option occurs at most once and is always empty. The SCHC Rule MUST describe an empty TV, with the MO set to "equal" and the CDA set to "not-sent".
 
 ## CoAP Option Hop-Limit Field ## {#coap-options-hop-limit}
 
@@ -2103,6 +2109,8 @@ module ietf-schc-coap-ext {
 * Clarified building of Field Descriptor for CoAP options.
 
 * Clarified what SCHC compression considers for CoAP options.
+
+* Revised SCHC Compression of the If-None-Match CoAP option.
 
 * Added YANG data model for the ietf-schc-coap-ext module.
 
