@@ -6,11 +6,11 @@ SCHC Working Group                                             M. Tiloca
 Internet-Draft                                                   RISE AB
 Obsoletes: 8824 (if approved)                                 L. Toutain
 Intended status: Standards Track                          IMT Atlantique
-Expires: 2 September 2024                                    I. Martinez
+Expires: 5 September 2024                                    I. Martinez
                                                          Nokia Bell Labs
                                                              A. Minaburo
                                                               Consultant
-                                                            1 March 2024
+                                                            4 March 2024
 
 
 Static Context Header Compression (SCHC) for the Constrained Application
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 September 2024.
+   This Internet-Draft will expire on 5 September 2024.
 
 Copyright Notice
 
@@ -122,6 +122,8 @@ Table of Contents
      10.2.  With End-to-End Security
    11. Security Considerations
    12. IANA Considerations
+     12.1.  IETF XML
+     12.2.  YANG Module Names
    13. References
      13.1.  Normative References
      13.2.  Informative References
@@ -2938,7 +2940,32 @@ Table of Contents
 
 12.  IANA Considerations
 
-   This document has no actions for IANA.
+   This document has the following actions for IANA.
+
+12.1.  IETF XML
+
+   IANA is asked to register the following entry in the "IETF XML"
+   registry [RFC3688].
+
+   *  URI: urn:ietf:params:xml:ns:yang:ietf-schc-coap-ext
+
+   *  Registrant Contact: The IESG.
+
+   *  XML: N/A; the requested URI is an XML namespace.
+
+12.2.  YANG Module Names
+
+   IANA is asked to register the following entry in the "YANG Module
+   Names" registry [RFC6020][RFC8407] within the "YANG Parameters"
+   registry group.
+
+   *  Name: ietf-schc-coap-ext
+
+   *  Namespace: urn:ietf:params:xml:ns:yang:ietf-schc-coap-ext
+
+   *  Prefix: schc-coap-ext
+
+   *  Reference: RFC YYYY
 
 13.  References
 
@@ -2974,9 +3001,18 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
+   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
+              DOI 10.17487/RFC3688, January 2004,
+              <https://www.rfc-editor.org/rfc/rfc3688>.
+
    [RFC5116]  McGrew, D., "An Interface and Algorithms for Authenticated
               Encryption", RFC 5116, DOI 10.17487/RFC5116, January 2008,
               <https://www.rfc-editor.org/rfc/rfc5116>.
+
+   [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
+              the Network Configuration Protocol (NETCONF)", RFC 6020,
+              DOI 10.17487/RFC6020, October 2010,
+              <https://www.rfc-editor.org/rfc/rfc6020>.
 
    [RFC7252]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
               Application Protocol (CoAP)", RFC 7252,
@@ -3001,6 +3037,11 @@ Table of Contents
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC8407]  Bierman, A., "Guidelines for Authors and Reviewers of
+              Documents Containing YANG Data Models", BCP 216, RFC 8407,
+              DOI 10.17487/RFC8407, October 2018,
+              <https://www.rfc-editor.org/rfc/rfc8407>.
 
    [RFC8613]  Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
               "Object Security for Constrained RESTful Environments
@@ -3262,6 +3303,8 @@ A.1.  Version -00 to -01
    *  Revised SCHC Compression of the If-None-Match CoAP option.
 
    *  Added YANG data model for the ietf-schc-coap-ext module.
+
+   *  Added IANA considerations.
 
    *  Fixes and editorial improvements.
 
