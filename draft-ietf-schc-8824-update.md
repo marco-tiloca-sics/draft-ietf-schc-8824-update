@@ -54,12 +54,15 @@ author:
 
 normative:
   RFC2119:
+  RFC3688:
   RFC5116:
+  RFC6020:
   RFC7252:
   RFC7641:
   RFC7959:
   RFC7967:
   RFC8174:
+  RFC8407:
   RFC8613:
   RFC8724:
   RFC8768:
@@ -75,6 +78,9 @@ informative:
   RFC9147:
   I-D.ietf-core-groupcomm-bis:
   I-D.ietf-lake-edhoc:
+
+entity:
+  SELF: "[RFC-XXXX]"
 
 --- abstract
 
@@ -1914,7 +1920,24 @@ SCHC header compression Rules MUST remain tightly coupled between the compressor
 
 # IANA Considerations
 
-This document has no actions for IANA.
+This document has the following actions for IANA.
+
+## IETF XML
+
+IANA is asked to register the following entry in the "IETF XML" registry {{RFC3688}}.
+
+* URI: urn:ietf:params:xml:ns:yang:ietf-schc-coap-ext
+* Registrant Contact: The IESG.
+* XML: N/A; the requested URI is an XML namespace.
+
+## YANG Module Names
+
+IANA is asked to register the following entry in the "YANG Module Names" registry {{RFC6020}}{{RFC8407}} within the "YANG Parameters" registry group.
+
+* Name: ietf-schc-coap-ext
+* Namespace: urn:ietf:params:xml:ns:yang:ietf-schc-coap-ext
+* Prefix: schc-coap-ext
+* Reference: RFC YYYY
 
 --- back
 
@@ -2121,6 +2144,8 @@ module ietf-schc-coap-ext {
 * Revised SCHC Compression of the If-None-Match CoAP option.
 
 * Added YANG data model for the ietf-schc-coap-ext module.
+
+* Added IANA considerations.
 
 * Fixes and editorial improvements.
 
