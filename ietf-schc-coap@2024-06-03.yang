@@ -43,9 +43,9 @@ module ietf-schc-coap {
 
   revision 2024-06-03 {
     description
-      "Initial version for RFC YYYY.";
+      "New CoAP extensions and extended OSCORE fields.";
     reference
-      "RFC YYYY: Compound Ack";
+      "RFC YYYY: .....";
   }
 
   identity fid-coap-option-hop-limit {
@@ -96,7 +96,7 @@ module ietf-schc-coap {
   }
 
   identity fid-coap-option-oscore-piv {
-       base fid-coap-option;
+       base "schc:fid-coap-option";
        description
          "CoAP option OSCORE flags.";
        reference
@@ -107,7 +107,7 @@ module ietf-schc-coap {
   }
 
   identity fid-coap-option-oscore-x {
-       base fid-coap-option;
+       base "schc:fid-coap-option";
        description
          "CoAP option OSCORE flags.";
        reference
@@ -118,7 +118,7 @@ module ietf-schc-coap {
   }
 
     identity fid-coap-option-oscore-nonce {
-       base fid-coap-option;
+       base "schc:fid-coap-option";
        description
          "CoAP option OSCORE flags.";
        reference
@@ -129,7 +129,7 @@ module ietf-schc-coap {
   }
 
   identity fl-oscore-m-length {
-       base fl-base-type;
+       base "schc:fl-base-type";
        description
          "Size in bytes of the M.";
        reference
