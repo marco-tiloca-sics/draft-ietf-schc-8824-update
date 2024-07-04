@@ -2154,4 +2154,4 @@ module ietf-schc-coap-ext {
 
 The authors sincerely thank {{{Christian Amsüss}}}, {{{Quentin Lampin}}}, {{{John Preuß Mattsson}}}, {{{Carles Gomez Montenegro}}}, {{{Göran Selander}}}, {{{Pascal Thubert}}}, and {{{Éric Vyncke}}} for their comments and feedback.
 
-The work on this document has been partly supported by the H2020 projects SIFIS-Home (Grant agreement 952652) and ARCADIAN-IoT (Grant agreement 101020259).
+This work was supported by the Sweden's Innovation Agency VINNOVA within the EUREKA CELTIC-NEXT project CYPRESS; and by the H2020 projects SIFIS-Home (Grant agreement 952652) and ARCADIAN-IoT (Grant agreement 101020259).
