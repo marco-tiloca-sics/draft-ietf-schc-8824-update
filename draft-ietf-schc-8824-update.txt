@@ -6,11 +6,11 @@ SCHC Working Group                                             M. Tiloca
 Internet-Draft                                                   RISE AB
 Obsoletes: 8824 (if approved)                                 L. Toutain
 Intended status: Standards Track                          IMT Atlantique
-Expires: 5 December 2024                                     I. Martinez
+Expires: 5 January 2025                                      I. Martinez
                                                          Nokia Bell Labs
                                                              A. Minaburo
                                                               Consultant
-                                                             3 June 2024
+                                                             4 July 2024
 
 
 Static Context Header Compression (SCHC) for the Constrained Application
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 December 2024.
+   This Internet-Draft will expire on 5 January 2025.
 
 Copyright Notice
 
@@ -3313,7 +3313,8 @@ Acknowledgments
    Preuß Mattsson, Carles Gomez Montenegro, Göran Selander, Pascal
    Thubert, and Éric Vyncke for their comments and feedback.
 
-   The work on this document has been partly supported by the H2020
+   This work was supported by the Sweden's Innovation Agency VINNOVA
+   within the EUREKA CELTIC-NEXT project CYPRESS; and by the H2020
    projects SIFIS-Home (Grant agreement 952652) and ARCADIAN-IoT (Grant
    agreement 101020259).
 
