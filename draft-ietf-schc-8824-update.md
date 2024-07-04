@@ -5,6 +5,7 @@ title: Static Context Header Compression (SCHC) for the Constrained Application 
 abbrev: SCHC for CoAP
 docname: draft-ietf-schc-8824-update-latest
 
+ipr: trust200902
 area: Internet
 wg: SCHC Working Group
 kw: Internet-Draft
@@ -138,7 +139,7 @@ In particular, this documents replaces and obsoletes {{RFC8824}} as follows.
 
 ## Terminology ## {#terminology}
 
-{::boilerplate bcp14}
+{::boilerplate bcp14-tagged}
 
 Readers are expected to be familiar with the terms and concepts related to the SCHC framework {{RFC8724}}, the web-transfer protocol CoAP {{RFC7252}}, and the security protocols OSCORE {{RFC8613}} and Group OSCORE {{I-D.ietf-core-oscore-groupcomm}}.
 
@@ -2131,6 +2132,9 @@ module ietf-schc-coap-ext {
 ~~~~~~~~~~~
 {: #fig-yang-data-model title="SCHC CoAP Extension YANG Data Model" artwork-align="left"}
 
+# Document Updates # {#sec-document-updates}
+{:removeinrfc}
+
 ## Version -00 to -01 ## {#sec-00-01}
 
 * Fixed an example, as per the erratum with Errata ID 7623.
@@ -2150,7 +2154,7 @@ module ietf-schc-coap-ext {
 * Fixes and editorial improvements.
 
 # Acknowledgments # {#acknowledgments}
-{:unnumbered}
+{:numbered="false"}
 
 The authors sincerely thank {{{Christian Amsüss}}}, {{{Quentin Lampin}}}, {{{John Preuß Mattsson}}}, {{{Carles Gomez Montenegro}}}, {{{Göran Selander}}}, {{{Pascal Thubert}}}, and {{{Éric Vyncke}}} for their comments and feedback.
 
