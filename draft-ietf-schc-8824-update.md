@@ -1933,7 +1933,7 @@ This document has the following actions for IANA.
 
 IANA is asked to register the following entry in the "IETF XML" registry {{RFC3688}}.
 
-* URI: urn:ietf:params:xml:ns:yang:ietf-schc-coap-ext
+* URI: urn:ietf:params:xml:ns:yang:ietf-schc-coap
 * Registrant Contact: The IESG.
 * XML: N/A; the requested URI is an XML namespace.
 
@@ -1941,8 +1941,8 @@ IANA is asked to register the following entry in the "IETF XML" registry {{RFC36
 
 IANA is asked to register the following entry in the "YANG Module Names" registry {{RFC6020}}{{RFC8407}} within the "YANG Parameters" registry group.
 
-* Name: ietf-schc-coap-ext
-* Namespace: urn:ietf:params:xml:ns:yang:ietf-schc-coap-ext
+* Name: ietf-schc-coap
+* Namespace: urn:ietf:params:xml:ns:yang:ietf-schc-coap
 * Prefix: schc-coap-ext
 * Reference: RFC YYYY
 
