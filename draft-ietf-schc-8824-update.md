@@ -1919,6 +1919,12 @@ SCHC compression emits variable-length Compression Residues for some CoAP fields
 
 SCHC header compression Rules MUST remain tightly coupled between the compressor and the decompressor. If the compression Rules get out of sync, a Compression Residue might be decompressed differently at the receiver, thus yielding a result different than the initial message submitted to compression procedures. Accordingly, any time the context Rules are updated on an OSCORE endpoint, that endpoint MUST trigger OSCORE key re-establishment, e.g., by running the lightweight key update protocol KUDOS {{I-D.ietf-core-oscore-key-update}}. Similar procedures may be appropriate to signal Rule updates when other message-protection mechanisms are in use.
 
+## YANG Module {#sec-security-considerations-yang-module}
+
+TBD
+
+Editor's note: The considerations in this section have to follow the guidelines provided at https://wiki.ietf.org/group/ops/yang-security-guidelines
+
 # IANA Considerations
 
 This document has the following actions for IANA.
@@ -1942,9 +1948,9 @@ IANA is asked to register the following entry in the "YANG Module Names" registr
 
 --- back
 
-# YANG Data Model
+# YANG Data Model # {#sec-yang-module}
 
-This appendix defines the ietf-schc-coap-ext module, which extends the ietf-schc module defined in {{RFC9363}} to include the new CoAP options as defined in the present document.
+This appendix defines the ietf-schc-coap module, which extends the ietf-schc module defined in {{RFC9363}} to include the new CoAP options as defined in the present document.
 
 ~~~~~~~~~~~
 
