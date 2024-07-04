@@ -3297,7 +3297,7 @@ Appendix B.  Document Updates
 
 B.1.  Version -01 to -02
 
-   *  Update the YANG data model.
+   *  Updated the YANG data model.
 
    *  Fixes and editorial improvements.
 
