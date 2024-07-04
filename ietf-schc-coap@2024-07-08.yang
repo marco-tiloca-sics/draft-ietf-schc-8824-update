@@ -47,13 +47,29 @@ module ietf-schc-coap {
 
   // Field ID
 
+  identity fid-coap-option-proxy-cri {
+    base "schc:fid-coap-option";
+    description
+      "Proxy-CRI option.";
+    reference
+      "RFC XXXX Constrained Resource Identifiers";
+  }
+
+  identity fid-coap-option-proxy-scheme-number {
+    base "schc:fid-coap-option";
+    description
+      "Proxy-Scheme-Number option.";
+    reference
+      "RFC XXXX Constrained Resource Identifiers";
+  }
+
   identity fid-coap-option-hop-limit {
     base "schc:fid-coap-option";
     description
       "Hop Limit option to avoid infinite forwarding loops.";
     reference
       "RFC 8768 Constrained Application Protocol (CoAP)
-                Hop-Limit Option.";
+                Hop-Limit Option";
   }
 
   identity fid-coap-option-echo {
@@ -156,9 +172,9 @@ module ietf-schc-coap {
        description
          "Size in bytes of the OSCORE nonce corresponding to m+1.";
        reference
-         "RFC 8824 Static Context Header Compression (SCHC) for the
+         "RFC YYYY Static Context Header Compression (SCHC) for the
                    Constrained Application Protocol (CoAP) (see
-                   Section 6.4).
+                   Section 6.4)
           RFC XXXX Key Update for OSCORE (KUDOS)";
   }
 
@@ -170,7 +186,7 @@ module ietf-schc-coap {
        reference
          "RFC YYYY Static Context Header Compression (SCHC) for the
                    Constrained Application Protocol (CoAP) (see
-                   Section 6.4).
+                   Section 6.4)
           RFC XXXX Key Update for OSCORE (KUDOS)";
   }
 }

@@ -54,7 +54,6 @@ author:
         email: anaminaburo@gmail.com
 
 normative:
-  RFC2119:
   RFC3688:
   RFC5116:
   RFC6020:
@@ -62,23 +61,24 @@ normative:
   RFC7641:
   RFC7959:
   RFC7967:
-  RFC8174:
   RFC8407:
   RFC8613:
   RFC8724:
   RFC8768:
+  RFC8949:
   RFC9175:
   RFC9177:
   RFC9363:
   I-D.ietf-core-oscore-edhoc:
   I-D.ietf-core-oscore-groupcomm:
   I-D.ietf-core-oscore-key-update:
+  I-D.ietf-core-href:
 
 informative:
   RFC8824:
   RFC9147:
-  I-D.ietf-core-groupcomm-bis:
   RFC9528:
+  I-D.ietf-core-groupcomm-bis:
 
 entity:
   SELF: "[RFC-XXXX]"
@@ -126,6 +126,8 @@ In particular, this documents replaces and obsoletes {{RFC8824}} as follows.
 * It clarifies how the SCHC compression handles CoAP options in general (see {{sec-coap-options}}).
 
 * It clarifies the SCHC compression for the CoAP options: Size1, Size2, Proxy-Uri, and Proxy-Scheme (see {{ssec-size1-size2-proxy-uri-proxy-scheme-option}}); ETag and If-Match (see {{ssec-etag-if-match-option}}); and If-None-Match (see {{ssec-if-none-match}}).
+
+* It defines the SCHC compression for the recently defined CoAP options Proxy-CRI and Proxy-Scheme-Number (see {{ssec-proxy-cri-proxy-scheme-number-option}}).
 
 * It defines the SCHC compression for the CoAP option Hop-Limit (see {{coap-options-hop-limit}}).
 
@@ -363,7 +365,15 @@ SCHC fixes the number of Uri-Path or Uri-Query elements in a Rule at Rule creati
 
 The Size2 field is an option defined in {{RFC7959}}.
 
-The SCHC Rule description MAY define sending some field values by not setting the TV, while setting the MO to "ignore" and the CDA to "value-sent". A Rule MAY also use a "match-mapping" MO when there are different options for the same FID. Otherwise, the Rule sets the TV to a specific value, the MO to "equal", and the CDA to "not-sent".
+The SCHC Rule description MAY define sending some field values by not setting the TV, while setting the MO to "ignore" and the CDA to "value-sent". A Rule MAY also use a "match-mapping" MO when there are different alternatives for the same FID. Otherwise, the Rule sets the TV to a specific value, the MO to "equal", and the CDA to "not-sent".
+
+## CoAP Option Proxy-CRI and Proxy-Scheme-Number Fields # {#ssec-proxy-cri-proxy-scheme-number-option}
+
+The Proxy-CRI field is an option defined in {{I-D.ietf-core-href}}. The option carries an encoded CBOR data item {{RFC8949}} that represents an absolute CRI reference (see {{Section 5 of I-D.ietf-core-href}}). The option is used analogously to the Proxy-Uri option as defined in {{Section 5.10.2 of RFC7252}}.
+
+The Proxy-Scheme-Number field is an option defined in {{I-D.ietf-core-href}}. The option carries a CRI Scheme Number represented as a CoAP unsigned integer (see {{Sections 5.1.1 and 8.1 of I-D.ietf-core-href}}). The option is used analogously to the Proxy-Scheme option as defined in {{Section 5.10.2 of RFC7252}}.
+
+The SCHC Rule description MAY define sending some field values by not setting the TV, while setting the MO to "ignore" and the CDA to "value-sent". A Rule MAY also use a "match-mapping" MO when there are different alternatives for the same FID. Otherwise, the Rule sets the TV to a specific value, the MO to "equal", and the CDA to "not-sent".
 
 ## CoAP Location-Path and Location-Query Fields # {#ssec-location-path-location-query-option}
 
@@ -371,7 +381,7 @@ A Rule entry cannot store these fields' values. Therefore, SCHC compression MUST
 
 ## CoAP Option ETag and If-Match Fields # {#ssec-etag-if-match-option}
 
-When a CoAP message uses the ETag Option or the If-Match Option, SCHC compression MAY send its content in the Compression Residue. That is, in the SCHC Rule, the TV is not set, while the MO is set to "ignore" and the CDA is set to "value-sent". Alternatively, if a pre-defined set of values determined by the server is known and is used by the client as ETag values or If-Match values, then a Rule MAY use a "match-mapping" MO when there are different options for the same FID.
+When a CoAP message uses the ETag Option or the If-Match Option, SCHC compression MAY send its content in the Compression Residue. That is, in the SCHC Rule, the TV is not set, while the MO is set to "ignore" and the CDA is set to "value-sent". Alternatively, if a pre-defined set of values determined by the server is known and is used by the client as ETag values or If-Match values, then a Rule MAY use a "match-mapping" MO when there are different alternatives for the same FID.
 
 ## CoAP Option If-None-Match # {#ssec-if-none-match}
 
@@ -393,7 +403,7 @@ When a CoAP message uses the Echo Option, SCHC compression SHOULD send its conte
 
 The Request-Tag field is an option defined in {{RFC9175}} that the client can set in CoAP requests throughout block-wise operations, with value an ephemeral short-lived identifier of the specific block-wise operation in question. This allows the server to match message fragments belonging to the same request operation and, if the server supports it, to reliably process simultaneous block-wise request operations on a single resource. If requests are integrity protected, this also protects against interchange of fragments between different block-wise request operations.
 
-When a CoAP message uses the Request-Tag Option, SCHC compression MAY send its content in the Compression Residue. That is, in the SCHC Rule, the TV is not set, while the MO is set to "ignore" and the CDA is set to "value-sent". Alternatively, if a pre-defined set of Request-Tag values used by the client is known, a Rule MAY use a "match-mapping" MO when there are different options for the same FID.
+When a CoAP message uses the Request-Tag Option, SCHC compression MAY send its content in the Compression Residue. That is, in the SCHC Rule, the TV is not set, while the MO is set to "ignore" and the CDA is set to "value-sent". Alternatively, if a pre-defined set of Request-Tag values used by the client is known, a Rule MAY use a "match-mapping" MO when there are different alternatives for the same FID.
 
 ## CoAP Option EDHOC Field ## {#coap-options-edhoc}
 
@@ -2005,13 +2015,29 @@ module ietf-schc-coap {
 
   // Field ID
 
+  identity fid-coap-option-proxy-cri {
+    base "schc:fid-coap-option";
+    description
+      "Proxy-CRI option.";
+    reference
+      "RFC XXXX Constrained Resource Identifiers";
+  }
+
+  identity fid-coap-option-proxy-scheme-number {
+    base "schc:fid-coap-option";
+    description
+      "Proxy-Scheme-Number option.";
+    reference
+      "RFC XXXX Constrained Resource Identifiers";
+  }
+
   identity fid-coap-option-hop-limit {
     base "schc:fid-coap-option";
     description
       "Hop Limit option to avoid infinite forwarding loops.";
     reference
       "RFC 8768 Constrained Application Protocol (CoAP)
-                Hop-Limit Option.";
+                Hop-Limit Option";
   }
 
   identity fid-coap-option-echo {
@@ -2114,9 +2140,9 @@ module ietf-schc-coap {
        description
          "Size in bytes of the OSCORE nonce corresponding to m+1.";
        reference
-         "RFC 8824 Static Context Header Compression (SCHC) for the
+         "RFC YYYY Static Context Header Compression (SCHC) for the
                    Constrained Application Protocol (CoAP) (see
-                   Section 6.4).
+                   Section 6.4)
           RFC XXXX Key Update for OSCORE (KUDOS)";
   }
 
@@ -2128,7 +2154,7 @@ module ietf-schc-coap {
        reference
          "RFC YYYY Static Context Header Compression (SCHC) for the
                    Constrained Application Protocol (CoAP) (see
-                   Section 6.4).
+                   Section 6.4)
           RFC XXXX Key Update for OSCORE (KUDOS)";
   }
 }
@@ -2142,6 +2168,8 @@ module ietf-schc-coap {
 {:removeinrfc}
 
 ## Version -01 to -02 ## {#sec-01-02}
+
+* Added compression for the CoAP options Proxy-CRI and Proxy-Scheme-Number.
 
 * Updated the YANG data model.
 
