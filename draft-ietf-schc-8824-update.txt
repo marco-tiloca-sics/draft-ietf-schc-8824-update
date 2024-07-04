@@ -129,7 +129,8 @@ Table of Contents
      13.2.  Informative References
    Appendix A.  YANG Data Model
    Appendix B.  Document Updates
-     B.1.  Version -00 to -01
+     B.1.  Version -01 to -02
+     B.2.  Version -00 to -01
    Acknowledgments
    Authors' Addresses
 
@@ -3294,7 +3295,11 @@ Appendix B.  Document Updates
 
    This section is to be removed before publishing as an RFC.
 
-B.1.  Version -00 to -01
+B.1.  Version -01 to -02
+
+   *  Fixes and editorial improvements.
+
+B.2.  Version -00 to -01
 
    *  Fixed an example, as per the erratum with Errata ID 7623.
 
