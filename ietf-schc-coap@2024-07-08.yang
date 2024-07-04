@@ -1,7 +1,7 @@
 module ietf-schc-coap {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-schc-coap";
-  prefix schc-coap-ext;
+  prefix schc-coap;
 
   import ietf-schc {
       prefix schc;

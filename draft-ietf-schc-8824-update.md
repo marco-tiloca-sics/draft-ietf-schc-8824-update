@@ -1943,7 +1943,7 @@ IANA is asked to register the following entry in the "YANG Module Names" registr
 
 * Name: ietf-schc-coap
 * Namespace: urn:ietf:params:xml:ns:yang:ietf-schc-coap
-* Prefix: schc-coap-ext
+* Prefix: schc-coap
 * Reference: RFC YYYY
 
 --- back
@@ -1959,7 +1959,7 @@ This appendix defines the ietf-schc-coap module, which extends the ietf-schc mod
 module ietf-schc-coap {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-schc-coap";
-  prefix schc-coap-ext;
+  prefix schc-coap;
 
   import ietf-schc {
       prefix schc;
@@ -2159,7 +2159,7 @@ module ietf-schc-coap {
 
 * Revised SCHC Compression of the If-None-Match CoAP option.
 
-* Added YANG data model for the ietf-schc-coap-ext module.
+* Added YANG data model for the YANG module.
 
 * Added IANA considerations.
 
