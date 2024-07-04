@@ -1278,6 +1278,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-yang-module" class="internal xref">YANG Module</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
             <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
@@ -5483,6 +5488,15 @@ Compressed message length: 16 bytes
 <p id="section-11-5">If an attacker can introduce a corrupted SCHC-compressed packet onto a link, DoS attacks can be mounted by causing excessive resource consumption at the decompressor. However, an attacker able to inject packets at the link layer is also capable of other, potentially more damaging, attacks.<a href="#section-11-5" class="pilcrow">¶</a></p>
 <p id="section-11-6">SCHC compression emits variable-length Compression Residues for some CoAP fields. In the representation of the compressed header, the length field that is sent is not the length of the original header field but rather the length of the Compression Residue that is being transmitted. If a corrupted packet arrives at the decompressor with a longer or shorter length than that of the original compressed representation, the SCHC decompression procedures will detect an error and drop the packet.<a href="#section-11-6" class="pilcrow">¶</a></p>
 <p id="section-11-7">SCHC header compression Rules <span class="bcp14">MUST</span> remain tightly coupled between the compressor and the decompressor. If the compression Rules get out of sync, a Compression Residue might be decompressed differently at the receiver, thus yielding a result different than the initial message submitted to compression procedures. Accordingly, any time the context Rules are updated on an OSCORE endpoint, that endpoint <span class="bcp14">MUST</span> trigger OSCORE key re-establishment, e.g., by running the lightweight key update protocol KUDOS <span>[<a href="#I-D.ietf-core-oscore-key-update" class="cite xref">I-D.ietf-core-oscore-key-update</a>]</span>. Similar procedures may be appropriate to signal Rule updates when other message-protection mechanisms are in use.<a href="#section-11-7" class="pilcrow">¶</a></p>
+<div id="sec-security-considerations-yang-module">
+<section id="section-11.1">
+        <h3 id="name-yang-module">
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-yang-module" class="section-name selfRef">YANG Module</a>
+        </h3>
+<p id="section-11.1-1">TBD<a href="#section-11.1-1" class="pilcrow">¶</a></p>
+<p id="section-11.1-2">Editor's note: The considerations in this section have to follow the guidelines provided at https://wiki.ietf.org/group/ops/yang-security-guidelines<a href="#section-11.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="iana-considerations">
@@ -5649,12 +5663,12 @@ Compressed message length: 16 bytes
 </section>
 </div>
 </section>
-<div id="yang-data-model">
+<div id="sec-yang-module">
 <section id="appendix-A">
       <h2 id="name-yang-data-model">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-yang-data-model" class="section-name selfRef">YANG Data Model</a>
       </h2>
-<p id="appendix-A-1">This appendix defines the ietf-schc-coap-ext module, which extends the ietf-schc module defined in <span>[<a href="#RFC9363" class="cite xref">RFC9363</a>]</span> to include the new CoAP options as defined in the present document.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">This appendix defines the ietf-schc-coap module, which extends the ietf-schc module defined in <span>[<a href="#RFC9363" class="cite xref">RFC9363</a>]</span> to include the new CoAP options as defined in the present document.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <span id="name-schc-coap-extension-yang-da"></span><div id="fig-yang-data-model">
 <figure id="figure-37">
         <div class="breakable sourcecode" id="appendix-A-2.1">

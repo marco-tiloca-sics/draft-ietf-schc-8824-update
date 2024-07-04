@@ -121,6 +121,7 @@ Table of Contents
      10.1.  Without End-to-End Security
      10.2.  With End-to-End Security
    11. Security Considerations
+     11.1.  YANG Module
    12. IANA Considerations
      12.1.  IETF XML
      12.2.  YANG Module Names
@@ -2940,6 +2941,14 @@ Table of Contents
    procedures may be appropriate to signal Rule updates when other
    message-protection mechanisms are in use.
 
+11.1.  YANG Module
+
+   TBD
+
+   Editor's note: The considerations in this section have to follow the
+   guidelines provided at https://wiki.ietf.org/group/ops/yang-security-
+   guidelines
+
 12.  IANA Considerations
 
    This document has the following actions for IANA.
@@ -3106,9 +3115,9 @@ Table of Contents
 
 Appendix A.  YANG Data Model
 
-   This appendix defines the ietf-schc-coap-ext module, which extends
-   the ietf-schc module defined in [RFC9363] to include the new CoAP
-   options as defined in the present document.
+   This appendix defines the ietf-schc-coap module, which extends the
+   ietf-schc module defined in [RFC9363] to include the new CoAP options
+   as defined in the present document.
 
    <CODE BEGINS> file "ietf-schc-coap@2024-07-08.yang"
    module ietf-schc-coap {
