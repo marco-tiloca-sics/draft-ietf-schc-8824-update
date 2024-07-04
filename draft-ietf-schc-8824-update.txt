@@ -2958,7 +2958,7 @@ Table of Contents
    IANA is asked to register the following entry in the "IETF XML"
    registry [RFC3688].
 
-   *  URI: urn:ietf:params:xml:ns:yang:ietf-schc-coap-ext
+   *  URI: urn:ietf:params:xml:ns:yang:ietf-schc-coap
 
    *  Registrant Contact: The IESG.
 
@@ -2970,9 +2970,9 @@ Table of Contents
    Names" registry [RFC6020][RFC8407] within the "YANG Parameters"
    registry group.
 
-   *  Name: ietf-schc-coap-ext
+   *  Name: ietf-schc-coap
 
-   *  Namespace: urn:ietf:params:xml:ns:yang:ietf-schc-coap-ext
+   *  Namespace: urn:ietf:params:xml:ns:yang:ietf-schc-coap
 
    *  Prefix: schc-coap-ext
 
