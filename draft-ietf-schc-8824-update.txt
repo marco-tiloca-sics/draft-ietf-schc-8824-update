@@ -128,7 +128,8 @@ Table of Contents
      13.1.  Normative References
      13.2.  Informative References
    Appendix A.  YANG Data Model
-     A.1.  Version -00 to -01
+   Appendix B.  Document Updates
+     B.1.  Version -00 to -01
    Acknowledgments
    Authors' Addresses
 
@@ -3289,7 +3290,11 @@ Appendix A.  YANG Data Model
 
                Figure 37: SCHC CoAP Extension YANG Data Model
 
-A.1.  Version -00 to -01
+Appendix B.  Document Updates
+
+   This section is to be removed before publishing as an RFC.
+
+B.1.  Version -00 to -01
 
    *  Fixed an example, as per the erratum with Errata ID 7623.
 
