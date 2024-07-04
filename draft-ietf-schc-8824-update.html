@@ -1977,7 +1977,7 @@ However, this adds 4 bits to the variable Compression Residue size (see <span><a
         <h3 id="name-coap-option-edhoc-field">
 <a href="#section-5.11" class="section-number selfRef">5.11. </a><a href="#name-coap-option-edhoc-field" class="section-name selfRef">CoAP Option EDHOC Field</a>
         </h3>
-<p id="section-5.11-1">The EDHOC field is an option defined in <span>[<a href="#I-D.ietf-core-oscore-edhoc" class="cite xref">I-D.ietf-core-oscore-edhoc</a>]</span> that a client can include in a CoAP request, in order to perform an optimized, shortened execution of the authenticated key establishment protocol EDHOC <span>[<a href="#I-D.ietf-lake-edhoc" class="cite xref">I-D.ietf-lake-edhoc</a>]</span>. Such a request conveys both the final EDHOC message and actual application data, where the latter is protected with OSCORE <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span> using a Security Context derived from the result of the current EDHOC execution.<a href="#section-5.11-1" class="pilcrow">¶</a></p>
+<p id="section-5.11-1">The EDHOC field is an option defined in <span>[<a href="#I-D.ietf-core-oscore-edhoc" class="cite xref">I-D.ietf-core-oscore-edhoc</a>]</span> that a client can include in a CoAP request, in order to perform an optimized, shortened execution of the authenticated key exchange protocol EDHOC <span>[<a href="#RFC9528" class="cite xref">RFC9528</a>]</span>. Such a request conveys both the final EDHOC message and actual application data, where the latter is protected with OSCORE <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span> using a Security Context derived from the result of the current EDHOC execution.<a href="#section-5.11-1" class="pilcrow">¶</a></p>
 <p id="section-5.11-2">The EDHOC Option occurs at most once and is always empty. The SCHC Rule <span class="bcp14">MUST</span> describe an empty TV, with the MO set to "equal" and the CDA set to "not-sent".<a href="#section-5.11-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -5647,17 +5647,17 @@ Compressed message length: 16 bytes
         <dd>
 <span class="refAuthor">Dijk, E.</span>, <span class="refAuthor">Wang, C.</span>, and <span class="refAuthor">M. Tiloca</span>, <span class="refTitle">"Group Communication for the Constrained Application Protocol (CoAP)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-groupcomm-bis-11</span>, <time datetime="2024-04-24" class="refDate">24 April 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-groupcomm-bis-11">https://datatracker.ietf.org/doc/html/draft-ietf-core-groupcomm-bis-11</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.ietf-lake-edhoc">[I-D.ietf-lake-edhoc]</dt>
-        <dd>
-<span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Mattsson, J. P.</span>, and <span class="refAuthor">F. Palombini</span>, <span class="refTitle">"Ephemeral Diffie-Hellman Over COSE (EDHOC)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lake-edhoc-23</span>, <time datetime="2024-01-22" class="refDate">22 January 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lake-edhoc-23">https://datatracker.ietf.org/doc/html/draft-ietf-lake-edhoc-23</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC8824">[RFC8824]</dt>
         <dd>
 <span class="refAuthor">Minaburo, A.</span>, <span class="refAuthor">Toutain, L.</span>, and <span class="refAuthor">R. Andreasen</span>, <span class="refTitle">"Static Context Header Compression (SCHC) for the Constrained Application Protocol (CoAP)"</span>, <span class="seriesInfo">RFC 8824</span>, <span class="seriesInfo">DOI 10.17487/RFC8824</span>, <time datetime="2021-06" class="refDate">June 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8824">https://www.rfc-editor.org/rfc/rfc8824</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9147">[RFC9147]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Rescorla, E.</span>, <span class="refAuthor">Tschofenig, H.</span>, and <span class="refAuthor">N. Modadugu</span>, <span class="refTitle">"The Datagram Transport Layer Security (DTLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 9147</span>, <span class="seriesInfo">DOI 10.17487/RFC9147</span>, <time datetime="2022-04" class="refDate">April 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9147">https://www.rfc-editor.org/rfc/rfc9147</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9528">[RFC9528]</dt>
+      <dd>
+<span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Preuß Mattsson, J.</span>, and <span class="refAuthor">F. Palombini</span>, <span class="refTitle">"Ephemeral Diffie-Hellman Over COSE (EDHOC)"</span>, <span class="seriesInfo">RFC 9528</span>, <span class="seriesInfo">DOI 10.17487/RFC9528</span>, <time datetime="2024-03" class="refDate">March 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9528">https://www.rfc-editor.org/rfc/rfc9528</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
