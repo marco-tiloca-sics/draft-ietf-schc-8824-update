@@ -2135,6 +2135,10 @@ module ietf-schc-coap-ext {
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
 
+## Version -01 to -02 ## {#sec-01-02}
+
+* Fixes and editorial improvements.
+
 ## Version -00 to -01 ## {#sec-00-01}
 
 * Fixed an example, as per the erratum with Errata ID 7623.
