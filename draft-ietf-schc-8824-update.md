@@ -78,7 +78,7 @@ informative:
   RFC8824:
   RFC9147:
   I-D.ietf-core-groupcomm-bis:
-  I-D.ietf-lake-edhoc:
+  RFC9528:
 
 entity:
   SELF: "[RFC-XXXX]"
@@ -397,7 +397,7 @@ When a CoAP message uses the Request-Tag Option, SCHC compression MAY send its c
 
 ## CoAP Option EDHOC Field ## {#coap-options-edhoc}
 
-The EDHOC field is an option defined in {{I-D.ietf-core-oscore-edhoc}} that a client can include in a CoAP request, in order to perform an optimized, shortened execution of the authenticated key establishment protocol EDHOC {{I-D.ietf-lake-edhoc}}. Such a request conveys both the final EDHOC message and actual application data, where the latter is protected with OSCORE {{RFC8613}} using a Security Context derived from the result of the current EDHOC execution.
+The EDHOC field is an option defined in {{I-D.ietf-core-oscore-edhoc}} that a client can include in a CoAP request, in order to perform an optimized, shortened execution of the authenticated key exchange protocol EDHOC {{RFC9528}}. Such a request conveys both the final EDHOC message and actual application data, where the latter is protected with OSCORE {{RFC8613}} using a Security Context derived from the result of the current EDHOC execution.
 
 The EDHOC Option occurs at most once and is always empty. The SCHC Rule MUST describe an empty TV, with the MO set to "equal" and the CDA set to "not-sent".
 
