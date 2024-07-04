@@ -2974,7 +2974,7 @@ Table of Contents
 
    *  Namespace: urn:ietf:params:xml:ns:yang:ietf-schc-coap
 
-   *  Prefix: schc-coap-ext
+   *  Prefix: schc-coap
 
    *  Reference: RFC YYYY
 
@@ -3121,7 +3121,7 @@ Appendix A.  YANG Data Model
    module ietf-schc-coap {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-schc-coap";
-     prefix schc-coap-ext;
+     prefix schc-coap;
 
      import ietf-schc {
          prefix schc;
@@ -3320,7 +3320,7 @@ B.2.  Version -00 to -01
 
    *  Revised SCHC Compression of the If-None-Match CoAP option.
 
-   *  Added YANG data model for the ietf-schc-coap-ext module.
+   *  Added YANG data model for the YANG module.
 
    *  Added IANA considerations.
 
