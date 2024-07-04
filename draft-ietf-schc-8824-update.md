@@ -2137,7 +2137,7 @@ module ietf-schc-coap {
 
 ## Version -01 to -02 ## {#sec-01-02}
 
-* Update the YANG data model.
+* Updated the YANG data model.
 
 * Fixes and editorial improvements.
 
