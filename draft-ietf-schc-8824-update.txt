@@ -3110,10 +3110,10 @@ Appendix A.  YANG Data Model
    the ietf-schc module defined in [RFC9363] to include the new CoAP
    options as defined in the present document.
 
-   <CODE BEGINS> file "ietf-schc@2024-03-04.yang"
-   module ietf-schc-coap-ext {
+   <CODE BEGINS> file "ietf-schc-coap@2024-07-08.yang"
+   module ietf-schc-coap {
      yang-version 1.1;
-     namespace "urn:ietf:params:xml:ns:yang:ietf-schc-coap-ext";
+     namespace "urn:ietf:params:xml:ns:yang:ietf-schc-coap";
      prefix schc-coap-ext;
 
      import ietf-schc {
@@ -3149,13 +3149,13 @@ Appendix A.  YANG Data Model
         This module extends the ietf-schc module defined in RFC 9363 to
         include the new CoAP options as defined in RFC YYYY.";
 
-     revision 2024-02-22 {
+     revision 2024-07-08 {
        description
-         "Initial version for RFC YYYY ";
+         "New CoAP extensions and extended OSCORE fields.";
        reference
          "RFC YYYY Static Context Header Compression (SCHC) for the
                    Constrained Application Protocol (CoAP) (see
-                   Sections 5 and 6).";
+                   Sections 5 and 6)";
      }
 
      // Field ID
@@ -3207,6 +3207,17 @@ Appendix A.  YANG Data Model
                    Robust Transmission";
      }
 
+     identity fid-coap-option-edhoc {
+       base "schc:fid-coap-option";
+       description
+         "EDHOC option.";
+       reference
+         "RFC XXXX Using Ephemeral Diffie-Hellman Over COSE (EDHOC)
+                   with the Constrained Application Protocol (CoAP)
+                   and Object Security for Constrained RESTful
+                   Environments (OSCORE)";
+     }
+
      identity fid-coap-option-oscore-x {
           base "schc:fid-coap-option";
           description
@@ -3251,21 +3262,10 @@ Appendix A.  YANG Data Model
              RFC XXXX Key Update for OSCORE (KUDOS)";
      }
 
-     identity fid-coap-option-edhoc {
-         base "schc:fid-coap-option";
-         description
-           "EDHOC option.";
-         reference
-           "RFC XXXX Using Ephemeral Diffie-Hellman Over COSE (EDHOC)
-                     with the Constrained Application Protocol (CoAP)
-                     and Object Security for Constrained RESTful
-                     Environments (OSCORE)";
-     }
-
      // Function Length
 
      identity fl-oscore-oscore-nonce-length {
-          base fl-base-type;
+          base "schc:fl-base-type";
           description
             "Size in bytes of the OSCORE nonce corresponding to m+1.";
           reference
@@ -3276,7 +3276,7 @@ Appendix A.  YANG Data Model
      }
 
      identity fl-oscore-oscore-oldnonce-length {
-          base fl-base-type;
+          base "schc:fl-base-type";
           description
             "Size in bytes of the OSCORE old_nonce corresponding to w+1.
             ";
@@ -3296,6 +3296,8 @@ Appendix B.  Document Updates
    This section is to be removed before publishing as an RFC.
 
 B.1.  Version -01 to -02
+
+   *  Update the YANG data model.
 
    *  Fixes and editorial improvements.
 
