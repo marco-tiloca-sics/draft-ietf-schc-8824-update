@@ -52,7 +52,7 @@ module ietf-schc-coap {
     description
       "Hop Limit option to avoid infinite forwarding loops.";
     reference
-      "RFC 8768 Constrained Application Protocol (CoAP) 
+      "RFC 8768 Constrained Application Protocol (CoAP)
                 Hop-Limit Option.";
   }
 
@@ -61,7 +61,7 @@ module ietf-schc-coap {
     description
       "Echo option.";
     reference
-      "RFC 9175 Constrained Application Protocol (CoAP): 
+      "RFC 9175 Constrained Application Protocol (CoAP):
                 Echo, Request-Tag, and Token Processing";
   }
 
@@ -70,7 +70,7 @@ module ietf-schc-coap {
     description
       "Request-Tag option.";
     reference
-      "RFC 9175 Constrained Application Protocol (CoAP): 
+      "RFC 9175 Constrained Application Protocol (CoAP):
                 Echo, Request-Tag, and Token Processing";
   }
 
@@ -79,8 +79,8 @@ module ietf-schc-coap {
     description
       "Q-Block1 option.";
     reference
-      "RFC 9177 Constrained Application Protocol (CoAP) 
-                Block-Wise Transfer Options Supporting 
+      "RFC 9177 Constrained Application Protocol (CoAP)
+                Block-Wise Transfer Options Supporting
                 Robust Transmission";
   }
 
@@ -89,8 +89,8 @@ module ietf-schc-coap {
     description
       "Q-Block2 option.";
     reference
-      "RFC 9177 Constrained Application Protocol (CoAP) 
-                Block-Wise Transfer Options Supporting 
+      "RFC 9177 Constrained Application Protocol (CoAP)
+                Block-Wise Transfer Options Supporting
                 Robust Transmission";
   }
 
@@ -148,7 +148,7 @@ module ietf-schc-coap {
                    Section 6.4)
           RFC XXXX Key Update for OSCORE (KUDOS)";
   }
- 
+
   // Function Length
 
   identity fl-oscore-oscore-nonce-length {

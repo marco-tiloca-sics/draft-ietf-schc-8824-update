@@ -1948,11 +1948,11 @@ This appendix defines the ietf-schc-coap-ext module, which extends the ietf-schc
 
 ~~~~~~~~~~~
 
-<CODE BEGINS> file "ietf-schc@2024-03-04.yang"
+<CODE BEGINS> file "ietf-schc-coap@2024-07-08.yang"
 
-module ietf-schc-coap-ext {
+module ietf-schc-coap {
   yang-version 1.1;
-  namespace "urn:ietf:params:xml:ns:yang:ietf-schc-coap-ext";
+  namespace "urn:ietf:params:xml:ns:yang:ietf-schc-coap";
   prefix schc-coap-ext;
 
   import ietf-schc {
@@ -1988,13 +1988,13 @@ module ietf-schc-coap-ext {
      This module extends the ietf-schc module defined in RFC 9363 to
      include the new CoAP options as defined in RFC YYYY.";
 
-  revision 2024-02-22 {
+  revision 2024-07-08 {
     description
-      "Initial version for RFC YYYY ";
+      "New CoAP extensions and extended OSCORE fields.";
     reference
       "RFC YYYY Static Context Header Compression (SCHC) for the
                 Constrained Application Protocol (CoAP) (see
-                Sections 5 and 6).";
+                Sections 5 and 6)";
   }
 
   // Field ID
@@ -2046,6 +2046,17 @@ module ietf-schc-coap-ext {
                 Robust Transmission";
   }
 
+  identity fid-coap-option-edhoc {
+    base "schc:fid-coap-option";
+    description
+      "EDHOC option.";
+    reference
+      "RFC XXXX Using Ephemeral Diffie-Hellman Over COSE (EDHOC)
+                with the Constrained Application Protocol (CoAP)
+                and Object Security for Constrained RESTful
+                Environments (OSCORE)";
+  }
+
   identity fid-coap-option-oscore-x {
        base "schc:fid-coap-option";
        description
@@ -2090,21 +2101,10 @@ module ietf-schc-coap-ext {
           RFC XXXX Key Update for OSCORE (KUDOS)";
   }
 
-  identity fid-coap-option-edhoc {
-      base "schc:fid-coap-option";
-      description
-        "EDHOC option.";
-      reference
-        "RFC XXXX Using Ephemeral Diffie-Hellman Over COSE (EDHOC)
-                  with the Constrained Application Protocol (CoAP)
-                  and Object Security for Constrained RESTful
-                  Environments (OSCORE)";
-  }
-
   // Function Length
 
   identity fl-oscore-oscore-nonce-length {
-       base fl-base-type;
+       base "schc:fl-base-type";
        description
          "Size in bytes of the OSCORE nonce corresponding to m+1.";
        reference
@@ -2115,7 +2115,7 @@ module ietf-schc-coap-ext {
   }
 
   identity fl-oscore-oscore-oldnonce-length {
-       base fl-base-type;
+       base "schc:fl-base-type";
        description
          "Size in bytes of the OSCORE old_nonce corresponding to w+1.
          ";
@@ -2136,6 +2136,8 @@ module ietf-schc-coap-ext {
 {:removeinrfc}
 
 ## Version -01 to -02 ## {#sec-01-02}
+
+* Update the YANG data model.
 
 * Fixes and editorial improvements.
 
