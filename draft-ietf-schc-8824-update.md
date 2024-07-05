@@ -306,7 +306,7 @@ In a SCHC Rule, the Field Descriptor related to a CoAP option is as follows:
 
 * the TV is set to the Option Value V of the CoAP option.
 
-Note that the MO and the CDA specified in the Field Descriptor operates only on the Option Value V. That is, SCHC compression produces a residue from the Option Value V, while ignoring the option number, the Option Delta, and the Option Length. Therefore, the residue of a SCHC packet conveying a compressed COAP header does not include the option number, the Option Delta, and the Option Length, which the recipient will be able to reconstruct by performing SCHC Decompression.
+Note that the MO and the CDA specified in the Field Descriptor operates only on the Option Value V. That is, SCHC compression produces a residue from the Option Value V, while ignoring the option number, the Option Delta, and the Option Length. Therefore, the residue of a SCHC packet conveying a compressed CoAP header does not include the option number, the Option Delta, and the Option Length, which the recipient will be able to reconstruct by performing SCHC Decompression.
 
 When the Option Length has a well-known value, the Rule may specify the Option Length value in the FL of the Field Descriptor (see above). In such a case, SCHC compression treats the Option Value as a fixed-length field (see {{Section 7.4.1 of RFC8724}}).
 
