@@ -6,11 +6,11 @@ SCHC Working Group                                             M. Tiloca
 Internet-Draft                                                   RISE AB
 Obsoletes: 8824 (if approved)                                 L. Toutain
 Intended status: Standards Track                          IMT Atlantique
-Expires: 5 January 2025                                      I. Martinez
+Expires: 6 January 2025                                      I. Martinez
                                                          Nokia Bell Labs
                                                              A. Minaburo
                                                               Consultant
-                                                             4 July 2024
+                                                             5 July 2024
 
 
 Static Context Header Compression (SCHC) for the Constrained Application
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 January 2025.
+   This Internet-Draft will expire on 6 January 2025.
 
 Copyright Notice
 
@@ -121,14 +121,19 @@ Table of Contents
    10. Examples of CoAP Header Compression with Proxies
      10.1.  Without End-to-End Security
      10.2.  With End-to-End Security
-   11. Security Considerations
-     11.1.  YANG Module
-   12. IANA Considerations
-     12.1.  IETF XML
-     12.2.  YANG Module Names
-   13. References
-     13.1.  Normative References
-     13.2.  Informative References
+   11. CoAP Fields
+   12. Security Considerations
+     12.1.  YANG Module
+   13. IANA Considerations
+     13.1.  IETF XML
+     13.2.  YANG Module Names
+     13.3.  SCHC Compression of CoAP Fields
+       13.3.1.  Intended Use
+       13.3.2.  Structure of Entries
+     13.4.  Expert Review Instructions
+   14. References
+     14.1.  Normative References
+     14.2.  Informative References
    Appendix A.  YANG Data Model
    Appendix B.  Document Updates
      B.1.  Version -01 to -02
@@ -2906,7 +2911,121 @@ Table of Contents
    The result is used to rebuild the same CoAP response in Figure 20,
    which the Device delivers to the application.
 
-11.  Security Considerations
+11.  CoAP Fields
+
+   Table 12 lists the CoAP fields and subfields for which SCHC
+   Compression has been defined or revised in this document.
+
+   +=====================+============================================+
+   | Field               | Description                                |
+   +=====================+============================================+
+   | CoAP Version        | CoAP header field Version [RFC7252]        |
+   +---------------------+--------------------------------------------+
+   | CoAP Type           | CoAP header field Type [RFC7252]           |
+   +---------------------+--------------------------------------------+
+   | CoAP TKL            | CoAP header field TKL [RFC7252][RFC8974]   |
+   +---------------------+--------------------------------------------+
+   | CoAP Code           | CoAP header field Code [RFC7252]           |
+   +---------------------+--------------------------------------------+
+   | CoAP Code Class     | CoAP header field Code (subfield Class)    |
+   |                     | [RFC7252]                                  |
+   +---------------------+--------------------------------------------+
+   | CoAP Code Detail    | CoAP header field Code (subfield Detail)   |
+   |                     | [RFC7252]                                  |
+   +---------------------+--------------------------------------------+
+   | CoAP MID            | CoAP header field Message ID [RFC7252]     |
+   +---------------------+--------------------------------------------+
+   | CoAP Token          | CoAP field Token [RFC7252][RFC8974]        |
+   +---------------------+--------------------------------------------+
+   | CoAP If-Match       | CoAP option If-Match [RFC7252]             |
+   +---------------------+--------------------------------------------+
+   | CoAP Uri-Host       | CoAP option Uri-Host [RFC7252]             |
+   +---------------------+--------------------------------------------+
+   | CoAP ETag           | CoAP option ETag [RFC7252]                 |
+   +---------------------+--------------------------------------------+
+   | CoAP If-None-Match  | CoAP option If-None-Match [RFC7252]        |
+   +---------------------+--------------------------------------------+
+   | CoAP Observe        | CoAP option Observe [RFC7641]              |
+   +---------------------+--------------------------------------------+
+   | CoAP Uri-Port       | CoAP option Uri-Port [RFC7252]             |
+   +---------------------+--------------------------------------------+
+   | CoAP Location-Path  | CoAP option Location-Path [RFC7252]        |
+   +---------------------+--------------------------------------------+
+   | CoAP OSCORE         | CoAP option OSCORE                         |
+   |                     | [RFC8613][I-D.ietf-core-oscore-key-update] |
+   +---------------------+--------------------------------------------+
+   | CoAP OSCORE Flags   | CoAP option OSCORE (subfield Flags)        |
+   |                     | [RFC8613][I-D.ietf-core-oscore-key-update] |
+   +---------------------+--------------------------------------------+
+   | CoAP OSCORE PIV     | CoAP option OSCORE (subfield PIV)          |
+   |                     | [RFC8613]                                  |
+   +---------------------+--------------------------------------------+
+   | CoAP OSCORE kid     | CoAP option OSCORE (subfield kid)          |
+   |                     | [RFC8613]                                  |
+   +---------------------+--------------------------------------------+
+   | CoAP OSCORE kidctx  | CoAP option OSCORE (subfield kid context)  |
+   |                     | [RFC8613]                                  |
+   +---------------------+--------------------------------------------+
+   | CoAP OSCORE x       | CoAP option OSCORE (subfield x)            |
+   |                     | [I-D.ietf-core-oscore-key-update]          |
+   +---------------------+--------------------------------------------+
+   | CoAP OSCORE nonce   | CoAP option OSCORE (subfield nonce)        |
+   |                     | [I-D.ietf-core-oscore-key-update]          |
+   +---------------------+--------------------------------------------+
+   | CoAP OSCORE y       | CoAP option OSCORE (subfield y)            |
+   |                     | [I-D.ietf-core-oscore-key-update]          |
+   +---------------------+--------------------------------------------+
+   | CoAP OSCORE         | CoAP option OSCORE (subfield old_nonce)    |
+   | old_nonce           | [I-D.ietf-core-oscore-key-update]          |
+   +---------------------+--------------------------------------------+
+   | CoAP Uri-Path       | CoAP option Uri-Path [RFC7252]             |
+   +---------------------+--------------------------------------------+
+   | CoAP Content-Format | CoAP option Content-Format [RFC7252]       |
+   +---------------------+--------------------------------------------+
+   | CoAP Max-Age        | CoAP option Max-Age [RFC7252]              |
+   +---------------------+--------------------------------------------+
+   | CoAP Uri-Query      | CoAP option Uri-Query [RFC7252]            |
+   +---------------------+--------------------------------------------+
+   | CoAP Accept         | CoAP option Accept [RFC7252]               |
+   +---------------------+--------------------------------------------+
+   | CoAP Location-Query | CoAP option Location-Query [RFC7252]       |
+   +---------------------+--------------------------------------------+
+   | CoAP Block2         | CoAP option Block2 [RFC7959][RFC8323]      |
+   +---------------------+--------------------------------------------+
+   | CoAP Block1         | CoAP option Block1 [RFC7959][RFC8323]      |
+   +---------------------+--------------------------------------------+
+   | CoAP Size2          | CoAP option Size2 [RFC7959]                |
+   +---------------------+--------------------------------------------+
+   | CoAP Proxy-Uri      | CoAP option Proxy-Uri [RFC7252]            |
+   +---------------------+--------------------------------------------+
+   | CoAP Proxy-Scheme   | CoAP option Proxy-Scheme [RFC7252]         |
+   +---------------------+--------------------------------------------+
+   | CoAP Size1          | CoAP option Size1 [RFC7252]                |
+   +---------------------+--------------------------------------------+
+   | CoAP Proxy-CRI      | CoAP option Proxy-CRI [I-D.ietf-core-href] |
+   +---------------------+--------------------------------------------+
+   | CoAP Proxy-Scheme-  | CoAP option Proxy-Scheme-Number            |
+   | Number              | [I-D.ietf-core-href]                       |
+   +---------------------+--------------------------------------------+
+   | CoAP No-Response    | CoAP option No-Response [RFC7967]          |
+   +---------------------+--------------------------------------------+
+   | CoAP Hop-Limit      | CoAP option Hop-Limit [RFC8768]            |
+   +---------------------+--------------------------------------------+
+   | CoAP Echo           | CoAP option Echo [RFC9175]                 |
+   +---------------------+--------------------------------------------+
+   | CoAP Request-Tag    | CoAP option Request-Tag [RFC9175]          |
+   +---------------------+--------------------------------------------+
+   | CoAP Q-Block1       | CoAP option Q-Block1 [RFC9177]             |
+   +---------------------+--------------------------------------------+
+   | CoAP Q-Block2       | CoAP option Q-Block2 [RFC9177]             |
+   +---------------------+--------------------------------------------+
+   | CoAP EDHOC          | CoAP option EDHOC                          |
+   |                     | [I-D.ietf-core-oscore-edhoc]               |
+   +---------------------+--------------------------------------------+
+
+                          Table 12: CoAP Fields
+
+12.  Security Considerations
 
    The use of SCHC header compression for CoAP header fields only
    affects the representation of the header information.  SCHC header
@@ -2968,7 +3087,7 @@ Table of Contents
    procedures may be appropriate to signal Rule updates when other
    message-protection mechanisms are in use.
 
-11.1.  YANG Module
+12.1.  YANG Module
 
    TBD
 
@@ -2976,11 +3095,14 @@ Table of Contents
    guidelines provided at https://wiki.ietf.org/group/ops/yang-security-
    guidelines
 
-12.  IANA Considerations
+13.  IANA Considerations
 
    This document has the following actions for IANA.
 
-12.1.  IETF XML
+   Note to RFC Editor: Please replace all occurrences of "[RFC-XXXX]"
+   with the RFC number of this specification and delete this paragraph.
+
+13.1.  IETF XML
 
    IANA is asked to register the following entry in the "IETF XML"
    registry [RFC3688].
@@ -2991,7 +3113,7 @@ Table of Contents
 
    *  XML: N/A; the requested URI is an XML namespace.
 
-12.2.  YANG Module Names
+13.2.  YANG Module Names
 
    IANA is asked to register the following entry in the "YANG Module
    Names" registry [RFC6020][RFC8407] within the "YANG Parameters"
@@ -3005,9 +3127,107 @@ Table of Contents
 
    *  Reference: RFC YYYY
 
-13.  References
+13.3.  SCHC Compression of CoAP Fields
 
-13.1.  Normative References
+   IANA is asked to establish the "SCHC Compression of CoAP Fields" IANA
+   registry.
+
+   As registration policy, the registry uses "Specification Required"
+   per Section 4.6 of [RFC8126].  Expert Review guidelines are provided
+   in Section 13.4.
+
+13.3.1.  Intended Use
+
+   The objective of this registry is to collect a list of CoAP fields
+   and subfields, for which it has been defined how to perform SCHC
+   compression.
+
+   Such a definition does not necessarily have to be in the same
+   documentation that defines the CoAP fields and subfields in question.
+   While that can be the case, it is also possible to provide that
+   definition in a separate specification.
+
+   Each entry of the registry is intended to include references to the
+   documentation that defines the associated CoAP field or subfield, as
+   well as references to the specifications that define the SCHC
+   compression of that CoAP field or subfield.
+
+   When a specification defines how to perform SCHC compression of a
+   CoAP field, the following applies.
+
+   *  If a registry entry for the CoAP field does not already exist, it
+      is strongly encouraged to register an associated new entry.
+
+   *  If a registry entry for the CoAP field already exists, it is
+      strongly encouraged to update its list of references.  The update
+      is intended to add references to the specification that provides
+      the new or updated SCHC compression of the CoAP field, as well as
+      to any documentation that updates the definition of the CoAP field
+      itself.
+
+   If the defined SCHC compression considers the CoAP field as composed
+   of subfields, it is strongly encouraged that the same as above is
+   also performed for each subfield and the associated registry entry.
+
+13.3.2.  Structure of Entries
+
+   The columns of this registry are:
+
+   *  Field: a unique identifier of the CoAP field or subfield
+      associated with this entry.  This identifier can be used as value
+      of the "Field" column in a SCHC compression Rule.  This identifier
+      must have a corresponding item or set of items in the YANG data
+      model for the CoAP field or subfield associated with this entry,
+      as specified in Section 6 of [RFC9363] or in Appendix A of [RFC-
+      XXXX].
+
+   *  Description: a short description of the CoAP field or subfield
+      associated with this entry, together with public references to the
+      resources that define it.
+
+   *  Reference: public references to the resources that define how a
+      SCHC compression Rule works for the CoAP field or subfield
+      associated with this entry.
+
+   This registry has been initially populated with the values in
+   Table 12.  The "Reference" column for all of these entries refers to
+   this document.
+
+13.4.  Expert Review Instructions
+
+   The IANA registry established in this document is defined as
+   "Specification Required".  This section gives some general guidelines
+   for what the experts should be looking for, but they are being
+   designated as experts for a reason so they should be given
+   substantial latitude.
+
+   Expert reviewers should take into consideration the following points:
+
+   *  Point squatting should be discouraged.  Reviewers are encouraged
+      to get sufficient information for registration requests to ensure
+      that the usage is not going to duplicate one that is already
+      registered and that the point is likely to be used in deployments.
+
+      Specifically, for every CoAP field, only one corresponding
+      registry entry is allowed.  Also, for a every CoAP subfield, only
+      one corresponding registry entry is allowed.
+
+   *  Consistent with the "Specification Required" registration policy,
+      specifications should exist, but early assignment before a
+      specification is available is considered to be permissible.  When
+      specifications are not provided, the description provided needs to
+      have sufficient information to identify what the point is being
+      used for.
+
+   If the expert becomes aware of a definition for SCHC compression of
+   CoAP fields and subfields that is deployed and in use, the expert may
+   also initiate a registration or update an existing one on their own,
+   if they deem important that the definition in question gains
+   visibility through the registry entry.
+
+14.  References
+
+14.1.  Normative References
 
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
@@ -3079,9 +3299,20 @@ Table of Contents
               No Server Response", RFC 7967, DOI 10.17487/RFC7967,
               August 2016, <https://www.rfc-editor.org/rfc/rfc7967>.
 
+   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
+              Writing an IANA Considerations Section in RFCs", BCP 26,
+              RFC 8126, DOI 10.17487/RFC8126, June 2017,
+              <https://www.rfc-editor.org/rfc/rfc8126>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC8323]  Bormann, C., Lemay, S., Tschofenig, H., Hartke, K.,
+              Silverajan, B., and B. Raymor, Ed., "CoAP (Constrained
+              Application Protocol) over TCP, TLS, and WebSockets",
+              RFC 8323, DOI 10.17487/RFC8323, February 2018,
+              <https://www.rfc-editor.org/rfc/rfc8323>.
 
    [RFC8407]  Bierman, A., "Guidelines for Authors and Reviewers of
               Documents Containing YANG Data Models", BCP 216, RFC 8407,
@@ -3109,6 +3340,11 @@ Table of Contents
               DOI 10.17487/RFC8949, December 2020,
               <https://www.rfc-editor.org/rfc/rfc8949>.
 
+   [RFC8974]  Hartke, K. and M. Richardson, "Extended Tokens and
+              Stateless Clients in the Constrained Application Protocol
+              (CoAP)", RFC 8974, DOI 10.17487/RFC8974, January 2021,
+              <https://www.rfc-editor.org/rfc/rfc8974>.
+
    [RFC9175]  Amsüss, C., Preuß Mattsson, J., and G. Selander,
               "Constrained Application Protocol (CoAP): Echo, Request-
               Tag, and Token Processing", RFC 9175,
@@ -3125,7 +3361,7 @@ Table of Contents
               DOI 10.17487/RFC9363, March 2023,
               <https://www.rfc-editor.org/rfc/rfc9363>.
 
-13.2.  Informative References
+14.2.  Informative References
 
    [I-D.ietf-core-groupcomm-bis]
               Dijk, E., Wang, C., and M. Tiloca, "Group Communication
@@ -3361,6 +3597,8 @@ B.1.  Version -01 to -02
 
    *  Added compression for the CoAP options Proxy-CRI and Proxy-Scheme-
       Number.
+
+   *  Defined new IANA registry "SCHC Compression of CoAP Fields".
 
    *  Updated the YANG data model.
 
