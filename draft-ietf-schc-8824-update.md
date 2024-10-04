@@ -286,7 +286,7 @@ SCHC can compress the Message ID field with the MSB MO and the LSB CDA (see {{Se
 
 ## CoAP Token Field # {#ssec-coap-token-field}
 
-CoAP defines the Token using two CoAP fields: Token Length in the mandatory header and Token Value directly following the mandatory CoAP header.
+CoAP defines the Token using two CoAP fields: Token Length (TKL) in the mandatory header and Token Value directly following the mandatory CoAP header.
 
 SCHC processes the Token Length as it would process any header field. If the value does not change, the size can be stored in the TV and elided during the transmission. Otherwise, SCHC will send the Token Length in the Compression Residue.
 
