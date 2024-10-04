@@ -3068,7 +3068,7 @@ Table of Contents
    selected.  There is a trade-off between compression efficiency (with
    a longer MSB MO prefix) and the frequency at which the Device must
    renew its key material (in order to prevent the IV from expanding to
-   an uncompressible value).  The key-renewal operation itself may
+   an incompressible value).  The key-renewal operation itself may
    require several message exchanges and result in energy-intensive
    computation, but the optimal trade-off will depend on the specifics
    of the Device and expected usage patterns.  In order to renew its key
