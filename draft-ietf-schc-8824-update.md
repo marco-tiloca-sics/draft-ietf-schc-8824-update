@@ -580,7 +580,7 @@ In this first scenario, the SCHC compressor on the NGW side receives a POST mess
 
 | Field                   | FL  | FP | DI | TV                               | MO                      | CDA                    | `Sent` <br> `[bits]` |
 |-------------------------|-----|----|----|----------------------------------|-------------------------|------------------------|----------------------|
-| `CoAP` <br> `Version`   | 2   | 1  | Bi | 01                               | equal                   | not-sent               |                      |
+| `CoAP` <br> `Version`   | 2   | 1  | Bi | 1                                | equal                   | not-sent               |                      |
 | CoAP Type               | 2   | 1  | Dw | CON                              | equal                   | not-sent               |                      |
 | CoAP Type               | 2   | 1  | Up | `[ACK,` <br> `RST]`              | `match-` <br> `mapping` | `mapping-` <br> `sent` | T                    |
 | `CoAP` <br> `TKL`       | 4   | 1  | Bi | 0                                | equal                   | not-sent               |                      |
@@ -915,7 +915,7 @@ The Outer SCHC Rule shown in {{table-Outer-Rules}} is used, also to process the 
 
 | Field                         | FL      | FP | DI | TV             | MO      | CDA                | `Sent` <br> `[bits]` |
 |-------------------------------|---------|----|----|----------------|---------|--------------------|----------------------|
-| `CoAP` <br> `Version`         | 2       | 1  | Bi | 01             | equal   | `not-` <br> `sent` |                      |
+| `CoAP` <br> `Version`         | 2       | 1  | Bi | 1              | equal   | `not-` <br> `sent` |                      |
 | `CoAP` <br> `Type`            | 2       | 1  | Up | 0              | equal   | `not-` <br> `sent` |                      |
 | `CoAP` <br> `Type`            | 2       | 1  | Dw | 2              | equal   | `not-` <br> `sent` |                      |
 | `CoAP` <br> `TKL`             | 4       | 1  | Bi | 1              | equal   | `not-` <br> `sent` |                      |
@@ -1053,7 +1053,7 @@ In contrast, the following compares these results with what would be obtained by
 
 | Field                  | FL  | FP | DI | TV            | MO                      | CDA                    | `Sent` <br> `[bits]` |
 |------------------------|-----|----|----|---------------|-------------------------|------------------------|----------------------|
-| `CoAP` <br> `Version`  | 2   | 1  | Bi | 01            | equal                   | `not-sent`             |                      |
+| `CoAP` <br> `Version`  | 2   | 1  | Bi | 1             | equal                   | `not-sent`             |                      |
 | CoAP Type              | 2   | 1  | Up | 0             | equal                   | `not-sent`             |                      |
 | CoAP Type              | 2   | 1  | Dw | 2             | equal                   | `not-sent`             |                      |
 | `CoAP` <br> `TKL`      | 4   | 1  | Bi | 1             | equal                   | `not-sent`             |                      |
@@ -1251,7 +1251,7 @@ The Device and the proxy share the SCHC Rule shown in {{fig-rules-device-proxy}}
 
 | Field                      | FL               | FP | DI | TV                         | MO                      | CDA                    | `Sent` <br> `[bits]` |
 |----------------------------|------------------|----|----|----------------------------|-------------------------|------------------------|----------------------|
-| `CoAP` <br> `Version`      | 2                | 1  | Bi | 01                         | equal                   | not-sent               |                      |
+| `CoAP` <br> `Version`      | 2                | 1  | Bi | 1                          | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`         | 2                | 1  | Up | 0                          | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`         | 2                | 1  | Dw | \[0,2\]                    | `match-` <br> `mapping` | `mapping-` <br> `sent` | T                    |
 | `CoAP` <br> `TKL`          | 4                | 1  | Bi | 1                          | equal                   | not-sent               |                      |
@@ -1274,7 +1274,7 @@ Instead, the proxy and the Application Server share the SCHC Rule shown in {{fig
 
 | Field                      | FL               | FP | DI | TV                         | MO                      | CDA                    | `Sent` <br> `[bits]` |
 |----------------------------|------------------|----|----|----------------------------|-------------------------|------------------------|----------------------|
-| `CoAP` <br> `Version`      | 2                | 1  | Bi | 01                         | equal                   | not-sent               |                      |
+| `CoAP` <br> `Version`      | 2                | 1  | Bi | 1                          | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`         | 2                | 1  | Up | 0                          | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`         | 2                | 1  | Dw | \[0,2\]                    | `match-` <br> `mapping` | `mapping-` <br> `sent` | T                    |
 | `CoAP` <br> `TKL`          | 4                | 1  | Bi | 1                          | equal                   | not-sent               |                      |
@@ -1477,7 +1477,7 @@ The Device and the proxy share the SCHC Rule shown in {{fig-rules-oscore-device-
 
 | Field                               | FL               | FP | DI | TV      | MO                      | CDA                    | `Sent` <br> `[bits]` |
 |-------------------------------------|------------------|----|----|---------|-------------------------|------------------------|----------------------|
-| `CoAP` <br> `Version`               | 2                | 1  | Bi | 01      | equal                   | not-sent               |                      |
+| `CoAP` <br> `Version`               | 2                | 1  | Bi | 1       | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`                  | 2                | 1  | Up | 0       | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`                  | 2                | 1  | Dw | \[0,2\] | `match-` <br> `mapping` | `mapping-` <br> `sent` | T                    |
 | `CoAP` <br> `TKL`                   | 4                | 1  | Bi | 1       | equal                   | not-sent               |                      |
@@ -1510,7 +1510,7 @@ The proxy and the Application Server share the SCHC Rule shown in {{fig-rules-os
 
 | Field                         | FL               | FP | DI | TV      | MO                      | CDA                    | `Sent` <br> `[bits]` |
 |-------------------------------|------------------|----|----|---------|-------------------------|------------------------|----------------------|
-| `CoAP` <br> `Version`         | 2                | 1  | Bi | 01      | equal                   | not-sent               |                      |
+| `CoAP` <br> `Version`         | 2                | 1  | Bi | 1       | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`            | 2                | 1  | Up | 0       | equal                   | not-sent               |                      |
 | `CoAP` <br> `Type`            | 2                | 1  | Dw | \[0,2\] | `match-` <br> `mapping` | `mapping-` <br> `sent` | T                    |
 | `CoAP` <br> `TKL`             | 4                | 1  | Bi | 1       | equal                   | not-sent               |                      |
@@ -2273,6 +2273,8 @@ module ietf-schc-coap {
 {:removeinrfc}
 
 ## Version -02 to -03 ## {#sec-02-03}
+
+* Consistent representation of "CoAP Version" 1 in example Rules.
 
 * Disambiguated example of Rule on eliding a Uri-Path option.
 
