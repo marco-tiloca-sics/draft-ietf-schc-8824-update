@@ -1986,9 +1986,9 @@ SCHC header compression Rules MUST remain tightly coupled between the compressor
 
 ## YANG Module {#sec-security-considerations-yang-module}
 
-TBD
+The YANG data model defined in Appendix A extends the ietf-schc module defined in {{RFC9363}}.
 
-Editor's note: The considerations in this section have to follow the guidelines provided at https://wiki.ietf.org/group/ops/yang-security-guidelines
+Therefore, all the security considerations compiled in {{Section 8 of RFC9363}} apply to the resulting, extended YANG data model as well.
 
 # IANA Considerations
 
@@ -2275,6 +2275,8 @@ module ietf-schc-coap {
 ## Version -02 to -03 ## {#sec-02-03}
 
 * Disambiguated example of Rule on eliding a Uri-Path option.
+
+* Inherited security considerations on the YANG module from RFC 9363.
 
 * Fixes and editorial improvements.
 
