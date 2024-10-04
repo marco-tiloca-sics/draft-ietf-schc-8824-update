@@ -578,18 +578,18 @@ In this first scenario, the SCHC compressor on the NGW side receives a POST mess
 +----------+
 ~~~~
 
-| Field                   | FL  | FP | DI | TV                                | MO                      | CDA                    | `Sent` <br> `[bits]` |
-|-------------------------|-----|----|----|-----------------------------------|-------------------------|------------------------|----------------------|
-| `CoAP` <br> `Version`   | 2   | 1  | Bi | 01                                | equal                   | not-sent               |                      |
-| CoAP Type               | 2   | 1  | Dw | CON                               | equal                   | not-sent               |                      |
-| CoAP Type               | 2   | 1  | Up | `[ACK,` <br> `RST]`               | `match-` <br> `mapping` | `mapping-` <br> `sent` | T                    |
-| `CoAP` <br> `TKL`       | 4   | 1  | Bi | 0                                 | equal                   | not-sent               |                      |
-| CoAP Code               | 8   | 1  | Bi | `[0.00,` <br> `...` <br> `5.05]`  | `match-` <br> `mapping` | `mapping-` <br> `sent` | CC CCC               |
-| `CoAP` <br> `MID`       | 16  | 1  | Bi | 0000                              | MSB(7)                  | LSB                    | MID                  |
-| `CoAP` <br> `Uri-Path`  | var | 1  | Dw | `1st element` <br> `of the path`  | equal                   | not-sent               |                      |
+| Field                   | FL  | FP | DI | TV                               | MO                      | CDA                    | `Sent` <br> `[bits]` |
+|-------------------------|-----|----|----|----------------------------------|-------------------------|------------------------|----------------------|
+| `CoAP` <br> `Version`   | 2   | 1  | Bi | 01                               | equal                   | not-sent               |                      |
+| CoAP Type               | 2   | 1  | Dw | CON                              | equal                   | not-sent               |                      |
+| CoAP Type               | 2   | 1  | Up | `[ACK,` <br> `RST]`              | `match-` <br> `mapping` | `mapping-` <br> `sent` | T                    |
+| `CoAP` <br> `TKL`       | 4   | 1  | Bi | 0                                | equal                   | not-sent               |                      |
+| CoAP Code               | 8   | 1  | Bi | `[0.00,` <br> `...` <br> `5.05]` | `match-` <br> `mapping` | `mapping-` <br> `sent` | CC CCC               |
+| `CoAP` <br> `MID`       | 16  | 1  | Bi | 0000                             | MSB(7)                  | LSB                    | MID                  |
+| `CoAP` <br> `Uri-Path`  | var | 1  | Dw | "status"                         | equal                   | not-sent               |                      |
 {: #table-CoAP-header-1 title="CoAP Context to compress header without Token" align="center"}
 
-In this example, SCHC compression elides the version and Token Length fields. The 25 Method and Response Codes defined in {{RFC7252}} have been shrunk to 5 bits using a "match-mapping" MO. The Uri-Path contains a single element indicated in the TV and elided with the CDA "not-sent".
+In this example, SCHC compression elides the version and Token Length fields. The 25 Method and Response Codes defined in {{RFC7252}} have been shrunk to 5 bits using a "match-mapping" MO. The Uri-Path contains a single element with the TV set to "status" and the CDA set to "not-sent", thereby eliding the single occurrence of the Uri-Path Option with value "status".
 
 SCHC compression reduces the header, sending only a mapped Type (and only for uplink messages), a mapped code, and the least significant bits of the Message ID (9 bits in the example above).
 
@@ -2271,6 +2271,12 @@ module ietf-schc-coap {
 
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
+
+## Version -02 to -03 ## {#sec-02-03}
+
+* Disambiguated example of Rule on eliding a Uri-Path option.
+
+* Fixes and editorial improvements.
 
 ## Version -01 to -02 ## {#sec-01-02}
 
