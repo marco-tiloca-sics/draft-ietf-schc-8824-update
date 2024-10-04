@@ -1127,7 +1127,7 @@ Table of Contents
     | Field    | FL  |FP| DI | TV       | MO      | CDA      | Sent   |
     |          |     |  |    |          |         |          | [bits] |
     +==========+=====+==+====+==========+=========+==========+========+
-    | CoAP     | 2   |1 | Bi | 01       | equal   | not-sent |        |
+    | CoAP     | 2   |1 | Bi | 1        | equal   | not-sent |        |
     | Version  |     |  |    |          |         |          |        |
     +----------+-----+--+----+----------+---------+----------+--------+
     | CoAP     | 2   |1 | Dw | CON      | equal   | not-sent |        |
@@ -1575,7 +1575,7 @@ Table of Contents
    | Field           |FL     |FP|DI|TV            |MO     |CDA |Sent  |
    |                 |       |  |  |              |       |    |[bits]|
    +=================+=======+==+==+==============+=======+====+======+
-   | CoAP            |2      |1 |Bi|01            |equal  |not-|      |
+   | CoAP            |2      |1 |Bi|1             |equal  |not-|      |
    | Version         |       |  |  |              |       |sent|      |
    +-----------------+-------+--+--+--------------+-------+----+------+
    | CoAP            |2      |1 |Up|0             |equal  |not-|      |
@@ -1771,7 +1771,7 @@ Table of Contents
    | Field    |FL |FP|DI| TV            | MO      | CDA      | Sent   |
    |          |   |  |  |               |         |          | [bits] |
    +==========+===+==+==+===============+=========+==========+========+
-   | CoAP     |2  |1 |Bi| 01            | equal   | not-sent |        |
+   | CoAP     |2  |1 |Bi| 1             | equal   | not-sent |        |
    | Version  |   |  |  |               |         |          |        |
    +----------+---+--+--+---------------+---------+----------+--------+
    | CoAP     |2  |1 |Up| 0             | equal   | not-sent |        |
@@ -2057,7 +2057,7 @@ Table of Contents
    | Field        |FL |FP|DI| TV            |MO     | CDA      |Sent  |
    |              |   |  |  |               |       |          |[bits]|
    +==============+===+==+==+===============+=======+==========+======+
-   | CoAP         |2  |1 |Bi| 01            |equal  | not-sent |      |
+   | CoAP         |2  |1 |Bi| 1             |equal  | not-sent |      |
    | Version      |   |  |  |               |       |          |      |
    +--------------+---+--+--+---------------+-------+----------+------+
    | CoAP         |2  |1 |Up| 0             |equal  | not-sent |      |
@@ -2104,7 +2104,7 @@ Table of Contents
    | Field    |FL |FP|DI| TV            | MO      | CDA      | Sent   |
    |          |   |  |  |               |         |          | [bits] |
    +==========+===+==+==+===============+=========+==========+========+
-   | CoAP     |2  |1 |Bi| 01            | equal   | not-sent |        |
+   | CoAP     |2  |1 |Bi| 1             | equal   | not-sent |        |
    | Version  |   |  |  |               |         |          |        |
    +----------+---+--+--+---------------+---------+----------+--------+
    | CoAP     |2  |1 |Up| 0             | equal   | not-sent |        |
@@ -2352,7 +2352,7 @@ Table of Contents
    | Field           |FL     |FP|DI|TV    | MO      | CDA      |Sent  |
    |                 |       |  |  |      |         |          |[bits]|
    +=================+=======+==+==+======+=========+==========+======+
-   | CoAP            |2      |1 |Bi|01    | equal   | not-sent |      |
+   | CoAP            |2      |1 |Bi|1     | equal   | not-sent |      |
    | Version         |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |2      |1 |Up|0     | equal   | not-sent |      |
@@ -2431,7 +2431,7 @@ Table of Contents
    | Field           |FL     |FP|DI|TV    | MO      | CDA      |Sent  |
    |                 |       |  |  |      |         |          |[bits]|
    +=================+=======+==+==+======+=========+==========+======+
-   | CoAP            |2      |1 |Bi|01    | equal   | not-sent |      |
+   | CoAP            |2      |1 |Bi|1     | equal   | not-sent |      |
    | Version         |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |2      |1 |Up|0     | equal   | not-sent |      |
@@ -3594,6 +3594,8 @@ Appendix B.  Document Updates
    This section is to be removed before publishing as an RFC.
 
 B.1.  Version -02 to -03
+
+   *  Consistent representation of "CoAP Version" 1 in example Rules.
 
    *  Disambiguated example of Rule on eliding a Uri-Path option.
 
