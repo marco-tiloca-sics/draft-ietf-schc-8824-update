@@ -6,11 +6,11 @@ SCHC Working Group                                             M. Tiloca
 Internet-Draft                                                   RISE AB
 Obsoletes: 8824 (if approved)                                 L. Toutain
 Intended status: Standards Track                          IMT Atlantique
-Expires: 6 January 2025                                      I. Martinez
+Expires: 7 April 2025                                        I. Martinez
                                                          Nokia Bell Labs
                                                              A. Minaburo
                                                               Consultant
-                                                             5 July 2024
+                                                          4 October 2024
 
 
 Static Context Header Compression (SCHC) for the Constrained Application
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 January 2025.
+   This Internet-Draft will expire on 7 April 2025.
 
 Copyright Notice
 
@@ -136,8 +136,9 @@ Table of Contents
      14.2.  Informative References
    Appendix A.  YANG Data Model
    Appendix B.  Document Updates
-     B.1.  Version -01 to -02
-     B.2.  Version -00 to -01
+     B.1.  Version -02 to -03
+     B.2.  Version -01 to -02
+     B.3.  Version -00 to -01
    Acknowledgments
    Authors' Addresses
 
@@ -1122,42 +1123,41 @@ Table of Contents
    | RuleID 1 |
    +----------+
 
-   +==========+=====+====+====+=========+=========+==========+========+
-   | Field    | FL  | FP | DI | TV      | MO      | CDA      | Sent   |
-   |          |     |    |    |         |         |          | [bits] |
-   +==========+=====+====+====+=========+=========+==========+========+
-   | CoAP     | 2   | 1  | Bi | 01      | equal   | not-sent |        |
-   | Version  |     |    |    |         |         |          |        |
-   +----------+-----+----+----+---------+---------+----------+--------+
-   | CoAP     | 2   | 1  | Dw | CON     | equal   | not-sent |        |
-   | Type     |     |    |    |         |         |          |        |
-   +----------+-----+----+----+---------+---------+----------+--------+
-   | CoAP     | 2   | 1  | Up | [ACK,   | match-  | mapping- | T      |
-   | Type     |     |    |    | RST]    | mapping | sent     |        |
-   +----------+-----+----+----+---------+---------+----------+--------+
-   | CoAP     | 4   | 1  | Bi | 0       | equal   | not-sent |        |
-   | TKL      |     |    |    |         |         |          |        |
-   +----------+-----+----+----+---------+---------+----------+--------+
-   | CoAP     | 8   | 1  | Bi | [0.00,  | match-  | mapping- | CC CCC |
-   | Code     |     |    |    | ...     | mapping | sent     |        |
-   |          |     |    |    | 5.05]   |         |          |        |
-   +----------+-----+----+----+---------+---------+----------+--------+
-   | CoAP     | 16  | 1  | Bi | 0000    | MSB(7)  | LSB      | MID    |
-   | MID      |     |    |    |         |         |          |        |
-   +----------+-----+----+----+---------+---------+----------+--------+
-   | CoAP     | var | 1  | Dw | 1st     | equal   | not-sent |        |
-   | Uri-Path |     |    |    | element |         |          |        |
-   |          |     |    |    | of the  |         |          |        |
-   |          |     |    |    | path    |         |          |        |
-   +----------+-----+----+----+---------+---------+----------+--------+
+    +==========+=====+==+====+==========+=========+==========+========+
+    | Field    | FL  |FP| DI | TV       | MO      | CDA      | Sent   |
+    |          |     |  |    |          |         |          | [bits] |
+    +==========+=====+==+====+==========+=========+==========+========+
+    | CoAP     | 2   |1 | Bi | 01       | equal   | not-sent |        |
+    | Version  |     |  |    |          |         |          |        |
+    +----------+-----+--+----+----------+---------+----------+--------+
+    | CoAP     | 2   |1 | Dw | CON      | equal   | not-sent |        |
+    | Type     |     |  |    |          |         |          |        |
+    +----------+-----+--+----+----------+---------+----------+--------+
+    | CoAP     | 2   |1 | Up | [ACK,    | match-  | mapping- | T      |
+    | Type     |     |  |    | RST]     | mapping | sent     |        |
+    +----------+-----+--+----+----------+---------+----------+--------+
+    | CoAP     | 4   |1 | Bi | 0        | equal   | not-sent |        |
+    | TKL      |     |  |    |          |         |          |        |
+    +----------+-----+--+----+----------+---------+----------+--------+
+    | CoAP     | 8   |1 | Bi | [0.00,   | match-  | mapping- | CC CCC |
+    | Code     |     |  |    | ...      | mapping | sent     |        |
+    |          |     |  |    | 5.05]    |         |          |        |
+    +----------+-----+--+----+----------+---------+----------+--------+
+    | CoAP     | 16  |1 | Bi | 0000     | MSB(7)  | LSB      | MID    |
+    | MID      |     |  |    |          |         |          |        |
+    +----------+-----+--+----+----------+---------+----------+--------+
+    | CoAP     | var |1 | Dw | "status" | equal   | not-sent |        |
+    | Uri-Path |     |  |    |          |         |          |        |
+    +----------+-----+--+----+----------+---------+----------+--------+
 
-          Table 3: CoAP Context to compress header without Token
+           Table 3: CoAP Context to compress header without Token
 
    In this example, SCHC compression elides the version and Token Length
    fields.  The 25 Method and Response Codes defined in [RFC7252] have
    been shrunk to 5 bits using a "match-mapping" MO.  The Uri-Path
-   contains a single element indicated in the TV and elided with the CDA
-   "not-sent".
+   contains a single element with the TV set to "status" and the CDA set
+   to "not-sent", thereby eliding the single occurrence of the Uri-Path
+   Option with value "status".
 
    SCHC compression reduces the header, sending only a mapped Type (and
    only for uplink messages), a mapped code, and the least significant
@@ -3232,9 +3232,9 @@ Table of Contents
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-15, 21 April 2024,
+              ietf-core-href-16, 24 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-15>.
+              href-16>.
 
    [I-D.ietf-core-oscore-edhoc]
               Palombini, F., Tiloca, M., Höglund, R., Hristozov, S., and
@@ -3250,16 +3250,16 @@ Table of Contents
               Tiloca, M., Selander, G., Palombini, F., Mattsson, J. P.,
               and R. Höglund, "Group Object Security for Constrained
               RESTful Environments (Group OSCORE)", Work in Progress,
-              Internet-Draft, draft-ietf-core-oscore-groupcomm-21, 4
-              March 2024, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-core-oscore-groupcomm-21>.
+              Internet-Draft, draft-ietf-core-oscore-groupcomm-23, 26
+              September 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-core-oscore-groupcomm-23>.
 
    [I-D.ietf-core-oscore-key-update]
               Höglund, R. and M. Tiloca, "Key Update for OSCORE
               (KUDOS)", Work in Progress, Internet-Draft, draft-ietf-
-              core-oscore-key-update-07, 4 March 2024,
+              core-oscore-key-update-08, 8 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              oscore-key-update-07>.
+              oscore-key-update-08>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -3593,7 +3593,13 @@ Appendix B.  Document Updates
 
    This section is to be removed before publishing as an RFC.
 
-B.1.  Version -01 to -02
+B.1.  Version -02 to -03
+
+   *  Disambiguated example of Rule on eliding a Uri-Path option.
+
+   *  Fixes and editorial improvements.
+
+B.2.  Version -01 to -02
 
    *  Added compression for the CoAP options Proxy-CRI and Proxy-Scheme-
       Number.
@@ -3604,7 +3610,7 @@ B.1.  Version -01 to -02
 
    *  Fixes and editorial improvements.
 
-B.2.  Version -00 to -01
+B.3.  Version -00 to -01
 
    *  Fixed an example, as per the erratum with Errata ID 7623.
 
