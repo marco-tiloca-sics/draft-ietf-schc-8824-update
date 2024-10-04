@@ -264,13 +264,21 @@ This section discusses the SCHC compression of the CoAP header fields, building 
 
 ## CoAP Version Field # {#ssec-coap-version-field}
 
-The CoAP version is bidirectional and MUST be elided during SCHC compression, since it always contains the same value. In the future, or if a new version of CoAP is defined, new Rules will be needed to avoid ambiguities between versions.
+The Version field is described as bidirectional in a SCHC Rule, and it MUST be elided during SCHC compression, since it always contains the same value. In the future, or if a new version of CoAP is defined, new Rules will be needed to avoid ambiguities between versions.
 
 ## CoAP Type Field # {#ssec-coap-type-field}
 
-CoAP {{RFC7252}} has four types of messages: Confirmable (CON), Non-confirmable (NON), Acknowledgement (ACK), and Reset (RST).
+The Type field specifies one of the four types of CoAP messages, encoded as specified in {{Section 3 of RFC7252}}: Confirmable (CON), Non-confirmable (NON), Acknowledgement (ACK), and Reset (RST).
 
 The SCHC compression scheme SHOULD elide this field if, for instance, a client is sending only NON messages or only CON messages. For RST messages, SCHC may use a dedicated Rule. For other usages, SCHC can use a "match-mapping" MO.
+
+## CoAP Token Length (TKL) Field # {#ssec-coap-tkl-field}
+
+The Token Length (TKL) field specifies the size in bytes of the later Token field, and is described as bidirectional in a SCHC Rule.
+
+If the field value does not change over time, the SCHC Rule describes the TV set to that value, the MO set to "equal", and the CDA set to "not-sent", thereby eliding the field.
+
+Otherwise, if the field value changes over time, the SCHC Rule does not set the TV, while setting the MO to "ignore" and the CDA to "value-sent". The Rule may also use a "match-mapping" MO to compress the value.
 
 ## CoAP Code Field # {#ssec-coap-code-field}
 
@@ -286,11 +294,11 @@ SCHC can compress the Message ID field with the MSB MO and the LSB CDA (see {{Se
 
 ## CoAP Token Field # {#ssec-coap-token-field}
 
-CoAP defines the Token using two CoAP fields: Token Length (TKL) in the mandatory header and Token Value directly following the mandatory CoAP header.
+A CoAP message fully specifies the Token by using two CoAP fields: the Token Length (TKL) field in the mandatory header (see {{ssec-coap-tkl-field}}) and the variable-length Token field that directly follows the mandatory CoAP header and specifies the Token value.
 
-SCHC processes the Token Length as it would process any header field. If the value does not change, the size can be stored in the TV and elided during the transmission. Otherwise, SCHC will send the Token Length in the Compression Residue.
+For the Token field, SCHC MUST NOT send it as variable-size data in the Compression Residue, to avoid ambiguity with the Token Length field. Therefore, SCHC MUST use the value of the Token Length field to define the size of the Token field in the Compression Residue.
 
-For the Token Value, SCHC MUST NOT send it as variable-size data in the Compression Residue, to avoid ambiguity with the Token Length. Therefore, SCHC MUST use the Token Length value to define the size of the Compression Residue. SCHC designates a specific function, "tkl", that the Rule MUST use to complete the Field Descriptor. During the decompression, this function returns the value contained in the Token Length field.
+To this end, SCHC designates a specific function, "tkl", that the Rule MUST use to complete the Field Descriptor. During the decompression, this function returns the value contained in the Token Length field, hence the length of the Token field.
 
 # Compression of CoAP Options # {#sec-coap-options}
 
@@ -2275,6 +2283,8 @@ module ietf-schc-coap {
 ## Version -02 to -03 ## {#sec-02-03}
 
 * Consistent representation of "CoAP Version" 1 in example Rules.
+
+* Split the compression of Token Length and Token into two sections.
 
 * Disambiguated example of Rule on eliding a Uri-Path option.
 
