@@ -2077,7 +2077,7 @@ This appendix defines the ietf-schc-coap module, which extends the ietf-schc mod
 
 ~~~~~~~~~~~
 
-<CODE BEGINS> file "ietf-schc-coap@2024-07-08.yang"
+<CODE BEGINS> file "ietf-schc-coap@2024-10-21.yang"
 
 module ietf-schc-coap {
   yang-version 1.1;
