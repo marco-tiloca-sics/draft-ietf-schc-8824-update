@@ -1768,7 +1768,7 @@ When doing SCHC compression of a variable-length field, <span><a href="https://r
         <h3 id="name-coap-token-field">
 <a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-coap-token-field" class="section-name selfRef">CoAP Token Field</a>
         </h3>
-<p id="section-4.5-1">CoAP defines the Token using two CoAP fields: Token Length in the mandatory header and Token Value directly following the mandatory CoAP header.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
+<p id="section-4.5-1">CoAP defines the Token using two CoAP fields: Token Length (TKL) in the mandatory header and Token Value directly following the mandatory CoAP header.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
 <p id="section-4.5-2">SCHC processes the Token Length as it would process any header field. If the value does not change, the size can be stored in the TV and elided during the transmission. Otherwise, SCHC will send the Token Length in the Compression Residue.<a href="#section-4.5-2" class="pilcrow">¶</a></p>
 <p id="section-4.5-3">For the Token Value, SCHC <span class="bcp14">MUST NOT</span> send it as variable-size data in the Compression Residue, to avoid ambiguity with the Token Length. Therefore, SCHC <span class="bcp14">MUST</span> use the Token Length value to define the size of the Compression Residue. SCHC designates a specific function, "tkl", that the Rule <span class="bcp14">MUST</span> use to complete the Field Descriptor. During the decompression, this function returns the value contained in the Token Length field.<a href="#section-4.5-3" class="pilcrow">¶</a></p>
 </section>

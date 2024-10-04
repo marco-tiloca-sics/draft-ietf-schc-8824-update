@@ -512,8 +512,8 @@ Table of Contents
 
 4.5.  CoAP Token Field
 
-   CoAP defines the Token using two CoAP fields: Token Length in the
-   mandatory header and Token Value directly following the mandatory
+   CoAP defines the Token using two CoAP fields: Token Length (TKL) in
+   the mandatory header and Token Value directly following the mandatory
    CoAP header.
 
    SCHC processes the Token Length as it would process any header field.
