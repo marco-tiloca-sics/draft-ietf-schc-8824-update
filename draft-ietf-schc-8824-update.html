@@ -10,7 +10,7 @@
 <meta content="Ivan Martinez" name="author">
 <meta content="Ana Minaburo" name="author">
 <meta content="
-       This document defines how to compress Constrained Application Protocol (CoAP) headers using the Static Context Header Compression and fragmentation (SCHC) framework. SCHC defines a header compression mechanism adapted for Constrained Devices. SCHC uses a static description of the header to reduce the header's redundancy and size. While RFC 8724 describes the SCHC compression and fragmentation framework, and its application for IPv6/UDP headers, this document applies SCHC to CoAP headers. The CoAP header structure differs from IPv6 and UDP, since CoAP uses a flexible header with a variable number of options, themselves of variable length. The CoAP message format is asymmetric: the request messages have a header format different from the format in the response messages. This specification gives guidance on applying SCHC to flexible headers and how to leverage the asymmetry for more efficient compression Rules. This document replaces and obsoletes RFC 8824. 
+       This document defines how to compress Constrained Application Protocol (CoAP) headers using the Static Context Header Compression and fragmentation (SCHC) framework. SCHC defines a header compression mechanism adapted for constrained devices. SCHC uses a static description of the header to reduce the header's redundancy and size. While RFC 8724 describes the SCHC compression and fragmentation framework, and its application for IPv6/UDP headers, this document applies SCHC to CoAP headers. The CoAP header structure differs from IPv6 and UDP, since CoAP uses a flexible header with a variable number of options, themselves of variable length. The CoAP message format is asymmetric: the request messages have a header format different from the format in the response messages. This specification gives guidance on applying SCHC to flexible headers and how to leverage the asymmetry for more efficient compression Rules. This document replaces and obsoletes RFC 8824. 
     " name="description">
 <meta content="xml2rfc 3.23.2" name="generator">
 <meta content="Internet-Draft" name="keyword">
@@ -1031,7 +1031,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Tiloca, et al.</td>
-<td class="center">Expires 7 April 2025</td>
+<td class="center">Expires 8 April 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1047,12 +1047,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc8824" class="eref">8824</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-10-04" class="published">4 October 2024</time>
+<time datetime="2024-10-05" class="published">5 October 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-04-07">7 April 2025</time></dd>
+<dd class="expires"><time datetime="2025-04-08">8 April 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1077,7 +1077,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Static Context Header Compression (SCHC) for the Constrained Application Protocol (CoAP)</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document defines how to compress Constrained Application Protocol (CoAP) headers using the Static Context Header Compression and fragmentation (SCHC) framework. SCHC defines a header compression mechanism adapted for Constrained Devices. SCHC uses a static description of the header to reduce the header's redundancy and size. While RFC 8724 describes the SCHC compression and fragmentation framework, and its application for IPv6/UDP headers, this document applies SCHC to CoAP headers. The CoAP header structure differs from IPv6 and UDP, since CoAP uses a flexible header with a variable number of options, themselves of variable length. The CoAP message format is asymmetric: the request messages have a header format different from the format in the response messages. This specification gives guidance on applying SCHC to flexible headers and how to leverage the asymmetry for more efficient compression Rules. This document replaces and obsoletes RFC 8824.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document defines how to compress Constrained Application Protocol (CoAP) headers using the Static Context Header Compression and fragmentation (SCHC) framework. SCHC defines a header compression mechanism adapted for constrained devices. SCHC uses a static description of the header to reduce the header's redundancy and size. While RFC 8724 describes the SCHC compression and fragmentation framework, and its application for IPv6/UDP headers, this document applies SCHC to CoAP headers. The CoAP header structure differs from IPv6 and UDP, since CoAP uses a flexible header with a variable number of options, themselves of variable length. The CoAP message format is asymmetric: the request messages have a header format different from the format in the response messages. This specification gives guidance on applying SCHC to flexible headers and how to leverage the asymmetry for more efficient compression Rules. This document replaces and obsoletes RFC 8824.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -1109,7 +1109,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1201,7 +1201,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-coap-option-size1-size2-pro" class="internal xref">CoAP Option Size1, Size2, Proxy-Uri, and Proxy-Scheme Fields</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5">
-                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-coap-option-proxy-cri-and-p" class="internal xref">CoAP Option Proxy-CRI and Proxy-Scheme-Number Fields</a></p>
+                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-coap-option-proxy-cri-and-p" class="internal xref">CoAP Option Proxy-Cri and Proxy-Scheme-Number Fields</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6">
                 <p id="section-toc.1-1.5.2.6.1"><a href="#section-5.6" class="auto internal xref">5.6</a>.  <a href="#name-coap-location-path-and-loca" class="internal xref">CoAP Location-Path and Location-Query Fields</a></p>
@@ -1230,7 +1230,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-compression-of-coap-extensi" class="internal xref">Compression of CoAP Extensions</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
-                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-block" class="internal xref">Block</a></p>
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-block-wise-transfers" class="internal xref">Block-Wise Transfers</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-observe" class="internal xref">Observe</a></p>
@@ -1361,12 +1361,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The Constrained Application Protocol (CoAP) <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> is a command/response protocol designed for microcontrollers with small RAM and ROM, and optimized for services based on REST (Representational State Transfer). Although the Constrained Devices are a leading factor in the design of CoAP, a CoAP header's size is still too large for LPWANs (Low-Power Wide-Area Networks). Static Context Header Compression and fragmentation (SCHC) over CoAP headers is required to increase performance or to use CoAP over LPWAN technologies.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1">The Constrained Application Protocol (CoAP) <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> is a command/response protocol designed for microcontrollers with small RAM and ROM, and optimized for services based on REST (Representational State Transfer). Although the constrained devices are a leading factor in the design of CoAP, a CoAP header's size is still too large for LPWANs (Low-Power Wide-Area Networks). Static Context Header Compression and fragmentation (SCHC) over CoAP headers is required to increase performance or to use CoAP over LPWAN technologies.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2"><span>[<a href="#RFC8724" class="cite xref">RFC8724</a>]</span> defines the SCHC framework, which includes a header compression mechanism for LPWANs that is based on a static context. <span><a href="https://rfc-editor.org/rfc/rfc8724#section-5" class="relref">Section 5</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span> explains where compression and decompression occur in the architecture. The SCHC compression scheme assumes as a prerequisite that both endpoints know the static context before transmission. The way the context is configured, provisioned, or exchanged is out of this document's scope.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">CoAP is an application protocol, so CoAP compression requires installing common Rules between the two SCHC instances. SCHC compression may apply at two different levels: at the IP and UDP level in the LPWAN, as well as at the application level for CoAP. These two compression techniques may be independent. Both follow the same principle as that described in <span>[<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>. As different entities manage the CoAP compression process at different levels, the SCHC Rules driving the compression/decompression are also different. <span>[<a href="#RFC8724" class="cite xref">RFC8724</a>]</span> describes how to use SCHC for IP and UDP headers. This document specifies how to apply SCHC compression to CoAP headers.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">SCHC compresses and decompresses headers based on common contexts between Devices. The SCHC context includes multiple Rules. Each Rule can match the header fields to specific values or ranges of values. If a Rule matches, the matched header fields are replaced by the RuleID and the Compression Residue that contains the residual bits of the compression. Thus, different Rules may correspond to different protocol headers in the packet that a Device expects to send or receive.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">A Rule describes the packets' entire header with an ordered list of Field Descriptors (see <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7" class="relref">Section 7</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>). Thereby, each description contains the Field ID (FID), Field Length (FL), and Field Position (FP), as well as a Direction Indicator (DI) (upstream, downstream, and bidirectional) and some associated Target Values (TVs). The DI is used for compression to give the best TV to the FID when these values differ in their transmission direction. Therefore, a field may be described several times in the same Rule.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">A Matching Operator (MO) is associated with each header Field Descriptor. The Rule is selected if all the MOs fit the TVs for all the fields of the header. A Rule cannot be selected if the message contains a field that is unknown to the SCHC compressor.<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-5">A Rule describes the packets' entire header with an ordered list of Field Descriptors (see <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7" class="relref">Section 7</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>). In turn, each Field Descriptor contains the Field ID (FID), Field Length (FL), and Field Position (FP), as well as a Direction Indicator (DI) (upstream, downstream, or bidirectional) and some associated Target Values (TVs). The DI allows the compression to be based on the best TV for the Field Descriptor, when the TV to consider is different for the different transmission directions. Therefore, a field may be described several times in the same Rule.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">Furthermore, a Matching Operator (MO) is associated with each header Field Descriptor. The Rule is selected if all the MOs fit the TVs for all the fields of the header. A Rule cannot be selected if the message contains a field that is unknown to the SCHC compressor.<a href="#section-1-6" class="pilcrow">¶</a></p>
 <p id="section-1-7">In that case, a Compression/Decompression Action (CDA) associated with each field specifies the method to compress and decompress that field. Compression mainly results in one of four actions:<a href="#section-1-7" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-1-8.1">
@@ -1397,7 +1397,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
           <p id="section-1-13.3.1">It clarifies the SCHC compression for the CoAP options: Size1, Size2, Proxy-Uri, and Proxy-Scheme (see <a href="#ssec-size1-size2-proxy-uri-proxy-scheme-option" class="auto internal xref">Section 5.4</a>); ETag and If-Match (see <a href="#ssec-etag-if-match-option" class="auto internal xref">Section 5.7</a>); and If-None-Match (see <a href="#ssec-if-none-match" class="auto internal xref">Section 5.8</a>).<a href="#section-1-13.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-1-13.4">
-          <p id="section-1-13.4.1">It defines the SCHC compression for the recently defined CoAP options Proxy-CRI and Proxy-Scheme-Number (see <a href="#ssec-proxy-cri-proxy-scheme-number-option" class="auto internal xref">Section 5.5</a>).<a href="#section-1-13.4.1" class="pilcrow">¶</a></p>
+          <p id="section-1-13.4.1">It defines the SCHC compression for the recently defined CoAP options Proxy-Cri and Proxy-Scheme-Number (see <a href="#ssec-proxy-cri-proxy-scheme-number-option" class="auto internal xref">Section 5.5</a>).<a href="#section-1-13.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-1-13.5">
           <p id="section-1-13.5.1">It defines the SCHC compression for the CoAP option Hop-Limit (see <a href="#coap-options-hop-limit" class="auto internal xref">Section 5.9</a>).<a href="#section-1-13.5.1" class="pilcrow">¶</a></p>
@@ -1703,19 +1703,25 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
 <p id="section-3.1-1">CoAP compression differs from IPv6 and UDP compression in the following aspects:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1-2.1">
-            <p id="section-3.1-2.1.1">The CoAP message format is asymmetric, i.e., the headers are different for a request or a response. For example, the Uri-Path Option can be used in a request, while it is not used in a response. A request might contain an Accept Option, and a response might include a Content-Format Option. In comparison, the IPv6 and UDP returning path swaps the value of some fields in the header. However, all the directions have the same fields (e.g., source and destination address fields).<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2.1.2"><span>[<a href="#RFC8724" class="cite xref">RFC8724</a>]</span> defines the use of a DI in the Field Descriptor, which allows a single Rule to process a message header differently, depending on the direction.<a href="#section-3.1-2.1.2" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.1.1">The CoAP message format is asymmetric, i.e., the headers are different for a request and a response.<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2.1.2">
+For example, the Uri-Path Option can be used in a request, while it is not used in a response. A request might contain an Accept Option, while both a request and a response might include a Content-Format Option. In comparison, the IPv6 and UDP returning path swaps the value of some fields in the header. However, all the directions have the same fields (e.g., source and destination address fields).<a href="#section-3.1-2.1.2" class="pilcrow">¶</a></p>
+<p id="section-3.1-2.1.3"><span>[<a href="#RFC8724" class="cite xref">RFC8724</a>]</span> defines the use of a DI in the Field Descriptor, which allows a single Rule to process a message header differently, depending on the direction.<a href="#section-3.1-2.1.3" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-2.2">
-            <p id="section-3.1-2.2.1">Even when a field is "symmetric" (i.e., found in both directions), the values carried in each direction are different. The compression may use a "match-mapping" MO to limit the range of expected values in a particular direction and reduce the Compression Residue's size. Through the DI, a Field Descriptor in the Rules splits the possible field value into two parts, one for each direction. For instance, if a client sends only Confirmable (CON) requests <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>, the Type can be elided by compression, and the reply from the server may use one single bit to carry either the Acknowledgement (ACK) or Reset (RST) type. The field Code has the same behavior: the 0.0X code format value in a request and the Y.ZZ code format in a response.<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.2.1">Even when a field is "symmetric" (i.e., found in both directions), the values carried in each direction are different. The compression may use a "match-mapping" MO to limit the range of expected values in a particular direction and reduce the Compression Residue's size. Through the DI, a Field Descriptor in the Rules splits the possible field value into two parts, one for each direction.<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2.2.2">
+For instance, if a client sends only Confirmable (CON) requests <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>, the Type can be elided by compression, and the reply from the server may use one single bit to carry either the Acknowledgement (ACK) or Reset (RST) type. The field Code has the same behavior: the 0.0X code format value in a request and the Y.ZZ code format in a response.<a href="#section-3.1-2.2.2" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-2.3">
-            <p id="section-3.1-2.3.1">In SCHC, the Rule defines the different header fields' length, so SCHC does not need to send it. In IPv6 and UDP headers, the fields have a fixed size, known by definition. On the other hand, some CoAP header fields have variable lengths, and the Rule description specifies it. For example, the size of the Token field may vary from 0 to 8 bytes, and the CoAP options rely on the Type-Length-Value encoding format to specify the size of the actual option value in bytes.<a href="#section-3.1-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.3.1">In SCHC, the Rule defines the different header fields' length, so SCHC does not need to send it. In IPv6 and UDP headers, the fields have a fixed size, known by definition.<a href="#section-3.1-2.3.1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2.3.2">
-When doing SCHC compression of a variable-length field, <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.4.2" class="relref">Section 7.4.2</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span> makes it possible to define a function for the Field Length in the Field Descriptor, in order to determine the length before compression. If the Field Length is unknown, the Rule will set it as a variable, and SCHC will send the compressed field's length in the Compression Residue.<a href="#section-3.1-2.3.2" class="pilcrow">¶</a></p>
+On the other hand, some CoAP header fields have variable lengths, and the Rule description specifies it. For example, the size of the Token field may vary from 0 to 8 bytes, and the CoAP options rely on the Type-Length-Value encoding format to specify the size of the actual option value in bytes.<a href="#section-3.1-2.3.2" class="pilcrow">¶</a></p>
+<p id="section-3.1-2.3.3">
+When doing SCHC compression of a variable-length field, <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.4.2" class="relref">Section 7.4.2</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span> makes it possible to define a function for the Field Length in the Field Descriptor, in order to determine the length before compression. If the Field Length is unknown, the Rule will set it as a variable, and SCHC will send the compressed field's length in the Compression Residue.<a href="#section-3.1-2.3.3" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-2.4">
-            <p id="section-3.1-2.4.1">A field can appear several times in the CoAP headers. This is typically the case for elements of a URI (path or queries). The SCHC specification <span>[<a href="#RFC8724" class="cite xref">RFC8724</a>]</span> allows a FID to appear several times in the Rule and uses the Field Position (FP) to identify the correct instance, thereby removing the MO's ambiguity.<a href="#section-3.1-2.4.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-2.4.1">A field can appear several times in the CoAP headers. This is typically the case for elements of a URI (i.e., path segments or query arguments). The SCHC specification <span>[<a href="#RFC8724" class="cite xref">RFC8724</a>]</span> allows a FID to appear several times in the Rule and uses the Field Position (FP) to identify the correct instance, thereby removing the MO's ambiguity.<a href="#section-3.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.1-2.5">
             <p id="section-3.1-2.5.1">Field Lengths defined in CoAP can be too large when it comes to LPWAN traffic constraints. For instance, this is particularly true for the Message ID field and the Token field. SCHC uses different MOs to perform the compression (see <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.4" class="relref">Section 7.4</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>). In this case, SCHC can apply the Most Significant Bits (MSBs) MO to reduce the information carried on LPWANs.<a href="#section-3.1-2.5.1" class="pilcrow">¶</a></p>
@@ -1730,7 +1736,7 @@ When doing SCHC compression of a variable-length field, <span><a href="https://r
       <h2 id="name-compression-of-coap-header-">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-compression-of-coap-header-" class="section-name selfRef">Compression of CoAP Header Fields</a>
       </h2>
-<p id="section-4-1">This section discusses the SCHC compression of the CoAP header fields, building on what is specified in <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.1" class="relref">Section 7.1</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">This section discusses the SCHC compression of the CoAP header fields (see <span><a href="https://rfc-editor.org/rfc/rfc7252#section-3" class="relref">Section 3</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>), building on what is specified in <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.1" class="relref">Section 7.1</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <div id="ssec-coap-version-field">
 <section id="section-4.1">
         <h3 id="name-coap-version-field">
@@ -1753,7 +1759,7 @@ When doing SCHC compression of a variable-length field, <span><a href="https://r
         <h3 id="name-coap-token-length-tkl-field">
 <a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-coap-token-length-tkl-field" class="section-name selfRef">CoAP Token Length (TKL) Field</a>
         </h3>
-<p id="section-4.3-1">The Token Length (TKL) field specifies the size in bytes of the later Token field, and is described as bidirectional in a SCHC Rule.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-1">The Token Length (TKL) field specifies the size in bytes of the later Token field (see <a href="#ssec-coap-token-field" class="auto internal xref">Section 4.6</a>), and is described as bidirectional in a SCHC Rule.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <p id="section-4.3-2">If the field value does not change over time, the SCHC Rule describes the TV set to that value, the MO set to "equal", and the CDA set to "not-sent", thereby eliding the field.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
 <p id="section-4.3-3">Otherwise, if the field value changes over time, the SCHC Rule does not set the TV, while setting the MO to "ignore" and the CDA to "value-sent". The Rule may also use a "match-mapping" MO to compress the value.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
 </section>
@@ -1809,7 +1815,7 @@ When doing SCHC compression of a variable-length field, <span><a href="https://r
       </ul>
 <p id="section-5-5">Note that the MO and the CDA specified in the Field Descriptor operates only on the Option Value V. That is, SCHC compression produces a residue from the Option Value V, while ignoring the option number, the Option Delta, and the Option Length. Therefore, the residue of a SCHC packet conveying a compressed CoAP header does not include the option number, the Option Delta, and the Option Length, which the recipient will be able to reconstruct by performing SCHC Decompression.<a href="#section-5-5" class="pilcrow">¶</a></p>
 <p id="section-5-6">When the Option Length has a well-known value, the Rule may specify the Option Length value in the FL of the Field Descriptor (see above). In such a case, SCHC compression treats the Option Value as a fixed-length field (see <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.4.1" class="relref">Section 7.4.1</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>).<a href="#section-5-6" class="pilcrow">¶</a></p>
-<p id="section-5-7">Otherwise, the Rule specifies the FL of the Field Descriptor as indicating a variable length, and SCHC compression treats the Option Value as a variable-length field (see <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.4.2" class="relref">Section 7.4.2</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>). That is, SCHC compression additionally carries the length of the Compression Residue, as prepended to the Compression Residue value. Note that the length coding differs between CoAP options and the Compression Residue of SCHC variable-length fields.<a href="#section-5-7" class="pilcrow">¶</a></p>
+<p id="section-5-7">Otherwise, the Rule specifies the FL of the Field Descriptor as indicating a variable length, and SCHC compression treats the Option Value as a variable-length field (see <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.4.2" class="relref">Section 7.4.2</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>). In such a case, when the CDA specified in the Field Descriptor is "value-sent" or LSB, then SCHC compression additionally carries the length of the Compression Residue, as prepended to the Compression Residue value. Note that the length coding differs between CoAP options and the Compression Residue of SCHC variable-length fields.<a href="#section-5-7" class="pilcrow">¶</a></p>
 <p id="section-5-8">CoAP requests and responses do not include the same options. Compression Rules may reflect this asymmetry by using the DI.<a href="#section-5-8" class="pilcrow">¶</a></p>
 <p id="section-5-9">The following sections present how SCHC compresses some specific CoAP options. Unless otherwise indicated, the referred CoAP options are specified in <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>.<a href="#section-5-9" class="pilcrow">¶</a></p>
 <p id="section-5-10">If the use of an additional CoAP option is later introduced, the SCHC Rules <span class="bcp14">MAY</span> be updated, in which case a new FID description <span class="bcp14">MUST</span> be assigned to perform the compression of the CoAP option. Otherwise, if no Rule describes that CoAP option, SCHC compression is not achieved, and SCHC sends the CoAP header without compression.<a href="#section-5-10" class="pilcrow">¶</a></p>
@@ -1818,7 +1824,8 @@ When doing SCHC compression of a variable-length field, <span><a href="https://r
         <h3 id="name-coap-option-content-format-">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-coap-option-content-format-" class="section-name selfRef">CoAP Option Content-Format and Accept Fields</a>
         </h3>
-<p id="section-5.1-1">If the client expects a single specific value, SCHC can elide these fields, by specifying the value in the TV of a Rule description with an "equal" MO and a "not-sent" CDA. Otherwise, if the client expects several possible values, a "match-mapping" MO <span class="bcp14">SHOULD</span> be used to limit the Compression Residue's size. If not, SCHC has to send the option value in the Compression Residue (with fixed or variable length).<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">If the client expects a single specific value, SCHC can elide these fields, by specifying the value in the TV of a Rule description with an "equal" MO and a "not-sent" CDA.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">Otherwise, if the client expects several possible values, a "match-mapping" MO <span class="bcp14">SHOULD</span> be used to limit the Compression Residue's size. If not, SCHC has to send the option value in the Compression Residue (with fixed or variable length).<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ssec-max-age-uri-host-uri-port-option">
@@ -1826,7 +1833,8 @@ When doing SCHC compression of a variable-length field, <span><a href="https://r
         <h3 id="name-coap-option-max-age-uri-hos">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-coap-option-max-age-uri-hos" class="section-name selfRef">CoAP Option Max-Age, Uri-Host, and Uri-Port Fields</a>
         </h3>
-<p id="section-5.2-1">SCHC compresses these three fields in the same way. When the values of these options are known, SCHC can elide these fields. If the option uses well-known values, SCHC can use a "match-mapping" MO. Otherwise, these options' values will be sent in the Compression Residue, i.e., the SCHC Rule description does not set the TV, while setting the MO to "ignore" and the CDA to "value-sent".<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">SCHC compresses these three fields in the same way. When the values of these options are known, SCHC can elide these fields. If the option uses well-known values, SCHC can use a "match-mapping" MO.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">Otherwise, these options' values will be sent in the Compression Residue, i.e., the SCHC Rule description does not set the TV, while setting the MO to "ignore" and the CDA to "value-sent".<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ssec-uri-path-uri-query-option">
@@ -1860,17 +1868,13 @@ When doing SCHC compression of a variable-length field, <span><a href="https://r
               <td class="text-left" rowspan="1" colspan="1"> </td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>["/a/b",</code> <br> <code>"/c/d"]</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>match-</code> <br> <code>mapping</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">["/a/b", <br> "/c/d"]</td>
+              <td class="text-left" rowspan="1" colspan="1">match-mapping</td>
               <td class="text-left" rowspan="1" colspan="1">mapping-sent</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">Uri-Path</td>
-              <td class="text-left" rowspan="1" colspan="1">var</td>
+              <td class="text-left" rowspan="1" colspan="1">var <br> (B)</td>
               <td class="text-left" rowspan="1" colspan="1">3</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
@@ -1882,7 +1886,7 @@ When doing SCHC compression of a variable-length field, <span><a href="https://r
 </div>
 <p id="section-5.3-5">The length of the Uri-Path and Uri-Query Options may be known when the Rule is defined. In any other case, SCHC <span class="bcp14">MUST</span> set the Field Length (FL) to a variable value. The unit of the variable length is bytes, hence the Compression Residue size is expressed in bytes, encoded as defined in <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.4.2" class="relref">Section 7.4.2</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>.<a href="#section-5.3-5" class="pilcrow">¶</a></p>
 <p id="section-5.3-6">SCHC compression can use the MSB MO for a Uri-Path or Uri-Query element. In such a case, care must be taken when specifying the MSB parameter value in bits, which <span class="bcp14">MUST</span> be a multiple of 8. The length sent at the beginning of the variable-size field Compression Residue indicates the LSB's size in bytes, consistent with the unit of the variable length in the Rule description.<a href="#section-5.3-6" class="pilcrow">¶</a></p>
-<p id="section-5.3-7">For instance, for a CORECONF path /c/X6?k=eth0, the Rule description can be as shown in <a href="#_table-CoMicompress" class="auto internal xref">Table 2</a>. That is, SCHC compresses the first part of the Uri-Path with a "not-sent" CDA. Also, SCHC will send the second element of the Uri-Path with the length (i.e., 0x2 "X6") followed by the query option with the length (i.e., 0x4 "eth0").<a href="#section-5.3-7" class="pilcrow">¶</a></p>
+<p id="section-5.3-7">For instance, for a CORECONF path /c/X6?k=eth0, the Rule description can be as shown in <a href="#_table-CoMicompress" class="auto internal xref">Table 2</a>. That is, SCHC compresses the first part of the Uri-Path with a "not-sent" CDA. Also, SCHC will send the second element of the Uri-Path preceded with the length (i.e., 0b0010 "X6"), which is followed by the query option preceded with the length (i.e., 0b0100 "eth0").<a href="#section-5.3-7" class="pilcrow">¶</a></p>
 <span id="name-coreconf-uri-compression"></span><div id="_table-CoMicompress">
 <table class="center" id="table-2">
           <caption>
@@ -1912,7 +1916,7 @@ When doing SCHC compression of a variable-length field, <span><a href="https://r
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">Uri-Path</td>
-              <td class="text-left" rowspan="1" colspan="1">var</td>
+              <td class="text-left" rowspan="1" colspan="1">var <br> (B)</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
@@ -1921,7 +1925,7 @@ When doing SCHC compression of a variable-length field, <span><a href="https://r
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">Uri-Query</td>
-              <td class="text-left" rowspan="1" colspan="1">var</td>
+              <td class="text-left" rowspan="1" colspan="1">var <br> (B)</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1">"k="</td>
@@ -1963,9 +1967,9 @@ However, this adds 4 bits to the variable Compression Residue size (see <span><a
 <div id="ssec-proxy-cri-proxy-scheme-number-option">
 <section id="section-5.5">
         <h3 id="name-coap-option-proxy-cri-and-p">
-<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-coap-option-proxy-cri-and-p" class="section-name selfRef">CoAP Option Proxy-CRI and Proxy-Scheme-Number Fields</a>
+<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-coap-option-proxy-cri-and-p" class="section-name selfRef">CoAP Option Proxy-Cri and Proxy-Scheme-Number Fields</a>
         </h3>
-<p id="section-5.5-1">The Proxy-CRI field is an option defined in <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>. The option carries an encoded CBOR data item <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span> that represents an absolute CRI reference (see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-16#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>). The option is used analogously to the Proxy-Uri option as defined in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.10.2" class="relref">Section 5.10.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+<p id="section-5.5-1">The Proxy-Cri field is an option defined in <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>. The option carries an encoded CBOR data item <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span> that represents an absolute CRI reference (see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-16#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>). The option is used analogously to the Proxy-Uri option as defined in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.10.2" class="relref">Section 5.10.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
 <p id="section-5.5-2">The Proxy-Scheme-Number field is an option defined in <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>. The option carries a CRI Scheme Number represented as a CoAP unsigned integer (see Sections <a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-16#section-5.1.1" class="relref">5.1.1</a> and <a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-16#section-8.1" class="relref">8.1</a> of <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>). The option is used analogously to the Proxy-Scheme option as defined in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.10.2" class="relref">Section 5.10.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>.<a href="#section-5.5-2" class="pilcrow">¶</a></p>
 <p id="section-5.5-3">The SCHC Rule description <span class="bcp14">MAY</span> define sending some field values by not setting the TV, while setting the MO to "ignore" and the CDA to "value-sent". A Rule <span class="bcp14">MAY</span> also use a "match-mapping" MO when there are different alternatives for the same FID. Otherwise, the Rule sets the TV to a specific value, the MO to "equal", and the CDA to "not-sent".<a href="#section-5.5-3" class="pilcrow">¶</a></p>
 </section>
@@ -2039,10 +2043,11 @@ However, this adds 4 bits to the variable Compression Residue size (see <span><a
       </h2>
 <div id="ssec-coap-extensions-block">
 <section id="section-6.1">
-        <h3 id="name-block">
-<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-block" class="section-name selfRef">Block</a>
+        <h3 id="name-block-wise-transfers">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-block-wise-transfers" class="section-name selfRef">Block-Wise Transfers</a>
         </h3>
-<p id="section-6.1-1">When a CoAP message uses a Block1 or Block2 Option <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span> or a Q-Block1 or Q-Block2 Option <span>[<a href="#RFC9177" class="cite xref">RFC9177</a>]</span>, SCHC compression <span class="bcp14">MUST</span> send its content in the Compression Residue. In the SCHC Rule, the TV is not set, while the MO is set to "ignore" and the CDA is set to "value-sent". The Block1, Block2, Q-Block1, and Q-Block2 options allow fragmentation at the CoAP level that is compatible with SCHC fragmentation. Both fragmentation mechanisms are complementary, and the node may use them for the same packet as needed.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">When a CoAP message uses a Block1 or Block2 Option <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span> or a Q-Block1 or Q-Block2 Option <span>[<a href="#RFC9177" class="cite xref">RFC9177</a>]</span>, SCHC compression <span class="bcp14">MUST</span> send its content in the Compression Residue. In the SCHC Rule, the TV is not set, while the MO is set to "ignore" and the CDA is set to "value-sent".<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">The Block1, Block2, Q-Block1, and Q-Block2 options allow fragmentation at the CoAP level that is compatible with SCHC fragmentation. Both fragmentation mechanisms are complementary, and the node may use them for the same packet as needed.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ssec-coap-extensions-observe">
@@ -2271,9 +2276,7 @@ Otherwise, if the old_nonce field is present, then the corresponding Field Descr
           </thead>
           <tbody>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Version</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Version</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -2297,21 +2300,13 @@ Otherwise, if the old_nonce field is present, then the corresponding Field Descr
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>[ACK,</code> <br> <code>RST]</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>match-</code> <br> <code>mapping</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>mapping-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">[ACK, <br> RST]</td>
+              <td class="text-left" rowspan="1" colspan="1">match- <br> mapping</td>
+              <td class="text-left" rowspan="1" colspan="1">mapping- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1">T</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>TKL</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> TKL</td>
               <td class="text-left" rowspan="1" colspan="1">4</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -2325,21 +2320,13 @@ Otherwise, if the old_nonce field is present, then the corresponding Field Descr
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>[0.00,</code> <br> <code>...</code> <br> <code>5.05]</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>match-</code> <br> <code>mapping</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>mapping-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">[0.00, <br> ... <br> 5.05]</td>
+              <td class="text-left" rowspan="1" colspan="1">match- <br> mapping</td>
+              <td class="text-left" rowspan="1" colspan="1">mapping- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1">CC CCC</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>MID</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> MID</td>
               <td class="text-left" rowspan="1" colspan="1">16</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -2349,9 +2336,7 @@ Otherwise, if the old_nonce field is present, then the corresponding Field Descr
               <td class="text-left" rowspan="1" colspan="1">MID</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Uri-Path</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Uri-Path</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
@@ -2782,19 +2767,13 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
-              <td class="text-left" rowspan="1" colspan="1">[69,132]</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>match-</code> <br> <code>mapping</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>mapping-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">[69, 132]</td>
+              <td class="text-left" rowspan="1" colspan="1">match- <br> mapping</td>
+              <td class="text-left" rowspan="1" colspan="1">mapping- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1">C</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Uri-Path</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Uri-Path</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
@@ -3008,93 +2987,67 @@ Original message length: 10 bytes
           </thead>
           <tbody>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Version</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Version</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Type</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Type</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1">0</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Type</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Type</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>TKL</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> TKL</td>
               <td class="text-left" rowspan="1" colspan="1">4</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Code</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Code</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Code</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Code</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
               <td class="text-left" rowspan="1" colspan="1">68</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>MID</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> MID</td>
               <td class="text-left" rowspan="1" colspan="1">16</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -3104,9 +3057,7 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1">MMMM</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Token</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Token</td>
               <td class="text-left" rowspan="1" colspan="1">tkl</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -3116,24 +3067,18 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1">TTT</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_flags</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_flags</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1">0x09</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_piv</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">var</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_piv</td>
+              <td class="text-left" rowspan="1" colspan="1">var <br> (b)</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1">0x00</td>
@@ -3142,127 +3087,93 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1">PPPP</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_kid</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">var</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_kid</td>
+              <td class="text-left" rowspan="1" colspan="1">var <br> (b)</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
-              <td class="text-left" rowspan="1" colspan="1">0x636c69656e70</td>
+              <td class="text-left" rowspan="1" colspan="1">0x636c69 <br> 656e70</td>
               <td class="text-left" rowspan="1" colspan="1">MSB(44)</td>
               <td class="text-left" rowspan="1" colspan="1">LSB</td>
               <td class="text-left" rowspan="1" colspan="1">KKKK</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_kidctx</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_kidctx</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_x</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_x</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_nonce</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_nonce</td>
               <td class="text-left" rowspan="1" colspan="1">osc.x.m</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_y</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_y</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_oldnonce</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_oldnonce</td>
               <td class="text-left" rowspan="1" colspan="1">osc.y.w</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_flags</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_flags</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_piv</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_piv</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_kid</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_kid</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
           </tbody>
@@ -3270,72 +3181,38 @@ Original message length: 10 bytes
 </div>
 <span id="name-protected-and-inner-schc-co"></span><div id="fig-Protected-Compressed-GET">
 <figure id="figure-13">
-          <div id="section-8.3-18.1">
-            <div class="alignCenter art-svg artwork" id="section-8.3-18.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="496" width="408" viewBox="0 0 408 496" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-                <path d="M 8,46 L 144,46" fill="none" stroke="black"></path>
-                <path d="M 8,50 L 144,50" fill="none" stroke="black"></path>
-                <g class="text">
-                  <text x="40" y="36">Protected</text>
-                  <text x="116" y="36">message:</text>
-                  <text x="204" y="68">0x4102000182980904636c69656e74ffa2c54fe1b434297b62</text>
-                  <text x="16" y="84">(24</text>
-                  <text x="60" y="84">bytes)</text>
-                  <text x="32" y="116">Header:</text>
-                  <text x="28" y="132">0x4102</text>
-                  <text x="12" y="148">01</text>
-                  <text x="56" y="148">Ver</text>
-                  <text x="28" y="164">00</text>
-                  <text x="72" y="164">CON</text>
-                  <text x="52" y="180">0001</text>
-                  <text x="104" y="180">TKL</text>
-                  <text x="100" y="196">00000010</text>
-                  <text x="184" y="196">Request</text>
-                  <text x="236" y="196">Code</text>
-                  <text x="264" y="196">2</text>
-                  <text x="300" y="196">"POST"</text>
-                  <text x="28" y="228">0x0001</text>
-                  <text x="64" y="228">=</text>
-                  <text x="88" y="228">mid</text>
-                  <text x="20" y="244">0x82</text>
-                  <text x="48" y="244">=</text>
-                  <text x="80" y="244">token</text>
-                  <text x="36" y="276">Options:</text>
-                  <text x="20" y="308">0x98</text>
-                  <text x="108" y="308">0904636c69656e74</text>
-                  <text x="188" y="308">(9</text>
-                  <text x="228" y="308">bytes)</text>
-                  <text x="28" y="324">Option</text>
-                  <text x="68" y="324">9:</text>
-                  <text x="108" y="324">OSCORE</text>
-                  <text x="24" y="340">Value</text>
-                  <text x="56" y="340">=</text>
-                  <text x="140" y="340">0x0904636c69656e74</text>
-                  <text x="92" y="356">09</text>
-                  <text x="112" y="356">=</text>
-                  <text x="136" y="356">000</text>
-                  <text x="160" y="356">0</text>
-                  <text x="176" y="356">1</text>
-                  <text x="200" y="356">001</text>
-                  <text x="236" y="356">flag</text>
-                  <text x="276" y="356">byte</text>
-                  <text x="160" y="372">h</text>
-                  <text x="176" y="372">k</text>
-                  <text x="200" y="372">n</text>
-                  <text x="108" y="388">04</text>
-                  <text x="136" y="388">piv</text>
-                  <text x="164" y="404">636c69656e74</text>
-                  <text x="232" y="404">kid</text>
-                  <text x="20" y="436">0xFF</text>
-                  <text x="80" y="436">Payload</text>
-                  <text x="140" y="436">marker</text>
-                  <text x="36" y="468">Payload:</text>
-                  <text x="84" y="484">0xa2c54fe1b434297b62</text>
-                  <text x="180" y="484">(9</text>
-                  <text x="220" y="484">bytes)</text>
-                </g>
-              </svg><a href="#section-8.3-18.1.1" class="pilcrow">¶</a>
-</div>
+          <div class="alignCenter art-text artwork" id="section-8.3-18.1">
+<pre>
+Protected message:
+==================
+0x4102000182980904636c69656e74ffa2c54fe1b434297b62
+(24 bytes)
+
+Header:
+0x4102
+01   Ver
+  00   CON
+    0001   TKL
+        00000010   Request Code 2 "POST"
+
+0x0001 = mid
+0x82 = token
+
+Options:
+
+0x98 0904636c69656e74 (9 bytes)
+Option 9: OSCORE
+Value = 0x0904636c69656e74
+          09 = 000 0 1 001 flag byte
+                   h k  n
+            04 piv
+              636c69656e74 kid
+
+0xFF  Payload marker
+
+Payload:
+0xa2c54fe1b434297b62 (9 bytes)
+</pre>
 </div>
 <figcaption><a href="#figure-13" class="selfRef">Figure 13</a>:
 <a href="#name-protected-and-inner-schc-co" class="selfRef">Protected and Inner SCHC Compressed GET Request</a>
@@ -3343,58 +3220,34 @@ Original message length: 10 bytes
 </div>
 <span id="name-protected-and-inner-schc-com"></span><div id="fig-Protected-Compressed-CONTENT">
 <figure id="figure-14">
-          <div id="section-8.3-19.1">
-            <div class="alignCenter art-svg artwork" id="section-8.3-19.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="432" width="496" viewBox="0 0 496 432" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-                <path d="M 8,46 L 144,46" fill="none" stroke="black"></path>
-                <path d="M 8,50 L 144,50" fill="none" stroke="black"></path>
-                <g class="text">
-                  <text x="40" y="36">Protected</text>
-                  <text x="116" y="36">message:</text>
-                  <text x="180" y="68">0x614400018290ff10c6d7c26cc1e9aef3f2461e0c29</text>
-                  <text x="16" y="84">(21</text>
-                  <text x="60" y="84">bytes)</text>
-                  <text x="32" y="116">Header:</text>
-                  <text x="28" y="132">0x6144</text>
-                  <text x="12" y="148">01</text>
-                  <text x="56" y="148">Ver</text>
-                  <text x="28" y="164">10</text>
-                  <text x="72" y="164">ACK</text>
-                  <text x="52" y="180">0001</text>
-                  <text x="104" y="180">TKL</text>
-                  <text x="100" y="196">01000100</text>
-                  <text x="196" y="196">Successful</text>
-                  <text x="276" y="196">Response</text>
-                  <text x="332" y="196">Code</text>
-                  <text x="364" y="196">68</text>
-                  <text x="400" y="196">"2.04</text>
-                  <text x="460" y="196">Changed"</text>
-                  <text x="28" y="228">0x0001</text>
-                  <text x="64" y="228">=</text>
-                  <text x="88" y="228">mid</text>
-                  <text x="20" y="244">0x82</text>
-                  <text x="48" y="244">=</text>
-                  <text x="80" y="244">token</text>
-                  <text x="36" y="276">Options:</text>
-                  <text x="20" y="308">0x90</text>
-                  <text x="52" y="308">(1</text>
-                  <text x="88" y="308">byte)</text>
-                  <text x="28" y="324">Option</text>
-                  <text x="68" y="324">9:</text>
-                  <text x="108" y="324">OSCORE</text>
-                  <text x="24" y="340">Value</text>
-                  <text x="56" y="340">=</text>
-                  <text x="80" y="340">b''</text>
-                  <text x="20" y="372">0xFF</text>
-                  <text x="80" y="372">Payload</text>
-                  <text x="140" y="372">marker</text>
-                  <text x="36" y="404">Payload:</text>
-                  <text x="124" y="420">0x10c6d7c26cc1e9aef3f2461e0c29</text>
-                  <text x="264" y="420">(14</text>
-                  <text x="308" y="420">bytes)</text>
-                </g>
-              </svg><a href="#section-8.3-19.1.1" class="pilcrow">¶</a>
-</div>
+          <div class="alignCenter art-text artwork" id="section-8.3-19.1">
+<pre>
+Protected message:
+==================
+0x614400018290ff10c6d7c26cc1e9aef3f2461e0c29
+(21 bytes)
+
+Header:
+0x6144
+01   Ver
+  10   ACK
+    0001   TKL
+        01000100   Successful Response Code 68 "2.04 Changed"
+
+0x0001 = mid
+0x82 = token
+
+Options:
+
+0x90 (1 byte)
+Option 9: OSCORE
+Value = b''
+
+0xFF  Payload marker
+
+Payload:
+0x10c6d7c26cc1e9aef3f2461e0c29 (14 bytes)
+</pre>
 </div>
 <figcaption><a href="#figure-14" class="selfRef">Figure 14</a>:
 <a href="#name-protected-and-inner-schc-com" class="selfRef">Protected and Inner SCHC Compressed Content Response</a>
@@ -3442,7 +3295,7 @@ Compressed message:
       218daf84d983d35de7e48c3c1852 Padded payload
 Compression Residue:
 0b0001 010 (7 bits -&gt; 1 byte with padding)
-  mid  tkn
+   mid tkn
 
 Payload
 0x10c6d7c26cc1e9aef3f2461e0c29 (14 bytes)
@@ -3480,17 +3333,13 @@ Payload
           </thead>
           <tbody>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Version</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Version</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not-sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
@@ -3500,9 +3349,7 @@ Payload
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1">0</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not-sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
@@ -3512,23 +3359,17 @@ Payload
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not-sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>TKL</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> TKL</td>
               <td class="text-left" rowspan="1" colspan="1">4</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not-sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
@@ -3538,9 +3379,7 @@ Payload
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not-sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
@@ -3548,19 +3387,13 @@ Payload
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
-              <td class="text-left" rowspan="1" colspan="1">[69,132]</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>match-</code> <br> <code>mapping</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>mapping-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">[69, 132]</td>
+              <td class="text-left" rowspan="1" colspan="1">match- <br> mapping</td>
+              <td class="text-left" rowspan="1" colspan="1">mapping- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1">C</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>MID</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> MID</td>
               <td class="text-left" rowspan="1" colspan="1">16</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -3580,17 +3413,13 @@ Payload
               <td class="text-left" rowspan="1" colspan="1">TTT</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Uri-Path</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Uri-Path</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1">"temperature"</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not-sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
           </tbody>
@@ -3848,9 +3677,7 @@ Original message length: 10 bytes
           </thead>
           <tbody>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Version</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Version</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -3860,9 +3687,7 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Type</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Type</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
@@ -3872,25 +3697,17 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Type</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Type</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
-              <td class="text-left" rowspan="1" colspan="1">[0,2]</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>match-</code> <br> <code>mapping</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>mapping-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">[0, 2]</td>
+              <td class="text-left" rowspan="1" colspan="1">match- <br> mapping</td>
+              <td class="text-left" rowspan="1" colspan="1">mapping- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1">T</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>TKL</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> TKL</td>
               <td class="text-left" rowspan="1" colspan="1">4</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -3900,45 +3717,27 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Code</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Code</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>[1, 2,</code> <br> <code>3, 4]</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>match-</code> <br> <code>mapping</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>mapping-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">[1, 2, <br> 3, 4]</td>
+              <td class="text-left" rowspan="1" colspan="1">match- <br> mapping</td>
+              <td class="text-left" rowspan="1" colspan="1">mapping- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1">CC</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Code</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Code</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>[65, 68,</code> <br> <code>69, 132]</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>match-</code> <br> <code>mapping</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>mapping-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">[65, 68, <br> 69, 132]</td>
+              <td class="text-left" rowspan="1" colspan="1">match- <br> mapping</td>
+              <td class="text-left" rowspan="1" colspan="1">mapping- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1">CC</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>MID</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> MID</td>
               <td class="text-left" rowspan="1" colspan="1">16</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -3948,9 +3747,7 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1">MMMM</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Token</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Token</td>
               <td class="text-left" rowspan="1" colspan="1">tkl</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -3960,25 +3757,17 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1">TTT</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Uri-Host</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>var</code> <br> <code>(B)</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Uri-Host</td>
+              <td class="text-left" rowspan="1" colspan="1">var <br> (B)</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
               <td class="text-left" rowspan="1" colspan="1">ignore</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>value-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">value- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Uri-Path</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Uri-Path</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
@@ -3988,9 +3777,7 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Proxy-Scheme</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Proxy-Scheme</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
@@ -4030,9 +3817,7 @@ Original message length: 10 bytes
           </thead>
           <tbody>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Version</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Version</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -4042,9 +3827,7 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Type</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Type</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
@@ -4054,25 +3837,17 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Type</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Type</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
-              <td class="text-left" rowspan="1" colspan="1">[0,2]</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>match-</code> <br> <code>mapping</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>mapping-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">[0, 2]</td>
+              <td class="text-left" rowspan="1" colspan="1">match- <br> mapping</td>
+              <td class="text-left" rowspan="1" colspan="1">mapping- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1">T</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>TKL</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> TKL</td>
               <td class="text-left" rowspan="1" colspan="1">4</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -4082,45 +3857,27 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Code</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Code</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>[1, 2,</code> <br> <code>3, 4]</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>match-</code> <br> <code>mapping</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>mapping-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">[1, 2, <br> 3, 4]</td>
+              <td class="text-left" rowspan="1" colspan="1">match- <br> mapping</td>
+              <td class="text-left" rowspan="1" colspan="1">mapping- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1">CC</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Code</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Code</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>[65, 68,</code> <br> <code>69, 132]</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>match-</code> <br> <code>mapping</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>mapping-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">[65, 68, <br> 69, 132]</td>
+              <td class="text-left" rowspan="1" colspan="1">match- <br> mapping</td>
+              <td class="text-left" rowspan="1" colspan="1">mapping- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1">CC</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>MID</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> MID</td>
               <td class="text-left" rowspan="1" colspan="1">16</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -4130,9 +3887,7 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1">MMMM</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Token</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Token</td>
               <td class="text-left" rowspan="1" colspan="1">tkl</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -4142,25 +3897,17 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1">TTT</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Uri-Host</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>var</code> <br> <code>(B)</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Uri-Host</td>
+              <td class="text-left" rowspan="1" colspan="1">var <br> (B)</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
               <td class="text-left" rowspan="1" colspan="1">ignore</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>value-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">value- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Uri-Path</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Uri-Path</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
@@ -4389,45 +4136,27 @@ Compressed message length: 7 bytes
           </thead>
           <tbody>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Code</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Code</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>[1, 2,</code> <br> <code>3, 4]</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>match-</code> <br> <code>mapping</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>mapping-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">[1, 2, <br> 3, 4]</td>
+              <td class="text-left" rowspan="1" colspan="1">match- <br> mapping</td>
+              <td class="text-left" rowspan="1" colspan="1">mapping- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1">CC</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Code</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Code</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>[65, 68,</code> <br> <code>69, 132]</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>match-</code> <br> <code>mapping</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>mapping-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">[65, 68, <br> 69, 132]</td>
+              <td class="text-left" rowspan="1" colspan="1">match- <br> mapping</td>
+              <td class="text-left" rowspan="1" colspan="1">mapping- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1">CC</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Uri-Path</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Uri-Path</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
@@ -4467,9 +4196,7 @@ Compressed message length: 7 bytes
           </thead>
           <tbody>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Version</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Version</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -4479,9 +4206,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Type</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Type</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
@@ -4491,25 +4216,17 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Type</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Type</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
-              <td class="text-left" rowspan="1" colspan="1">[0,2]</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>match-</code> <br> <code>mapping</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>mapping-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">[0, 2]</td>
+              <td class="text-left" rowspan="1" colspan="1">match- <br> mapping</td>
+              <td class="text-left" rowspan="1" colspan="1">mapping- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1">T</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>TKL</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> TKL</td>
               <td class="text-left" rowspan="1" colspan="1">4</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -4519,9 +4236,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Code</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Code</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
@@ -4531,9 +4246,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Code</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Code</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
@@ -4543,9 +4256,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>MID</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> MID</td>
               <td class="text-left" rowspan="1" colspan="1">16</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -4555,9 +4266,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1">MMMM</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Token</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Token</td>
               <td class="text-left" rowspan="1" colspan="1">tkl</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -4567,25 +4276,17 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1">TTT</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Uri-Host</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>var</code> <br> <code>(B)</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Uri-Host</td>
+              <td class="text-left" rowspan="1" colspan="1">var <br> (B)</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
               <td class="text-left" rowspan="1" colspan="1">ignore</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>value-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">value- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_flags</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_flags</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
@@ -4595,10 +4296,8 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_piv</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">var</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_piv</td>
+              <td class="text-left" rowspan="1" colspan="1">var <br> (b)</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1">0x00</td>
@@ -4607,10 +4306,8 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1">PPPP</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_kid</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">var</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_kid</td>
+              <td class="text-left" rowspan="1" colspan="1">var <br> (b)</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1">0x0000</td>
@@ -4619,9 +4316,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1">KKKK</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_kidctx</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_kidctx</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -4631,65 +4326,47 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_x</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_x</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not-sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_nonce</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_nonce</td>
               <td class="text-left" rowspan="1" colspan="1">osc.x.m</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not-sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_y</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_y</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not-sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_oldnonce</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_oldnonce</td>
               <td class="text-left" rowspan="1" colspan="1">osc.y.w</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not-sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_flags</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_flags</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
@@ -4699,9 +4376,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_piv</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_piv</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
@@ -4711,9 +4386,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_kid</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_kid</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
@@ -4723,9 +4396,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Proxy-Scheme</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Proxy-Scheme</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
@@ -4765,9 +4436,7 @@ Compressed message length: 7 bytes
           </thead>
           <tbody>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Version</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Version</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -4777,9 +4446,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Type</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Type</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
@@ -4789,25 +4456,17 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Type</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Type</td>
               <td class="text-left" rowspan="1" colspan="1">2</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
-              <td class="text-left" rowspan="1" colspan="1">[0,2]</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>match-</code> <br> <code>mapping</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>mapping-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">[0, 2]</td>
+              <td class="text-left" rowspan="1" colspan="1">match- <br> mapping</td>
+              <td class="text-left" rowspan="1" colspan="1">mapping- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1">T</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>TKL</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> TKL</td>
               <td class="text-left" rowspan="1" colspan="1">4</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -4817,9 +4476,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Code</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Code</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
@@ -4829,9 +4486,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Code</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Code</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
@@ -4841,9 +4496,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>MID</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> MID</td>
               <td class="text-left" rowspan="1" colspan="1">16</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -4853,9 +4506,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1">MMMM</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Token</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Token</td>
               <td class="text-left" rowspan="1" colspan="1">tkl</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -4865,25 +4516,17 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1">TTT</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>Uri-Host</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>var</code> <br> <code>(B)</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> Uri-Host</td>
+              <td class="text-left" rowspan="1" colspan="1">var <br> (B)</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
               <td class="text-left" rowspan="1" colspan="1">ignore</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>value-</code> <br> <code>sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">value- <br> sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_flags</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_flags</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
@@ -4893,10 +4536,8 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_piv</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">var</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_piv</td>
+              <td class="text-left" rowspan="1" colspan="1">var <br> (b)</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1">0x00</td>
@@ -4905,10 +4546,8 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1">PPPP</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_kid</code>
-</td>
-              <td class="text-left" rowspan="1" colspan="1">var</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_kid</td>
+              <td class="text-left" rowspan="1" colspan="1">var <br> (b)</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1">0x0000</td>
@@ -4917,9 +4556,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1">KKKK</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_kidctx</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_kidctx</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
@@ -4929,65 +4566,47 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_x</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_x</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not-sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_nonce</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_nonce</td>
               <td class="text-left" rowspan="1" colspan="1">osc.x.m</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not-sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_y</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_y</td>
               <td class="text-left" rowspan="1" colspan="1">8</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not-sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_oldnonce</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_oldnonce</td>
               <td class="text-left" rowspan="1" colspan="1">osc.y.w</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
               <td class="text-left" rowspan="1" colspan="1">b''</td>
               <td class="text-left" rowspan="1" colspan="1">equal</td>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>not-sent</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">not-sent</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_flags</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_flags</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
@@ -4997,9 +4616,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_piv</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_piv</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
@@ -5009,9 +4626,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">
-                <code>CoAP</code> <br> <code>OSCORE_kid</code>
-</td>
+              <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_kid</td>
               <td class="text-left" rowspan="1" colspan="1">var</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Dw</td>
@@ -5292,7 +4907,7 @@ Compressed message:
 
 Compression Residue (107 bits -&gt; 14 bytes with padding)
 0b 0001 010    1011  |  0x6578616d706c652e636f6d  |  0b 0100 0101
-    mid tkn  Uri-Host  (residue size and residue)        piv  kid
+    mid tkn  Uri-Host (residue size and residue)         piv  kid
 
 Payload
 0xa2cfc54fe1b434297b62 (10 bytes)
@@ -5369,7 +4984,7 @@ Compressed message:
 
 Compression Residue (107 bits -&gt; 14 bytes with padding)
 0b 0100 101    1011  |  0x6578616d706c652e636f6d  |  0b 0100 0101
-    mid tkn  Uri-Host  (residue size and residue)        piv  kid
+    mid tkn  Uri-Host (residue size and residue)         piv  kid
 
 Payload
 0xa2cfc54fe1b434297b62 (10 bytes)
@@ -5553,8 +5168,8 @@ Compressed message length: 16 bytes
 </td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">CoAP TKL</td>
-            <td class="text-left" rowspan="1" colspan="1">CoAP header field TKL <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span><span>[<a href="#RFC8974" class="cite xref">RFC8974</a>]</span>
+            <td class="text-left" rowspan="1" colspan="1">CoAP Token Length (TKL)</td>
+            <td class="text-left" rowspan="1" colspan="1">CoAP header field Token Length (TKL) <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span><span>[<a href="#RFC8974" class="cite xref">RFC8974</a>]</span>
 </td>
           </tr>
           <tr>
@@ -5723,8 +5338,8 @@ Compressed message length: 16 bytes
 </td>
           </tr>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">CoAP Proxy-CRI</td>
-            <td class="text-left" rowspan="1" colspan="1">CoAP option Proxy-CRI <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>
+            <td class="text-left" rowspan="1" colspan="1">CoAP Proxy-Cri</td>
+            <td class="text-left" rowspan="1" colspan="1">CoAP option Proxy-Cri <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>
 </td>
           </tr>
           <tr>
@@ -5838,7 +5453,7 @@ Compressed message length: 16 bytes
             <p id="section-13.2-2.3.1">Prefix: schc-coap<a href="#section-13.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-13.2-2.4">
-            <p id="section-13.2-2.4.1">Reference: RFC YYYY<a href="#section-13.2-2.4.1" class="pilcrow">¶</a></p>
+            <p id="section-13.2-2.4.1">Reference: [RFC-XXXX]<a href="#section-13.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -5903,7 +5518,7 @@ Compressed message length: 16 bytes
 <li class="normal" id="section-13.4-3.1">
             <p id="section-13.4-3.1.1">Point squatting should be discouraged. Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered and that the point is likely to be used in deployments.<a href="#section-13.4-3.1.1" class="pilcrow">¶</a></p>
 <p id="section-13.4-3.1.2">
-Specifically, for every CoAP field, only one corresponding registry entry is allowed. Also, for a every CoAP subfield, only one corresponding registry entry is allowed.<a href="#section-13.4-3.1.2" class="pilcrow">¶</a></p>
+Specifically, for every CoAP field, only one corresponding registry entry is allowed. Also, for every CoAP subfield, only one corresponding registry entry is allowed.<a href="#section-13.4-3.1.2" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-13.4-3.2">
             <p id="section-13.4-3.2.1">Consistent with the "Specification Required" registration policy, specifications should exist, but early assignment before a specification is available is considered to be permissible. When specifications are not provided, the description provided needs to have sufficient information to identify what the point is being used for.<a href="#section-13.4-3.2.1" class="pilcrow">¶</a></p>
@@ -6115,7 +5730,7 @@ module ietf-schc-coap {
   identity fid-coap-option-proxy-cri {
     base "schc:fid-coap-option";
     description
-      "Proxy-CRI option.";
+      "Proxy-Cri option.";
     reference
       "RFC XXXX Constrained Resource Identifiers";
   }
@@ -6302,7 +5917,7 @@ module ietf-schc-coap {
         </h3>
 <ul class="normal">
 <li class="normal" id="appendix-B.2-1.1">
-            <p id="appendix-B.2-1.1.1">Added compression for the CoAP options Proxy-CRI and Proxy-Scheme-Number.<a href="#appendix-B.2-1.1.1" class="pilcrow">¶</a></p>
+            <p id="appendix-B.2-1.1.1">Added compression for the CoAP options Proxy-Cri and Proxy-Scheme-Number.<a href="#appendix-B.2-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-B.2-1.2">
             <p id="appendix-B.2-1.2.1">Defined new IANA registry "SCHC Compression of CoAP Fields".<a href="#appendix-B.2-1.2.1" class="pilcrow">¶</a></p>
