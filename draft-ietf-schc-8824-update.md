@@ -1031,19 +1031,27 @@ The Outer Rule of {{table-Outer-Rules}} is applied to the example GET request an
 ~~~~~~~~~~~
 Compressed message:
 ==================
-0x011489458a9fc3686852f6c4 (12 bytes)
+0x01148889458a9fc3686852f6c4 (13 bytes)
 0x01 RuleID
-    1489 Compression Residue
-        458a9fc3686852f6c4 Padded payload
+    148889 compression residue
+          458a9fc3686852f6c4 padded payload
 
 Compression Residue:
-0b 0001 010 0100 0100 (15 bits -> 2 bytes with padding)
-    mid tkn piv  kid
+0b 0001 010
+    mid tkn
+
+   0100 0100
+         piv (residue size and residue)
+
+   0100 0100
+         kid (residue size and residue)
+
+   (23 bits -> 3 bytes with padding)
 
 Payload
 0xa2c54fe1b434297b62 (9 bytes)
 
-Compressed message length: 12 bytes
+Compressed message length: 13 bytes
 ~~~~~~~~~~~
 {: #fig-Compressed-GET title="SCHC-OSCORE Compressed GET Request"}
 
@@ -1054,6 +1062,7 @@ Compressed message:
 0x01 RuleID
     14 Compression Residue
       218daf84d983d35de7e48c3c1852 Padded payload
+
 Compression Residue:
 0b0001 010 (7 bits -> 1 byte with padding)
    mid tkn
@@ -1318,7 +1327,7 @@ Compressed message:
                                 and padded payload
 
 Compression Residue (101 bits -> 13 bytes with padding)
-0b   00 0001 010    1011  |  0x6578616d706c652e636f6d
+0b   00 0001 010      1011  |  0x6578616d706c652e636f6d
    code  mid tkn  Uri-Host (residue size and residue)
 
 Compressed message length: 14 bytes
@@ -1377,7 +1386,7 @@ Compressed message to forward:
 
 
 Compression Residue (101 bits -> 13 bytes with padding)
-0b   00 0100 101    1011  |  0x6578616d706c652e636f6d
+0b   00 0100 101      1011  |  0x6578616d706c652e636f6d
    code  mid tkn  Uri-Host (residue size and residue)
 
 Compressed message length: 14 bytes
@@ -1720,21 +1729,29 @@ Then, the Device applies the Rule in {{fig-rules-oscore-device-proxy}} shared wi
 
 Compressed message:
 =================
-0x03156caf0c2dae0d8ca5cc6deda8b459f8a9fc3686852f6c40 (25 bytes)
+0x03156caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 (26 bytes)
 0x03 RuleID
-    156caf0c2dae0d8ca5cc6deda8b459f8a9fc3686852f6c40 compression
-                                                     residue and
-                                                     padded payload
+    156caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 compression
+                                                       residue and
+                                                       padded payload
 
 
-Compression Residue (107 bits -> 14 bytes with padding)
-0b 0001 010    1011  |  0x6578616d706c652e636f6d  |  0b 0100 0101
-    mid tkn  Uri-Host (residue size and residue)         piv  kid
+Compression Residue
+0b 0001 010      1011  |  0x6578616d706c652e636f6d  |
+    mid tkn  Uri-Host (residue size and residue)
+
+0b 0100 0100
+         piv (residue size and residue)
+
+   0100 0101
+         kid (residue size and residue)
+
+   (115 bits -> 15 bytes with padding)
 
 Payload
 0xa2cfc54fe1b434297b62 (10 bytes)
 
-Compressed message length: 25 bytes
+Compressed message length: 26 bytes
 
 ~~~~~~~~~~~
 {: #fig-example-oscore-req-to-proxy title="SCHC-OSCORE CoAP GET Request Compressed for the Proxy" artwork-align="left"}
@@ -1790,21 +1807,30 @@ Then, the proxy applies the Rule in {{fig-rules-oscore-proxy-server}} shared wit
 
 Compressed message:
 =================
-0x044b6caf0c2dae0d8ca5cc6deda8b459f8a9fc3686852f6c40 (25 bytes)
+0x044b6caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 (26 bytes)
 0x04 RuleID
-    4b6caf0c2dae0d8ca5cc6deda8b459f8a9fc3686852f6c40 compression
-                                                     residue and
-                                                     padded payload
+    4b6caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 compression
+                                                       residue and
+                                                       padded payload
 
 
-Compression Residue (107 bits -> 14 bytes with padding)
-0b 0100 101    1011  |  0x6578616d706c652e636f6d  |  0b 0100 0101
-    mid tkn  Uri-Host (residue size and residue)         piv  kid
+Compression Residue
+0b 0100 101      1011  |  0x6578616d706c652e636f6d
+    mid tkn  Uri-Host (residue size and residue)
+
+0b 0100 0100
+         piv (residue size and residue)
+
+0b 0100 0101
+         kid (residue size and residue)
+
+   (115 bits -> 15 bytes with padding)
+
 
 Payload
 0xa2cfc54fe1b434297b62 (10 bytes)
 
-Compressed message length: 25 bytes
+Compressed message length: 26 bytes
 
 ~~~~~~~~~~~
 {: #fig-example-oscore-req-from-proxy-compressed title="SCHC-OSCORE CoAP GET Request Forwarded by the Proxy" artwork-align="left"}
@@ -2300,6 +2326,8 @@ module ietf-schc-coap {
 * Split the compression of Token Length and Token into two sections.
 
 * Disambiguated example of Rule on eliding a Uri-Path option.
+
+* Fixed compression examples with OSCORE.
 
 * Inherited security considerations on the YANG module from RFC 9363.
 
