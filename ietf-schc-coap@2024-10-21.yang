@@ -50,7 +50,7 @@ module ietf-schc-coap {
   identity fid-coap-option-proxy-cri {
     base "schc:fid-coap-option";
     description
-      "Proxy-CRI option.";
+      "Proxy-Cri option.";
     reference
       "RFC XXXX Constrained Resource Identifiers";
   }
