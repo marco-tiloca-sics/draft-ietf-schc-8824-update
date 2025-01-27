@@ -2012,7 +2012,7 @@ The Device decrypts and verifies such a response, which results in the same Comp
 | CoAP Request-Tag         | CoAP option Request-Tag {{RFC9175}}                                                |
 | CoAP Q-Block1            | CoAP option Q-Block1 {{RFC9177}}                                                   |
 | CoAP Q-Block2            | CoAP option Q-Block2 {{RFC9177}}                                                   |
-| CoAP EDHOC               | CoAP option EDHOC {{RFC9668}}                                   |
+| CoAP EDHOC               | CoAP option EDHOC {{RFC9668}}                                                      |
 {: #table-coap-fields title="CoAP Fields" align="center"}
 
 # Security Considerations
