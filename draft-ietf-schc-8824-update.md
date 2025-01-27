@@ -72,7 +72,7 @@ normative:
   RFC9175:
   RFC9177:
   RFC9363:
-  I-D.ietf-core-oscore-edhoc:
+  RFC9668:
   I-D.ietf-core-oscore-groupcomm:
   I-D.ietf-core-oscore-key-update:
   I-D.ietf-core-href:
@@ -428,7 +428,7 @@ When a CoAP message uses the Request-Tag Option, SCHC compression MAY send its c
 
 ## CoAP Option EDHOC Field ## {#coap-options-edhoc}
 
-The EDHOC field is an option defined in {{I-D.ietf-core-oscore-edhoc}} that a client can include in a CoAP request, in order to perform an optimized, shortened execution of the authenticated key exchange protocol EDHOC {{RFC9528}}. Such a request conveys both the final EDHOC message and actual application data, where the latter is protected with OSCORE {{RFC8613}} using a Security Context derived from the result of the current EDHOC execution.
+The EDHOC field is an option defined in {{RFC9668}} that a client can include in a CoAP request, in order to perform an optimized, shortened execution of the authenticated key exchange protocol EDHOC {{RFC9528}}. Such a request conveys both the final EDHOC message and actual application data, where the latter is protected with OSCORE {{RFC8613}} using a Security Context derived from the result of the current EDHOC execution.
 
 The EDHOC Option occurs at most once and is always empty. The SCHC Rule MUST describe an empty TV, with the MO set to "equal" and the CDA set to "not-sent".
 
@@ -2012,7 +2012,7 @@ The Device decrypts and verifies such a response, which results in the same Comp
 | CoAP Request-Tag         | CoAP option Request-Tag {{RFC9175}}                                                |
 | CoAP Q-Block1            | CoAP option Q-Block1 {{RFC9177}}                                                   |
 | CoAP Q-Block2            | CoAP option Q-Block2 {{RFC9177}}                                                   |
-| CoAP EDHOC               | CoAP option EDHOC {{I-D.ietf-core-oscore-edhoc}}                                   |
+| CoAP EDHOC               | CoAP option EDHOC {{RFC9668}}                                   |
 {: #table-coap-fields title="CoAP Fields" align="center"}
 
 # Security Considerations
@@ -2156,7 +2156,7 @@ module ietf-schc-coap {
      This module extends the ietf-schc module defined in RFC 9363 to
      include the new CoAP options as defined in RFC YYYY.";
 
-  revision 2024-10-21 {
+  revision 2025-03-03 {
     description
       "New CoAP extensions and extended OSCORE fields.";
     reference
@@ -2235,7 +2235,7 @@ module ietf-schc-coap {
     description
       "EDHOC option.";
     reference
-      "RFC XXXX Using Ephemeral Diffie-Hellman Over COSE (EDHOC)
+      "RFC 9668 Using Ephemeral Diffie-Hellman Over COSE (EDHOC)
                 with the Constrained Application Protocol (CoAP)
                 and Object Security for Constrained RESTful
                 Environments (OSCORE)";
@@ -2322,6 +2322,8 @@ module ietf-schc-coap {
 ## Version -03 to -04 ## {#sec-03-04}
 
 * Use "bit" instead of "b" as symbol for bit (per ISO/IEC 80000-13).
+
+* Updated references.
 
 * Fixes and editorial improvements.
 
