@@ -6,11 +6,11 @@ SCHC Working Group                                             M. Tiloca
 Internet-Draft                                                   RISE AB
 Obsoletes: 8824 (if approved)                                 L. Toutain
 Intended status: Standards Track                          IMT Atlantique
-Expires: 24 April 2025                                       I. Martinez
+Expires: 31 July 2025                                        I. Martinez
                                                          Nokia Bell Labs
                                                              A. Minaburo
                                                               Consultant
-                                                         21 October 2024
+                                                         27 January 2025
 
 
 Static Context Header Compression (SCHC) for the Constrained Application
@@ -61,11 +61,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 April 2025.
+   This Internet-Draft will expire on 31 July 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -137,9 +137,10 @@ Table of Contents
      14.2.  Informative References
    Appendix A.  YANG Data Model
    Appendix B.  Document Updates
-     B.1.  Version -02 to -03
-     B.2.  Version -01 to -02
-     B.3.  Version -00 to -01
+     B.1.  Version -03 to -04
+     B.2.  Version -02 to -03
+     B.3.  Version -01 to -02
+     B.4.  Version -00 to -01
    Acknowledgments
    Authors' Addresses
 
@@ -1639,10 +1640,10 @@ Table of Contents
    | OSCORE_flags    |         |  |  |          |         |sent|      |
    +-----------------+---------+--+--+----------+---------+----+------+
    | CoAP            | var     |1 |Up| 0x00     | MSB(4)  |LSB |PPPP  |
-   | OSCORE_piv      | (b)     |  |  |          |         |    |      |
+   | OSCORE_piv      | (bit)   |  |  |          |         |    |      |
    +-----------------+---------+--+--+----------+---------+----+------+
    | CoAP            | var     |1 |Up| 0x636c69 | MSB(44) |LSB |KKKK  |
-   | OSCORE_kid      | (b)     |  |  | 656e70   |         |    |      |
+   | OSCORE_kid      | (bit)   |  |  | 656e70   |         |    |      |
    +-----------------+---------+--+--+----------+---------+----+------+
    | CoAP            | var     |1 |Bi| b''      | equal   |not-|      |
    | OSCORE_kidctx   |         |  |  |          |         |sent|      |
@@ -2428,10 +2429,10 @@ Table of Contents
    | OSCORE_flags    |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |var    |1 |Up|0x00  | MSB(4)  | LSB      |PPPP  |
-   | OSCORE_piv      |(b)    |  |  |      |         |          |      |
+   | OSCORE_piv      |(bit)  |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |var    |1 |Up|0x0000| MSB(12) | LSB      |KKKK  |
-   | OSCORE_kid      |(b)    |  |  |      |         |          |      |
+   | OSCORE_kid      |(bit)  |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |var    |1 |Bi|b''   | equal   | not-sent |      |
    | OSCORE_kidctx   |       |  |  |      |         |          |      |
@@ -2507,10 +2508,10 @@ Table of Contents
    | OSCORE_flags    |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |var    |1 |Up|0x00  | MSB(4)  | LSB      |PPPP  |
-   | OSCORE_piv      |(b)    |  |  |      |         |          |      |
+   | OSCORE_piv      |(bit)  |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |var    |1 |Up|0x0000| MSB(12) | LSB      |KKKK  |
-   | OSCORE_kid      |(b)    |  |  |      |         |          |      |
+   | OSCORE_kid      |(bit)  |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |var    |1 |Bi|b''   | equal   | not-sent |      |
    | OSCORE_kidctx   |       |  |  |      |         |          |      |
@@ -3295,9 +3296,9 @@ Table of Contents
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-16, 24 July 2024,
+              ietf-core-href-17, 24 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-16>.
+              href-17>.
 
    [I-D.ietf-core-oscore-edhoc]
               Palombini, F., Tiloca, M., Höglund, R., Hristozov, S., and
@@ -3320,9 +3321,9 @@ Table of Contents
    [I-D.ietf-core-oscore-key-update]
               Höglund, R. and M. Tiloca, "Key Update for OSCORE
               (KUDOS)", Work in Progress, Internet-Draft, draft-ietf-
-              core-oscore-key-update-08, 8 July 2024,
+              core-oscore-key-update-09, 21 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              oscore-key-update-08>.
+              oscore-key-update-09>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -3430,8 +3431,9 @@ Table of Contents
               Dijk, E., Wang, C., and M. Tiloca, "Group Communication
               for the Constrained Application Protocol (CoAP)", Work in
               Progress, Internet-Draft, draft-ietf-core-groupcomm-bis-
-              11, 24 April 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-core-groupcomm-bis-11>.
+              12, 21 October 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-core-
+              groupcomm-bis-12>.
 
    [RFC8824]  Minaburo, A., Toutain, L., and R. Andreasen, "Static
               Context Header Compression (SCHC) for the Constrained
@@ -3656,7 +3658,13 @@ Appendix B.  Document Updates
 
    This section is to be removed before publishing as an RFC.
 
-B.1.  Version -02 to -03
+B.1.  Version -03 to -04
+
+   *  Use "bit" instead of "b" as symbol for bit (per ISO/IEC 80000-13).
+
+   *  Fixes and editorial improvements.
+
+B.2.  Version -02 to -03
 
    *  Consistent representation of "CoAP Version" 1 in example Rules.
 
@@ -3671,7 +3679,7 @@ B.1.  Version -02 to -03
 
    *  Fixes and editorial improvements.
 
-B.2.  Version -01 to -02
+B.3.  Version -01 to -02
 
    *  Added compression for the CoAP options Proxy-Cri and Proxy-Scheme-
       Number.
@@ -3682,7 +3690,7 @@ B.2.  Version -01 to -02
 
    *  Fixes and editorial improvements.
 
-B.3.  Version -00 to -01
+B.4.  Version -00 to -01
 
    *  Fixed an example, as per the erratum with Errata ID 7623.
 
