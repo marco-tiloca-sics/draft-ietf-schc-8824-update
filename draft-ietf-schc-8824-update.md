@@ -2033,7 +2033,7 @@ SCHC header compression Rules MUST remain tightly coupled between the compressor
 
 ## YANG Module {#sec-security-considerations-yang-module}
 
-The YANG data model defined in Appendix A extends the ietf-schc module defined in {{RFC9363}}.
+The YANG data model defined in {{sec-yang-module}} extends the ietf-schc module defined in {{RFC9363}}.
 
 Therefore, all the security considerations compiled in {{Section 8 of RFC9363}} apply to the resulting, extended YANG data model as well.
 
