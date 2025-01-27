@@ -835,13 +835,13 @@ Table of Contents
 
 5.12.  CoAP Option EDHOC Field
 
-   The EDHOC field is an option defined in [I-D.ietf-core-oscore-edhoc]
-   that a client can include in a CoAP request, in order to perform an
-   optimized, shortened execution of the authenticated key exchange
-   protocol EDHOC [RFC9528].  Such a request conveys both the final
-   EDHOC message and actual application data, where the latter is
-   protected with OSCORE [RFC8613] using a Security Context derived from
-   the result of the current EDHOC execution.
+   The EDHOC field is an option defined in [RFC9668] that a client can
+   include in a CoAP request, in order to perform an optimized,
+   shortened execution of the authenticated key exchange protocol EDHOC
+   [RFC9528].  Such a request conveys both the final EDHOC message and
+   actual application data, where the latter is protected with OSCORE
+   [RFC8613] using a Security Context derived from the result of the
+   current EDHOC execution.
 
    The EDHOC Option occurs at most once and is always empty.  The SCHC
    Rule MUST describe an empty TV, with the MO set to "equal" and the
@@ -3083,8 +3083,7 @@ Table of Contents
    +---------------------+--------------------------------------------+
    | CoAP Q-Block2       | CoAP option Q-Block2 [RFC9177]             |
    +---------------------+--------------------------------------------+
-   | CoAP EDHOC          | CoAP option EDHOC                          |
-   |                     | [I-D.ietf-core-oscore-edhoc]               |
+   | CoAP EDHOC          | CoAP option EDHOC [RFC9668]                |
    +---------------------+--------------------------------------------+
 
                           Table 12: CoAP Fields
@@ -3300,16 +3299,6 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
               href-17>.
 
-   [I-D.ietf-core-oscore-edhoc]
-              Palombini, F., Tiloca, M., Höglund, R., Hristozov, S., and
-              G. Selander, "Using Ephemeral Diffie-Hellman Over COSE
-              (EDHOC) with the Constrained Application Protocol (CoAP)
-              and Object Security for Constrained RESTful Environments
-              (OSCORE)", Work in Progress, Internet-Draft, draft-ietf-
-              core-oscore-edhoc-11, 9 April 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              oscore-edhoc-11>.
-
    [I-D.ietf-core-oscore-groupcomm]
               Tiloca, M., Selander, G., Palombini, F., Mattsson, J. P.,
               and R. Höglund, "Group Object Security for Constrained
@@ -3425,6 +3414,13 @@ Table of Contents
               DOI 10.17487/RFC9363, March 2023,
               <https://www.rfc-editor.org/rfc/rfc9363>.
 
+   [RFC9668]  Palombini, F., Tiloca, M., Höglund, R., Hristozov, S., and
+              G. Selander, "Using Ephemeral Diffie-Hellman Over COSE
+              (EDHOC) with the Constrained Application Protocol (CoAP)
+              and Object Security for Constrained RESTful Environments
+              (OSCORE)", RFC 9668, DOI 10.17487/RFC9668, November 2024,
+              <https://www.rfc-editor.org/rfc/rfc9668>.
+
 14.2.  Informative References
 
    [I-D.ietf-core-groupcomm-bis]
@@ -3496,7 +3492,7 @@ Appendix A.  YANG Data Model
         This module extends the ietf-schc module defined in RFC 9363 to
         include the new CoAP options as defined in RFC YYYY.";
 
-     revision 2024-10-21 {
+     revision 2025-03-03 {
        description
          "New CoAP extensions and extended OSCORE fields.";
        reference
@@ -3575,7 +3571,7 @@ Appendix A.  YANG Data Model
        description
          "EDHOC option.";
        reference
-         "RFC XXXX Using Ephemeral Diffie-Hellman Over COSE (EDHOC)
+         "RFC 9668 Using Ephemeral Diffie-Hellman Over COSE (EDHOC)
                    with the Constrained Application Protocol (CoAP)
                    and Object Security for Constrained RESTful
                    Environments (OSCORE)";
@@ -3661,6 +3657,8 @@ Appendix B.  Document Updates
 B.1.  Version -03 to -04
 
    *  Use "bit" instead of "b" as symbol for bit (per ISO/IEC 80000-13).
+
+   *  Updated references.
 
    *  Fixes and editorial improvements.
 

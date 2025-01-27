@@ -2053,7 +2053,7 @@ However, this adds 4 bits to the variable Compression Residue size (see <span><a
         <h3 id="name-coap-option-edhoc-field">
 <a href="#section-5.12" class="section-number selfRef">5.12. </a><a href="#name-coap-option-edhoc-field" class="section-name selfRef">CoAP Option EDHOC Field</a>
         </h3>
-<p id="section-5.12-1">The EDHOC field is an option defined in <span>[<a href="#I-D.ietf-core-oscore-edhoc" class="cite xref">I-D.ietf-core-oscore-edhoc</a>]</span> that a client can include in a CoAP request, in order to perform an optimized, shortened execution of the authenticated key exchange protocol EDHOC <span>[<a href="#RFC9528" class="cite xref">RFC9528</a>]</span>. Such a request conveys both the final EDHOC message and actual application data, where the latter is protected with OSCORE <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span> using a Security Context derived from the result of the current EDHOC execution.<a href="#section-5.12-1" class="pilcrow">¶</a></p>
+<p id="section-5.12-1">The EDHOC field is an option defined in <span>[<a href="#RFC9668" class="cite xref">RFC9668</a>]</span> that a client can include in a CoAP request, in order to perform an optimized, shortened execution of the authenticated key exchange protocol EDHOC <span>[<a href="#RFC9528" class="cite xref">RFC9528</a>]</span>. Such a request conveys both the final EDHOC message and actual application data, where the latter is protected with OSCORE <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span> using a Security Context derived from the result of the current EDHOC execution.<a href="#section-5.12-1" class="pilcrow">¶</a></p>
 <p id="section-5.12-2">The EDHOC Option occurs at most once and is always empty. The SCHC Rule <span class="bcp14">MUST</span> describe an empty TV, with the MO set to "equal" and the CDA set to "not-sent".<a href="#section-5.12-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -5428,7 +5428,7 @@ Compressed message length: 16 bytes
           </tr>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">CoAP EDHOC</td>
-            <td class="text-left" rowspan="1" colspan="1">CoAP option EDHOC <span>[<a href="#I-D.ietf-core-oscore-edhoc" class="cite xref">I-D.ietf-core-oscore-edhoc</a>]</span>
+            <td class="text-left" rowspan="1" colspan="1">CoAP option EDHOC <span>[<a href="#RFC9668" class="cite xref">RFC9668</a>]</span>
 </td>
           </tr>
         </tbody>
@@ -5593,10 +5593,6 @@ Specifically, for every CoAP field, only one corresponding registry entry is all
         <dd>
 <span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Constrained Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-href-17</span>, <time datetime="2025-01-24" class="refDate">24 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-17">https://datatracker.ietf.org/doc/html/draft-ietf-core-href-17</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="I-D.ietf-core-oscore-edhoc">[I-D.ietf-core-oscore-edhoc]</dt>
-        <dd>
-<span class="refAuthor">Palombini, F.</span>, <span class="refAuthor">Tiloca, M.</span>, <span class="refAuthor">Höglund, R.</span>, <span class="refAuthor">Hristozov, S.</span>, and <span class="refAuthor">G. Selander</span>, <span class="refTitle">"Using Ephemeral Diffie-Hellman Over COSE (EDHOC) with the Constrained Application Protocol (CoAP) and Object Security for Constrained RESTful Environments (OSCORE)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-oscore-edhoc-11</span>, <time datetime="2024-04-09" class="refDate">9 April 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-oscore-edhoc-11">https://datatracker.ietf.org/doc/html/draft-ietf-core-oscore-edhoc-11</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.ietf-core-oscore-groupcomm">[I-D.ietf-core-oscore-groupcomm]</dt>
         <dd>
 <span class="refAuthor">Tiloca, M.</span>, <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Palombini, F.</span>, <span class="refAuthor">Mattsson, J. P.</span>, and <span class="refAuthor">R. Höglund</span>, <span class="refTitle">"Group Object Security for Constrained RESTful Environments (Group OSCORE)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-oscore-groupcomm-23</span>, <time datetime="2024-09-26" class="refDate">26 September 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-oscore-groupcomm-23">https://datatracker.ietf.org/doc/html/draft-ietf-core-oscore-groupcomm-23</a>&gt;</span>. </dd>
@@ -5682,8 +5678,12 @@ Specifically, for every CoAP field, only one corresponding registry entry is all
 <span class="refAuthor">Boucadair, M.</span> and <span class="refAuthor">J. Shallow</span>, <span class="refTitle">"Constrained Application Protocol (CoAP) Block-Wise Transfer Options Supporting Robust Transmission"</span>, <span class="seriesInfo">RFC 9177</span>, <span class="seriesInfo">DOI 10.17487/RFC9177</span>, <time datetime="2022-03" class="refDate">March 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9177">https://www.rfc-editor.org/rfc/rfc9177</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9363">[RFC9363]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Minaburo, A.</span> and <span class="refAuthor">L. Toutain</span>, <span class="refTitle">"A YANG Data Model for Static Context Header Compression (SCHC)"</span>, <span class="seriesInfo">RFC 9363</span>, <span class="seriesInfo">DOI 10.17487/RFC9363</span>, <time datetime="2023-03" class="refDate">March 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9363">https://www.rfc-editor.org/rfc/rfc9363</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9668">[RFC9668]</dt>
+      <dd>
+<span class="refAuthor">Palombini, F.</span>, <span class="refAuthor">Tiloca, M.</span>, <span class="refAuthor">Höglund, R.</span>, <span class="refAuthor">Hristozov, S.</span>, and <span class="refAuthor">G. Selander</span>, <span class="refTitle">"Using Ephemeral Diffie-Hellman Over COSE (EDHOC) with the Constrained Application Protocol (CoAP) and Object Security for Constrained RESTful Environments (OSCORE)"</span>, <span class="seriesInfo">RFC 9668</span>, <span class="seriesInfo">DOI 10.17487/RFC9668</span>, <time datetime="2024-11" class="refDate">November 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9668">https://www.rfc-editor.org/rfc/rfc9668</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -5765,7 +5765,7 @@ module ietf-schc-coap {
      This module extends the ietf-schc module defined in RFC 9363 to
      include the new CoAP options as defined in RFC YYYY.";
 
-  revision 2024-10-21 {
+  revision 2025-03-03 {
     description
       "New CoAP extensions and extended OSCORE fields.";
     reference
@@ -5844,7 +5844,7 @@ module ietf-schc-coap {
     description
       "EDHOC option.";
     reference
-      "RFC XXXX Using Ephemeral Diffie-Hellman Over COSE (EDHOC)
+      "RFC 9668 Using Ephemeral Diffie-Hellman Over COSE (EDHOC)
                 with the Constrained Application Protocol (CoAP)
                 and Object Security for Constrained RESTful
                 Environments (OSCORE)";
@@ -5945,7 +5945,10 @@ module ietf-schc-coap {
             <p id="appendix-B.1-1.1.1">Use "bit" instead of "b" as symbol for bit (per ISO/IEC 80000-13).<a href="#appendix-B.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-B.1-1.2">
-            <p id="appendix-B.1-1.2.1">Fixes and editorial improvements.<a href="#appendix-B.1-1.2.1" class="pilcrow">¶</a></p>
+            <p id="appendix-B.1-1.2.1">Updated references.<a href="#appendix-B.1-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-B.1-1.3">
+            <p id="appendix-B.1-1.3.1">Fixes and editorial improvements.<a href="#appendix-B.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
