@@ -302,7 +302,9 @@ SCHC can compress the Message ID field with the MSB MO and the LSB CDA (see {{Se
 
 A CoAP message fully specifies the Token by using two CoAP fields: the Token Length (TKL) field in the mandatory header (see {{ssec-coap-tkl-field}}) and the variable-length Token field that directly follows the mandatory CoAP header and specifies the Token value.
 
-For the Token field, SCHC MUST NOT send it as variable-size data in the Compression Residue, to avoid ambiguity with the Token Length field. Therefore, SCHC MUST use the value of the Token Length field to define the size of the Token field in the Compression Residue.
+For the Token field, SCHC MUST NOT send it as variable-size data in the Compression Residue. As a result, SCHC does not send the size of the residue resulting from the compression of the Token field, which is otherwise requested for variable-size fields when the CDA specified in the Field Descriptor is "value-sent" or LSB (see {{Section 7.4.2 of RFC8724}}). This avoids ambiguity with the Token Length field and results in a more efficient compression of the Token field.
+
+Therefore, SCHC MUST use the value of the Token Length field to define the size of the Token field in the Compression Residue.
 
 To this end, SCHC designates a specific function, "tkl", that the Rule MUST use to complete the Field Descriptor. During the decompression, this function returns the value contained in the Token Length field, hence the length of the Token field.
 
@@ -2320,6 +2322,8 @@ module ietf-schc-coap {
 {:removeinrfc}
 
 ## Version -03 to -04 ## {#sec-03-04}
+
+* Clarified the rationale for using the "tkl" function.
 
 * Use "bit" instead of "b" as symbol for bit (per ISO/IEC 80000-13).
 
