@@ -3472,7 +3472,7 @@ Appendix A.  YANG Data Model
    ietf-schc module defined in [RFC9363] to include the new CoAP options
    as defined in the present document.
 
-   <CODE BEGINS> file "ietf-schc-coap@2024-10-21.yang"
+   <CODE BEGINS> file "ietf-schc-coap@2025-03-03.yang"
    module ietf-schc-coap {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-schc-coap";
@@ -3685,6 +3685,8 @@ B.1.  Version -03 to -04
    *  Fixed format of TV in Rule Descriptors for CoAP MID.
 
    *  Use "bit" instead of "b" as symbol for bit (per ISO/IEC 80000-13).
+
+   *  Make YANG extractable.
 
    *  Updated references.
 
