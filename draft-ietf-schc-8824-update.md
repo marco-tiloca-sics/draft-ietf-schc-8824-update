@@ -2328,7 +2328,7 @@ module ietf-schc-coap {
 
 * Use "bit" instead of "b" as symbol for bit (per ISO/IEC 80000-13).
 
-* Make YANG extractable.
+* Made YANG extractable.
 
 * Updated references.
 
