@@ -136,7 +136,7 @@ In particular, this documents replaces and obsoletes {{RFC8824}} as follows.
 
 * It defines the SCHC compression for the recently defined CoAP options Echo (see {{coap-options-echo}}), Request-Tag (see {{coap-options-request-tag}}), EDHOC (see {{coap-options-edhoc}}), as well as Q-Block1 and Q-Block2 (see {{ssec-coap-extensions-block}}).
 
-* It updates the SCHC compression processing for the CoAP option OSCORE (see {{ssec-coap-extensions-oscore}}), in the light of recent developments related to the security protocol OSCORE as defined in {{I-D.ietf-core-oscore-key-update}} and {{I-D.ietf-core-oscore-groupcomm}}.
+* It updates the SCHC compression processing for the CoAP option OSCORE (see {{ssec-coap-extensions-oscore}}), also in the light of recent developments related to the security protocol OSCORE as defined in {{I-D.ietf-core-oscore-key-update}} and {{I-D.ietf-core-oscore-groupcomm}}.
 
 * It clarifies how the SCHC compression handles the CoAP payload marker (see {{payload-marker}}).
 
@@ -562,6 +562,12 @@ If a field is not present, then the corresponding Field Descriptor in the SCHC R
 
 In addition, the following applies.
 
+* If the piv field is present, SCHC MUST NOT send it as variable-size data in the Compression Residue. As a result, SCHC does not send the size of the residue resulting from the compression of the piv field, which is otherwise requested for variable-size fields when the CDA specified in the Field Descriptor is "value-sent" or LSB (see {{Section 7.4.2 of RFC8724}}).
+
+  Instead, SCHC MUST use the value of the n field from the first byte of the OSCORE Option to define the size of the piv field in the Compression Residue. To this end, SCHC designates a specific function, "osc.piv", that the Rule MUST use to complete the Field Descriptor. During the decompression, this function returns the value contained in the n field, hence the length of the piv field.
+
+  This construct avoids ambiguity with the n field and results in a more efficient compression of the piv field.
+
 * For the x field, if both endpoints know the value, then the corresponding Field Descriptor in the SCHC Rule describes the TV set to that value, with the MO set to "equal" and the CDA set to "not-sent". This models: the case where the x field is not present, and thus TV is set to b''; and the case where the two endpoints run KUDOS with a pre-agreed size of the nonce field as per the m sub-field of the x field, as well as with a pre-agreed combination of its modes of operation, as per the bits b and p of the x field.
 
    Otherwise, if the value changes over time, then the corresponding Field Descriptor in the SCHC Rule does not set the TV, while it sets the MO to "ignore" and the CDA to "value-sent". The Rule may also use a "match-mapping" MO to compress this field, in case the two endpoints pre-agree on a set of alternative ways to run KUDOS, with respect to the size of the nonce field and the combination of the KUDOS modes of operation to use.
@@ -615,7 +621,7 @@ In this first scenario, the SCHC compressor on the NGW side receives a POST mess
 | CoAP Type          | 2   | 1  | Up | \[ACK, <br> RST\]            | match- <br> mapping | mapping- <br> sent | T                  |
 | CoAP <br> TKL      | 4   | 1  | Bi | 0                            | equal               | not-sent           |                    |
 | CoAP Code          | 8   | 1  | Bi | \[0.00, <br> ... <br> 5.05\] | match- <br> mapping | mapping- <br> sent | CC CCC             |
-| CoAP <br> MID      | 16  | 1  | Bi | 0000                         | MSB(7)              | LSB                | MID                |
+| CoAP <br> MID      | 16  | 1  | Bi | 0x0000                       | MSB(7)              | LSB                | MID                |
 | CoAP <br> Uri-Path | var | 1  | Dw | "status"                     | equal               | not-sent           |                    |
 {: #table-CoAP-header-1 title="CoAP Context to compress header without Token" align="center"}
 
@@ -951,10 +957,10 @@ The Outer SCHC Rule shown in {{table-Outer-Rules}} is used, also to process the 
 | CoAP <br> TKL             | 4              | 1  | Bi | 1                    | equal   | not- <br> sent |                    |
 | CoAP <br> Code            | 8              | 1  | Up | 2                    | equal   | not- <br> sent |                    |
 | CoAP <br> Code            | 8              | 1  | Dw | 68                   | equal   | not- <br> sent |                    |
-| CoAP <br> MID             | 16             | 1  | Bi | 0000                 | MSB(12) | LSB            | MMMM               |
+| CoAP <br> MID             | 16             | 1  | Bi | 0x0000               | MSB(12) | LSB            | MMMM               |
 | CoAP <br> Token           | tkl            | 1  | Bi | 0x80                 | MSB(5)  | LSB            | TTT                |
 | CoAP <br> OSCORE_flags    | var            | 1  | Up | 0x09                 | equal   | not- <br> sent |                    |
-| CoAP <br> OSCORE_piv      | var <br> (bit) | 1  | Up | 0x00                 | MSB(4)  | LSB            | PPPP               |
+| CoAP <br> OSCORE_piv      | osc.piv        | 1  | Up | 0x00                 | MSB(4)  | LSB            | PPPP               |
 | CoAP <br> OSCORE_kid      | var <br> (bit) | 1  | Up | 0x636c69 <br> 656e70 | MSB(44) | LSB            | KKKK               |
 | CoAP <br> OSCORE_kidctx   | var            | 1  | Bi | b''                  | equal   | not- <br> sent |                    |
 | CoAP <br> OSCORE_x        | 8              | 1  | Bi | b''                  | equal   | not- <br> sent |                    |
@@ -1041,22 +1047,16 @@ The Outer Rule of {{table-Outer-Rules}} is applied to the example GET request an
 ~~~~~~~~~~~
 Compressed message:
 ==================
-0x01148889458a9fc3686852f6c4 (13 bytes)
+0x0114889458a9fc3686852f6c40 (13 bytes)
 0x01 RuleID
-    148889 compression residue
-          458a9fc3686852f6c4 padded payload
+    148894 compression residue
+          58a9fc3686852f6c40 padded payload
 
 Compression Residue:
-0b 0001 010
-    mid tkn
+0b0001 010 0100  0100 0100
+   mid tkn  piv   kid (residue size and residue)
 
-   0100 0100
-         piv (residue size and residue)
-
-   0100 0100
-         kid (residue size and residue)
-
-   (23 bits -> 3 bytes with padding)
+  (19 bits -> 3 bytes with padding)
 
 Payload
 0xa2c54fe1b434297b62 (9 bytes)
@@ -1098,7 +1098,7 @@ In contrast, the following compares these results with what would be obtained by
 | CoAP <br> TKL      | 4   | 1  | Bi | 1             | equal               | not-sent           |                    |
 | CoAP Code          | 8   | 1  | Up | 2             | equal               | not-sent           |                    |
 | CoAP Code          | 8   | 1  | Dw | \[69, 132\]   | match- <br> mapping | mapping- <br> sent | C                  |
-| CoAP <br> MID      | 16  | 1  | Bi | 0000          | MSB(12)             | LSB                | MMMM               |
+| CoAP <br> MID      | 16  | 1  | Bi | 0x0000        | MSB(12)             | LSB                | MMMM               |
 | CoAP Token         | tkl | 1  | Bi | 0x80          | MSB(5)              | LSB                | TTT                |
 | CoAP <br> Uri-Path |     | 1  | Up | "temperature" | equal               | not-sent           |                    |
 {: #table-NoOsc-Rules title="SCHC-CoAP Rule (No OSCORE)" align="center"}
@@ -1296,7 +1296,7 @@ The Device and the proxy share the SCHC Rule shown in {{fig-rules-device-proxy}}
 | CoAP <br> TKL          | 4            | 1  | Bi | 1                        | equal               | not-sent           |                    |
 | CoAP <br> Code         | 8            | 1  | Up | \[1, 2, <br> 3, 4\]      | match- <br> mapping | mapping- <br> sent | CC                 |
 | CoAP <br> Code         | 8            | 1  | Dw | \[65, 68, <br> 69, 132\] | match- <br> mapping | mapping- <br> sent | CC                 |
-| CoAP <br> MID          | 16           | 1  | Bi | 0x00                     | MSB(12)             | LSB                | MMMM               |
+| CoAP <br> MID          | 16           | 1  | Bi | 0x0000                   | MSB(12)             | LSB                | MMMM               |
 | CoAP <br> Token        | tkl          | 1  | Bi | 0x80                     | MSB(5)              | LSB                | TTT                |
 | CoAP <br> Uri-Host     | var <br> (B) | 1  | Up |                          | ignore              | value- <br> sent   |                    |
 | CoAP <br> Uri-Path     | var          | 1  | Up | "temperature"            | equal               | not-sent           |                    |
@@ -1319,7 +1319,7 @@ Instead, the proxy and the Application Server share the SCHC Rule shown in {{fig
 | CoAP <br> TKL      | 4            | 1  | Bi | 1                        | equal               | not-sent           |                    |
 | CoAP <br> Code     | 8            | 1  | Up | \[1, 2, <br> 3, 4\]      | match- <br> mapping | mapping- <br> sent | CC                 |
 | CoAP <br> Code     | 8            | 1  | Dw | \[65, 68, <br> 69, 132\] | match- <br> mapping | mapping- <br> sent | CC                 |
-| CoAP <br> MID      | 16           | 1  | Bi | 0x00                     | MSB(12)             | LSB                | MMMM               |
+| CoAP <br> MID      | 16           | 1  | Bi | 0x0000                   | MSB(12)             | LSB                | MMMM               |
 | CoAP <br> Token    | tkl          | 1  | Bi | 0x70                     | MSB(5)              | LSB                | TTT                |
 | CoAP <br> Uri-Host | var <br> (B) | 1  | Up |                          | ignore              | value- <br> sent   |                    |
 | CoAP <br> Uri-Path | var          | 1  | Up | "temperature"            | equal               | not-sent           |                    |
@@ -1522,11 +1522,11 @@ The Device and the proxy share the SCHC Rule shown in {{fig-rules-oscore-device-
 | CoAP <br> TKL             | 4              | 1  | Bi | 1        | equal               | not-sent           |                    |
 | CoAP <br> Code            | 8              | 1  | Up | 2        | equal               | not-sent           |                    |
 | CoAP <br> Code            | 8              | 1  | Dw | 68       | equal               | not-sent           |                    |
-| CoAP <br> MID             | 16             | 1  | Bi | 0x00     | MSB(12)             | LSB                | MMMM               |
+| CoAP <br> MID             | 16             | 1  | Bi | 0x0000   | MSB(12)             | LSB                | MMMM               |
 | CoAP <br> Token           | tkl            | 1  | Bi | 0x80     | MSB(5)              | LSB                | TTT                |
 | CoAP <br> Uri-Host        | var <br> (B)   | 1  | Up |          | ignore              | value- <br> sent   |                    |
 | CoAP <br> OSCORE_flags    | var            | 1  | Up | 0x09     | equal               | not-sent           |                    |
-| CoAP <br> OSCORE_piv      | var <br> (bit) | 1  | Up | 0x00     | MSB(4)              | LSB                | PPPP               |
+| CoAP <br> OSCORE_piv      | osc.piv        | 1  | Up | 0x00     | MSB(4)              | LSB                | PPPP               |
 | CoAP <br> OSCORE_kid      | var <br> (bit) | 1  | Up | 0x0000   | MSB(12)             | LSB                | KKKK               |
 | CoAP <br> OSCORE_kidctx   | var            | 1  | Bi | b''      | equal               | not-sent           |                    |
 | CoAP <br> OSCORE_x        | 8              | 1  | Bi | b''      | equal               | not-sent           |                    |
@@ -1555,11 +1555,11 @@ The proxy and the Application Server share the SCHC Rule shown in {{fig-rules-os
 | CoAP <br> TKL             | 4              | 1  | Bi | 1        | equal               | not-sent           |                    |
 | CoAP <br> Code            | 8              | 1  | Up | 2        | equal               | not-sent           |                    |
 | CoAP <br> Code            | 8              | 1  | Dw | 68       | equal               | not-sent           |                    |
-| CoAP <br> MID             | 16             | 1  | Bi | 0x00     | MSB(12)             | LSB                | MMMM               |
+| CoAP <br> MID             | 16             | 1  | Bi | 0x0000   | MSB(12)             | LSB                | MMMM               |
 | CoAP <br> Token           | tkl            | 1  | Bi | 0x70     | MSB(5)              | LSB                | TTT                |
 | CoAP <br> Uri-Host        | var <br> (B)   | 1  | Up |          | ignore              | value- <br> sent   |                    |
 | CoAP <br> OSCORE_flags    | var            | 1  | Up | 0x09     | equal               | not-sent           |                    |
-| CoAP <br> OSCORE_piv      | var <br> (bit) | 1  | Up | 0x00     | MSB(4)              | LSB                | PPPP               |
+| CoAP <br> OSCORE_piv      | osc.piv        | 1  | Up | 0x00     | MSB(4)              | LSB                | PPPP               |
 | CoAP <br> OSCORE_kid      | var <br> (bit) | 1  | Up | 0x0000   | MSB(12)             | LSB                | KKKK               |
 | CoAP <br> OSCORE_kidctx   | var            | 1  | Bi | b''      | equal               | not-sent           |                    |
 | CoAP <br> OSCORE_x        | 8              | 1  | Bi | b''      | equal               | not-sent           |                    |
@@ -1739,29 +1739,24 @@ Then, the Device applies the Rule in {{fig-rules-oscore-device-proxy}} shared wi
 
 Compressed message:
 =================
-0x03156caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 (26 bytes)
+0x03156caf0c2dae0d8ca5cc6deda88b459f8a9fc3686852f6c4 (25 bytes)
 0x03 RuleID
-    156caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 compression
-                                                       residue and
-                                                       padded payload
-
+    156caf0c2dae0d8ca5cc6deda88b compression residue
+                                459f8a9fc3686852f6c4 padded payload
 
 Compression Residue
-0b 0001 010      1011  |  0x6578616d706c652e636f6d  |
-    mid tkn  Uri-Host (residue size and residue)
+0b0001 010      1011 | 0x6578616d706c652e636f6d |
+   mid tkn  Uri-Host (residue size and residue)
 
-0b 0100 0100
-         piv (residue size and residue)
+0b0100  0100 0101
+   piv   kid (residue size and residue)
 
-   0100 0101
-         kid (residue size and residue)
-
-   (115 bits -> 15 bytes with padding)
+   (111 bits -> 14 bytes with padding)
 
 Payload
 0xa2cfc54fe1b434297b62 (10 bytes)
 
-Compressed message length: 26 bytes
+Compressed message length: 25 bytes
 
 ~~~~~~~~~~~
 {: #fig-example-oscore-req-to-proxy title="SCHC-OSCORE CoAP GET Request Compressed for the Proxy" artwork-align="left"}
@@ -1817,30 +1812,26 @@ Then, the proxy applies the Rule in {{fig-rules-oscore-proxy-server}} shared wit
 
 Compressed message:
 =================
-0x044b6caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 (26 bytes)
+0x044b6caf0c2dae0d8ca5cc6deda88b459f8a9fc3686852f6c4 (25 bytes)
 0x04 RuleID
-    4b6caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 compression
-                                                       residue and
-                                                       padded payload
+    4b6caf0c2dae0d8ca5cc6deda88b compression residue
+                                459f8a9fc3686852f6c4 padded payload
 
 
 Compression Residue
-0b 0100 101      1011  |  0x6578616d706c652e636f6d
-    mid tkn  Uri-Host (residue size and residue)
+0b0100 101      1011 | 0x6578616d706c652e636f6d |
+   mid tkn  Uri-Host (residue size and residue)
 
-0b 0100 0100
-         piv (residue size and residue)
+0b0100  0100 0101
+   piv   kid (residue size and residue)
 
-0b 0100 0101
-         kid (residue size and residue)
-
-   (115 bits -> 15 bytes with padding)
+   (111 bits -> 14 bytes with padding)
 
 
 Payload
 0xa2cfc54fe1b434297b62 (10 bytes)
 
-Compressed message length: 26 bytes
+Compressed message length: 25 bytes
 
 ~~~~~~~~~~~
 {: #fig-example-oscore-req-from-proxy-compressed title="SCHC-OSCORE CoAP GET Request Forwarded by the Proxy" artwork-align="left"}
@@ -2333,7 +2324,11 @@ module ietf-schc-coap {
 
 * Clarified the rationale for using the "tkl" function.
 
+* Added the "osc.piv" function to determine the length of the OSCORE piv field.
+
 * Consistent formulation of "tkl", "osc.x.m", and "osc.y.w".
+
+* Fixed format of TV in Rule Descriptors for CoAP MID.
 
 * Use "bit" instead of "b" as symbol for bit (per ISO/IEC 80000-13).
 
