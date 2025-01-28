@@ -2115,9 +2115,7 @@ If the expert becomes aware of a definition for SCHC compression of CoAP fields 
 
 This appendix defines the ietf-schc-coap module, which extends the ietf-schc module defined in {{RFC9363}} to include the new CoAP options as defined in the present document.
 
-~~~~~~~~~~~
-
-<CODE BEGINS> file "ietf-schc-coap@2024-10-21.yang"
+~~~~~~~~~~~ yang
 
 module ietf-schc-coap {
   yang-version 1.1;
@@ -2312,10 +2310,8 @@ module ietf-schc-coap {
   }
 }
 
-<CODE ENDS>
-
 ~~~~~~~~~~~
-{: #fig-yang-data-model title="SCHC CoAP Extension YANG Data Model" artwork-align="left"}
+{: sourcecode-name="ietf-schc-coap@2025-03-03.yang" sourcecode-markers="true" #fig-yang-data-model title="SCHC CoAP Extension YANG Data Model"}
 
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
@@ -2331,6 +2327,8 @@ module ietf-schc-coap {
 * Fixed format of TV in Rule Descriptors for CoAP MID.
 
 * Use "bit" instead of "b" as symbol for bit (per ISO/IEC 80000-13).
+
+* Make YANG extractable.
 
 * Updated references.
 
