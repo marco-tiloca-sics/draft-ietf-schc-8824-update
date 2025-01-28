@@ -501,7 +501,7 @@ If the seventh least significant bit z of the x field is set, it indicates that 
 +-+-+-+-+-+-+-+-+---+---+---+---+---+---+---+---+---------------------+
 |                                               |                     |
 |<------------------- CoAP -------------------->|<- CoAP OSCORE_piv ->|
-                   OSCORE_flags
+                  OSCORE_flags
 
  <- 1 byte -> <----------- s bytes ------------>
 +------------+----------------------------------+
@@ -570,29 +570,21 @@ In addition, the following applies.
 
    Otherwise, if the value changes over time, then the corresponding Field Descriptor in the SCHC Rule does not set the TV, while it sets the MO to "ignore" and the CDA to "value-sent". The Rule may also use a "match-mapping" MO to compress this field, in case the two endpoints pre-agree on a set of sizes of the old_nonce field.
 
-* For the nonce field, the following applies.
+* If the nonce field is present, then the corresponding Field Descriptor in the SCHC Rule has the TV not set, while the MO is set to "ignore" and the CDA is set to "value-sent".
 
-  - If the nonce field is not present (i.e., the x field is not present in the first place), then the corresponding Field Descriptor in the SCHC Rule describes the TV set to b'', with the MO set to "equal" and the CDA set to "not-sent".
+  For the value of the nonce field, SCHC MUST NOT send it as variable-length data in the Compression Residue. As a result, SCHC does not send the size of the residue resulting from the compression of the nonce field, which is otherwise requested for variable-size fields when the CDA specified in the Field Descriptor is "value-sent" or LSB (see {{Section 7.4.2 of RFC8724}}).
 
-  - If the nonce field is present, then the corresponding Field Descriptor in the SCHC Rule has the TV not set, while the MO is set to "ignore" and the CDA is set to "value-sent".
+  Instead, SCHC MUST use the m sub-field of the x field to define the size of the Compression Residue. SCHC designates a specific function, "osc.x.m", that the Rule MUST use to complete the Field Descriptor. During the decompression, this function returns the length of the nonce field in bytes, as the value of the m sub-field of the x field, plus 1.
 
-    In such a case, for the value of the nonce field, SCHC MUST NOT send it as variable-length data in the Compression Residue. As a result, SCHC does not send the size of the residue resulting from the compression of the nonce field, which is otherwise requested for variable-size fields when the CDA specified in the Field Descriptor is "value-sent" or LSB (see {{Section 7.4.2 of RFC8724}}).
+  This construct avoids ambiguity with the length of the nonce field encoded in the x field and results in a more efficient compression of the nonce field.
 
-    Instead, SCHC MUST use the m sub-field of the x field to define the size of the Compression Residue. SCHC designates a specific function, "osc.x.m", that the Rule MUST use to complete the Field Descriptor. During the decompression, this function returns the length of the nonce field in bytes, as the value of the m sub-field of the x field, plus 1.
+* If the old_nonce field is present, then the corresponding Field Descriptor in the SCHC Rule has the TV not set, while the MO is set to "ignore" and the CDA is set to "value-sent".
 
-    This construct avoids ambiguity with the length of the nonce field encoded in the x field and results in a more efficient compression of the nonce field.
+  For the value of the old_nonce field, SCHC MUST NOT send it as variable-length data in the Compression Residue. As a result, SCHC does not send the size of the residue resulting from the compression of the old_nonce field, which is otherwise requested for variable-size fields when the CDA specified in the Field Descriptor is "value-sent" or LSB (see {{Section 7.4.2 of RFC8724}}).
 
-* For the old_nonce field, the following applies.
+  Instead, SCHC MUST use the w sub-field of the y field to define the size of the Compression Residue. SCHC designates a specific function, "osc.y.w", that the Rule MUST use to complete the Field Descriptor. During the decompression, this function returns the length of the old_nonce field in bytes, as the value of the w sub-field of the y field, plus 1.
 
-  - If the old_nonce field is not present (i.e., the y field is not present in the first place), then the corresponding Field Descriptor in the SCHC Rule describes the TV set to b'', with the MO set to "equal" and the CDA set to "not-sent".
-
-  - If the old_nonce field is present, then the corresponding Field Descriptor in the SCHC Rule has the TV not set, while the MO is set to "ignore" and the CDA is set to "value-sent".
-
-    In such a case, for the value of the old_nonce field, SCHC MUST NOT send it as variable-length data in the Compression Residue. As a result, SCHC does not send the size of the residue resulting from the compression of the old_nonce field, which is otherwise requested for variable-size fields when the CDA specified in the Field Descriptor is "value-sent" or LSB (see {{Section 7.4.2 of RFC8724}}).
-
-    Instead, SCHC MUST use the w sub-field of the y field to define the size of the Compression Residue. SCHC designates a specific function, "osc.y.w", that the Rule MUST use to complete the Field Descriptor. During the decompression, this function returns the length of the old_nonce field in bytes, as the value of the w sub-field of the y field, plus 1.
-
-    This construct avoids ambiguity with the length of the old_nonce field encoded in the y field and results in a more efficient compression of the old_nonce field.
+  This construct avoids ambiguity with the length of the old_nonce field encoded in the y field and results in a more efficient compression of the old_nonce field.
 
 # Compression of the CoAP Payload Marker {#payload-marker}
 
