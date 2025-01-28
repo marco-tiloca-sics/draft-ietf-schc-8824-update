@@ -251,7 +251,7 @@ Table of Contents
       Section 6.1).
 
    *  It updates the SCHC compression processing for the CoAP option
-      OSCORE (see Section 6.4), in the light of recent developments
+      OSCORE (see Section 6.4), also in the light of recent developments
       related to the security protocol OSCORE as defined in
       [I-D.ietf-core-oscore-key-update] and
       [I-D.ietf-core-oscore-groupcomm].
@@ -1065,6 +1065,23 @@ Table of Contents
 
    In addition, the following applies.
 
+   *  If the piv field is present, SCHC MUST NOT send it as variable-
+      size data in the Compression Residue.  As a result, SCHC does not
+      send the size of the residue resulting from the compression of the
+      piv field, which is otherwise requested for variable-size fields
+      when the CDA specified in the Field Descriptor is "value-sent" or
+      LSB (see Section 7.4.2 of [RFC8724]).
+
+      Instead, SCHC MUST use the value of the n field from the first
+      byte of the OSCORE Option to define the size of the piv field in
+      the Compression Residue.  To this end, SCHC designates a specific
+      function, "osc.piv", that the Rule MUST use to complete the Field
+      Descriptor.  During the decompression, this function returns the
+      value contained in the n field, hence the length of the piv field.
+
+      This construct avoids ambiguity with the n field and results in a
+      more efficient compression of the piv field.
+
    *  For the x field, if both endpoints know the value, then the
       corresponding Field Descriptor in the SCHC Rule describes the TV
       set to that value, with the MO set to "equal" and the CDA set to
@@ -1197,7 +1214,7 @@ Table of Contents
     | Code     |     |  |    | ...      | mapping | sent     |        |
     |          |     |  |    | 5.05]    |         |          |        |
     +----------+-----+--+----+----------+---------+----------+--------+
-    | CoAP     | 16  |1 | Bi | 0000     | MSB(7)  | LSB      | MID    |
+    | CoAP     | 16  |1 | Bi | 0x0000   | MSB(7)  | LSB      | MID    |
     | MID      |     |  |    |          |         |          |        |
     +----------+-----+--+----+----------+---------+----------+--------+
     | CoAP     | var |1 | Dw | "status" | equal   | not-sent |        |
@@ -1647,7 +1664,7 @@ Table of Contents
    | CoAP            | 8       |1 |Dw| 68       | equal   |not-|      |
    | Code            |         |  |  |          |         |sent|      |
    +-----------------+---------+--+--+----------+---------+----+------+
-   | CoAP            | 16      |1 |Bi| 0000     | MSB(12) |LSB |MMMM  |
+   | CoAP            | 16      |1 |Bi| 0x0000   | MSB(12) |LSB |MMMM  |
    | MID             |         |  |  |          |         |    |      |
    +-----------------+---------+--+--+----------+---------+----+------+
    | CoAP            | tkl     |1 |Bi| 0x80     | MSB(5)  |LSB |TTT   |
@@ -1656,8 +1673,8 @@ Table of Contents
    | CoAP            | var     |1 |Up| 0x09     | equal   |not-|      |
    | OSCORE_flags    |         |  |  |          |         |sent|      |
    +-----------------+---------+--+--+----------+---------+----+------+
-   | CoAP            | var     |1 |Up| 0x00     | MSB(4)  |LSB |PPPP  |
-   | OSCORE_piv      | (bit)   |  |  |          |         |    |      |
+   | CoAP            | osc.piv |1 |Up| 0x00     | MSB(4)  |LSB |PPPP  |
+   | OSCORE_piv      |         |  |  |          |         |    |      |
    +-----------------+---------+--+--+----------+---------+----+------+
    | CoAP            | var     |1 |Up| 0x636c69 | MSB(44) |LSB |KKKK  |
    | OSCORE_kid      | (bit)   |  |  | 656e70   |         |    |      |
@@ -1782,22 +1799,16 @@ Table of Contents
 
    Compressed message:
    ==================
-   0x01148889458a9fc3686852f6c4 (13 bytes)
+   0x0114889458a9fc3686852f6c40 (13 bytes)
    0x01 RuleID
-       148889 compression residue
-             458a9fc3686852f6c4 padded payload
+       148894 compression residue
+             58a9fc3686852f6c40 padded payload
 
    Compression Residue:
-   0b 0001 010
-       mid tkn
+   0b0001 010 0100  0100 0100
+      mid tkn  piv   kid (residue size and residue)
 
-      0100 0100
-            piv (residue size and residue)
-
-      0100 0100
-            kid (residue size and residue)
-
-      (23 bits -> 3 bytes with padding)
+     (19 bits -> 3 bytes with padding)
 
    Payload
    0xa2c54fe1b434297b62 (9 bytes)
@@ -1852,7 +1863,7 @@ Table of Contents
    | CoAP     |8  |1 |Dw| [69, 132]     | match-  | mapping- | C      |
    | Code     |   |  |  |               | mapping | sent     |        |
    +----------+---+--+--+---------------+---------+----------+--------+
-   | CoAP     |16 |1 |Bi| 0000          | MSB(12) | LSB      | MMMM   |
+   | CoAP     |16 |1 |Bi| 0x0000        | MSB(12) | LSB      | MMMM   |
    | MID      |   |  |  |               |         |          |        |
    +----------+---+--+--+---------------+---------+----------+--------+
    | CoAP     |tkl|1 |Bi| 0x80          | MSB(5)  | LSB      | TTT    |
@@ -2138,7 +2149,7 @@ Table of Contents
    | CoAP         |8  |1 |Dw| [65, 68,      |match- | mapping- |CC    |
    | Code         |   |  |  | 69, 132]      |mapping| sent     |      |
    +--------------+---+--+--+---------------+-------+----------+------+
-   | CoAP         |16 |1 |Bi| 0x00          |MSB(12)| LSB      |MMMM  |
+   | CoAP         |16 |1 |Bi| 0x0000        |MSB(12)| LSB      |MMMM  |
    | MID          |   |  |  |               |       |          |      |
    +--------------+---+--+--+---------------+-------+----------+------+
    | CoAP         |tkl|1 |Bi| 0x80          |MSB(5) | LSB      |TTT   |
@@ -2185,7 +2196,7 @@ Table of Contents
    | CoAP     |8  |1 |Dw| [65, 68,      | match-  | mapping- | CC     |
    | Code     |   |  |  | 69, 132]      | mapping | sent     |        |
    +----------+---+--+--+---------------+---------+----------+--------+
-   | CoAP     |16 |1 |Bi| 0x00          | MSB(12) | LSB      | MMMM   |
+   | CoAP     |16 |1 |Bi| 0x0000        | MSB(12) | LSB      | MMMM   |
    | MID      |   |  |  |               |         |          |        |
    +----------+---+--+--+---------------+---------+----------+--------+
    | CoAP     |tkl|1 |Bi| 0x70          | MSB(5)  | LSB      | TTT    |
@@ -2433,7 +2444,7 @@ Table of Contents
    | CoAP            |8      |1 |Dw|68    | equal   | not-sent |      |
    | Code            |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
-   | CoAP            |16     |1 |Bi|0x00  | MSB(12) | LSB      |MMMM  |
+   | CoAP            |16     |1 |Bi|0x0000| MSB(12) | LSB      |MMMM  |
    | MID             |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |tkl    |1 |Bi|0x80  | MSB(5)  | LSB      |TTT   |
@@ -2445,8 +2456,8 @@ Table of Contents
    | CoAP            |var    |1 |Up|0x09  | equal   | not-sent |      |
    | OSCORE_flags    |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
-   | CoAP            |var    |1 |Up|0x00  | MSB(4)  | LSB      |PPPP  |
-   | OSCORE_piv      |(bit)  |  |  |      |         |          |      |
+   | CoAP            |osc.piv|1 |Up|0x00  | MSB(4)  | LSB      |PPPP  |
+   | OSCORE_piv      |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |var    |1 |Up|0x0000| MSB(12) | LSB      |KKKK  |
    | OSCORE_kid      |(bit)  |  |  |      |         |          |      |
@@ -2512,7 +2523,7 @@ Table of Contents
    | CoAP            |8      |1 |Dw|68    | equal   | not-sent |      |
    | Code            |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
-   | CoAP            |16     |1 |Bi|0x00  | MSB(12) | LSB      |MMMM  |
+   | CoAP            |16     |1 |Bi|0x0000| MSB(12) | LSB      |MMMM  |
    | MID             |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |tkl    |1 |Bi|0x70  | MSB(5)  | LSB      |TTT   |
@@ -2524,8 +2535,8 @@ Table of Contents
    | CoAP            |var    |1 |Up|0x09  | equal   | not-sent |      |
    | OSCORE_flags    |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
-   | CoAP            |var    |1 |Up|0x00  | MSB(4)  | LSB      |PPPP  |
-   | OSCORE_piv      |(bit)  |  |  |      |         |          |      |
+   | CoAP            |osc.piv|1 |Up|0x00  | MSB(4)  | LSB      |PPPP  |
+   | OSCORE_piv      |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |var    |1 |Up|0x0000| MSB(12) | LSB      |KKKK  |
    | OSCORE_kid      |(bit)  |  |  |      |         |          |      |
@@ -2732,29 +2743,24 @@ Table of Contents
 
    Compressed message:
    =================
-   0x03156caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 (26 bytes)
+   0x03156caf0c2dae0d8ca5cc6deda88b459f8a9fc3686852f6c4 (25 bytes)
    0x03 RuleID
-       156caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 compression
-                                                          residue and
-                                                          padded payload
-
+       156caf0c2dae0d8ca5cc6deda88b compression residue
+                                   459f8a9fc3686852f6c4 padded payload
 
    Compression Residue
-   0b 0001 010      1011  |  0x6578616d706c652e636f6d  |
-       mid tkn  Uri-Host (residue size and residue)
+   0b0001 010      1011 | 0x6578616d706c652e636f6d |
+      mid tkn  Uri-Host (residue size and residue)
 
-   0b 0100 0100
-            piv (residue size and residue)
+   0b0100  0100 0101
+      piv   kid (residue size and residue)
 
-      0100 0101
-            kid (residue size and residue)
-
-      (115 bits -> 15 bytes with padding)
+      (111 bits -> 14 bytes with padding)
 
    Payload
    0xa2cfc54fe1b434297b62 (10 bytes)
 
-   Compressed message length: 26 bytes
+   Compressed message length: 25 bytes
 
       Figure 30: SCHC-OSCORE CoAP GET Request Compressed for the Proxy
 
@@ -2816,30 +2822,26 @@ Table of Contents
 
    Compressed message:
    =================
-   0x044b6caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 (26 bytes)
+   0x044b6caf0c2dae0d8ca5cc6deda88b459f8a9fc3686852f6c4 (25 bytes)
    0x04 RuleID
-       4b6caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 compression
-                                                          residue and
-                                                          padded payload
+       4b6caf0c2dae0d8ca5cc6deda88b compression residue
+                                   459f8a9fc3686852f6c4 padded payload
 
 
    Compression Residue
-   0b 0100 101      1011  |  0x6578616d706c652e636f6d
-       mid tkn  Uri-Host (residue size and residue)
+   0b0100 101      1011 | 0x6578616d706c652e636f6d |
+      mid tkn  Uri-Host (residue size and residue)
 
-   0b 0100 0100
-            piv (residue size and residue)
+   0b0100  0100 0101
+      piv   kid (residue size and residue)
 
-   0b 0100 0101
-            kid (residue size and residue)
-
-      (115 bits -> 15 bytes with padding)
+      (111 bits -> 14 bytes with padding)
 
 
    Payload
    0xa2cfc54fe1b434297b62 (10 bytes)
 
-   Compressed message length: 26 bytes
+   Compressed message length: 25 bytes
 
        Figure 32: SCHC-OSCORE CoAP GET Request Forwarded by the Proxy
 
@@ -3675,7 +3677,12 @@ B.1.  Version -03 to -04
 
    *  Clarified the rationale for using the "tkl" function.
 
+   *  Added the "osc.piv" function to determine the length of the OSCORE
+      piv field.
+
    *  Consistent formulation of "tkl", "osc.x.m", and "osc.y.w".
+
+   *  Fixed format of TV in Rule Descriptors for CoAP MID.
 
    *  Use "bit" instead of "b" as symbol for bit (per ISO/IEC 80000-13).
 

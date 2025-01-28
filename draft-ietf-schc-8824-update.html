@@ -1429,7 +1429,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
           <p id="section-1-13.6.1">It defines the SCHC compression for the recently defined CoAP options Echo (see <a href="#coap-options-echo" class="auto internal xref">Section 5.10</a>), Request-Tag (see <a href="#coap-options-request-tag" class="auto internal xref">Section 5.11</a>), EDHOC (see <a href="#coap-options-edhoc" class="auto internal xref">Section 5.12</a>), as well as Q-Block1 and Q-Block2 (see <a href="#ssec-coap-extensions-block" class="auto internal xref">Section 6.1</a>).<a href="#section-1-13.6.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-1-13.7">
-          <p id="section-1-13.7.1">It updates the SCHC compression processing for the CoAP option OSCORE (see <a href="#ssec-coap-extensions-oscore" class="auto internal xref">Section 6.4</a>), in the light of recent developments related to the security protocol OSCORE as defined in <span>[<a href="#I-D.ietf-core-oscore-key-update" class="cite xref">I-D.ietf-core-oscore-key-update</a>]</span> and <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="cite xref">I-D.ietf-core-oscore-groupcomm</a>]</span>.<a href="#section-1-13.7.1" class="pilcrow">¶</a></p>
+          <p id="section-1-13.7.1">It updates the SCHC compression processing for the CoAP option OSCORE (see <a href="#ssec-coap-extensions-oscore" class="auto internal xref">Section 6.4</a>), also in the light of recent developments related to the security protocol OSCORE as defined in <span>[<a href="#I-D.ietf-core-oscore-key-update" class="cite xref">I-D.ietf-core-oscore-key-update</a>]</span> and <span>[<a href="#I-D.ietf-core-oscore-groupcomm" class="cite xref">I-D.ietf-core-oscore-groupcomm</a>]</span>.<a href="#section-1-13.7.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-1-13.8">
           <p id="section-1-13.8.1">It clarifies how the SCHC compression handles the CoAP payload marker (see <a href="#payload-marker" class="auto internal xref">Section 7</a>).<a href="#section-1-13.8.1" class="pilcrow">¶</a></p>
@@ -2227,32 +2227,39 @@ However, this adds 4 bits to the variable Compression Residue size (see <span><a
 <p id="section-6.4-16">In addition, the following applies.<a href="#section-6.4-16" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.4-17.1">
-            <p id="section-6.4-17.1.1">For the x field, if both endpoints know the value, then the corresponding Field Descriptor in the SCHC Rule describes the TV set to that value, with the MO set to "equal" and the CDA set to "not-sent". This models: the case where the x field is not present, and thus TV is set to b''; and the case where the two endpoints run KUDOS with a pre-agreed size of the nonce field as per the m sub-field of the x field, as well as with a pre-agreed combination of its modes of operation, as per the bits b and p of the x field.<a href="#section-6.4-17.1.1" class="pilcrow">¶</a></p>
+            <p id="section-6.4-17.1.1">If the piv field is present, SCHC <span class="bcp14">MUST NOT</span> send it as variable-size data in the Compression Residue. As a result, SCHC does not send the size of the residue resulting from the compression of the piv field, which is otherwise requested for variable-size fields when the CDA specified in the Field Descriptor is "value-sent" or LSB (see <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.4.2" class="relref">Section 7.4.2</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>).<a href="#section-6.4-17.1.1" class="pilcrow">¶</a></p>
 <p id="section-6.4-17.1.2">
-Otherwise, if the value changes over time, then the corresponding Field Descriptor in the SCHC Rule does not set the TV, while it sets the MO to "ignore" and the CDA to "value-sent". The Rule may also use a "match-mapping" MO to compress this field, in case the two endpoints pre-agree on a set of alternative ways to run KUDOS, with respect to the size of the nonce field and the combination of the KUDOS modes of operation to use.<a href="#section-6.4-17.1.2" class="pilcrow">¶</a></p>
+Instead, SCHC <span class="bcp14">MUST</span> use the value of the n field from the first byte of the OSCORE Option to define the size of the piv field in the Compression Residue. To this end, SCHC designates a specific function, "osc.piv", that the Rule <span class="bcp14">MUST</span> use to complete the Field Descriptor. During the decompression, this function returns the value contained in the n field, hence the length of the piv field.<a href="#section-6.4-17.1.2" class="pilcrow">¶</a></p>
+<p id="section-6.4-17.1.3">
+This construct avoids ambiguity with the n field and results in a more efficient compression of the piv field.<a href="#section-6.4-17.1.3" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-6.4-17.2">
-            <p id="section-6.4-17.2.1">For the y field, if both endpoints know the value, then the corresponding Field Descriptor in the SCHC Rule describes the TV set to that value, with the MO set to "equal" and the CDA set to "not-sent". This models: the case where the y field is not present, and thus TV is set to b''; and the case where the two endpoints run KUDOS with a pre-agreed size of the old_nonce field as per the w sub-field of the y field.<a href="#section-6.4-17.2.1" class="pilcrow">¶</a></p>
+            <p id="section-6.4-17.2.1">For the x field, if both endpoints know the value, then the corresponding Field Descriptor in the SCHC Rule describes the TV set to that value, with the MO set to "equal" and the CDA set to "not-sent". This models: the case where the x field is not present, and thus TV is set to b''; and the case where the two endpoints run KUDOS with a pre-agreed size of the nonce field as per the m sub-field of the x field, as well as with a pre-agreed combination of its modes of operation, as per the bits b and p of the x field.<a href="#section-6.4-17.2.1" class="pilcrow">¶</a></p>
 <p id="section-6.4-17.2.2">
-Otherwise, if the value changes over time, then the corresponding Field Descriptor in the SCHC Rule does not set the TV, while it sets the MO to "ignore" and the CDA to "value-sent". The Rule may also use a "match-mapping" MO to compress this field, in case the two endpoints pre-agree on a set of sizes of the old_nonce field.<a href="#section-6.4-17.2.2" class="pilcrow">¶</a></p>
+Otherwise, if the value changes over time, then the corresponding Field Descriptor in the SCHC Rule does not set the TV, while it sets the MO to "ignore" and the CDA to "value-sent". The Rule may also use a "match-mapping" MO to compress this field, in case the two endpoints pre-agree on a set of alternative ways to run KUDOS, with respect to the size of the nonce field and the combination of the KUDOS modes of operation to use.<a href="#section-6.4-17.2.2" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-6.4-17.3">
-            <p id="section-6.4-17.3.1">If the nonce field is present, then the corresponding Field Descriptor in the SCHC Rule has the TV not set, while the MO is set to "ignore" and the CDA is set to "value-sent".<a href="#section-6.4-17.3.1" class="pilcrow">¶</a></p>
+            <p id="section-6.4-17.3.1">For the y field, if both endpoints know the value, then the corresponding Field Descriptor in the SCHC Rule describes the TV set to that value, with the MO set to "equal" and the CDA set to "not-sent". This models: the case where the y field is not present, and thus TV is set to b''; and the case where the two endpoints run KUDOS with a pre-agreed size of the old_nonce field as per the w sub-field of the y field.<a href="#section-6.4-17.3.1" class="pilcrow">¶</a></p>
 <p id="section-6.4-17.3.2">
-For the value of the nonce field, SCHC <span class="bcp14">MUST NOT</span> send it as variable-length data in the Compression Residue. As a result, SCHC does not send the size of the residue resulting from the compression of the nonce field, which is otherwise requested for variable-size fields when the CDA specified in the Field Descriptor is "value-sent" or LSB (see <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.4.2" class="relref">Section 7.4.2</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>).<a href="#section-6.4-17.3.2" class="pilcrow">¶</a></p>
-<p id="section-6.4-17.3.3">
-Instead, SCHC <span class="bcp14">MUST</span> use the m sub-field of the x field to define the size of the Compression Residue. SCHC designates a specific function, "osc.x.m", that the Rule <span class="bcp14">MUST</span> use to complete the Field Descriptor. During the decompression, this function returns the length of the nonce field in bytes, as the value of the m sub-field of the x field, plus 1.<a href="#section-6.4-17.3.3" class="pilcrow">¶</a></p>
-<p id="section-6.4-17.3.4">
-This construct avoids ambiguity with the length of the nonce field encoded in the x field and results in a more efficient compression of the nonce field.<a href="#section-6.4-17.3.4" class="pilcrow">¶</a></p>
+Otherwise, if the value changes over time, then the corresponding Field Descriptor in the SCHC Rule does not set the TV, while it sets the MO to "ignore" and the CDA to "value-sent". The Rule may also use a "match-mapping" MO to compress this field, in case the two endpoints pre-agree on a set of sizes of the old_nonce field.<a href="#section-6.4-17.3.2" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-6.4-17.4">
-            <p id="section-6.4-17.4.1">If the old_nonce field is present, then the corresponding Field Descriptor in the SCHC Rule has the TV not set, while the MO is set to "ignore" and the CDA is set to "value-sent".<a href="#section-6.4-17.4.1" class="pilcrow">¶</a></p>
+            <p id="section-6.4-17.4.1">If the nonce field is present, then the corresponding Field Descriptor in the SCHC Rule has the TV not set, while the MO is set to "ignore" and the CDA is set to "value-sent".<a href="#section-6.4-17.4.1" class="pilcrow">¶</a></p>
 <p id="section-6.4-17.4.2">
-For the value of the old_nonce field, SCHC <span class="bcp14">MUST NOT</span> send it as variable-length data in the Compression Residue. As a result, SCHC does not send the size of the residue resulting from the compression of the old_nonce field, which is otherwise requested for variable-size fields when the CDA specified in the Field Descriptor is "value-sent" or LSB (see <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.4.2" class="relref">Section 7.4.2</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>).<a href="#section-6.4-17.4.2" class="pilcrow">¶</a></p>
+For the value of the nonce field, SCHC <span class="bcp14">MUST NOT</span> send it as variable-length data in the Compression Residue. As a result, SCHC does not send the size of the residue resulting from the compression of the nonce field, which is otherwise requested for variable-size fields when the CDA specified in the Field Descriptor is "value-sent" or LSB (see <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.4.2" class="relref">Section 7.4.2</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>).<a href="#section-6.4-17.4.2" class="pilcrow">¶</a></p>
 <p id="section-6.4-17.4.3">
-Instead, SCHC <span class="bcp14">MUST</span> use the w sub-field of the y field to define the size of the Compression Residue. SCHC designates a specific function, "osc.y.w", that the Rule <span class="bcp14">MUST</span> use to complete the Field Descriptor. During the decompression, this function returns the length of the old_nonce field in bytes, as the value of the w sub-field of the y field, plus 1.<a href="#section-6.4-17.4.3" class="pilcrow">¶</a></p>
+Instead, SCHC <span class="bcp14">MUST</span> use the m sub-field of the x field to define the size of the Compression Residue. SCHC designates a specific function, "osc.x.m", that the Rule <span class="bcp14">MUST</span> use to complete the Field Descriptor. During the decompression, this function returns the length of the nonce field in bytes, as the value of the m sub-field of the x field, plus 1.<a href="#section-6.4-17.4.3" class="pilcrow">¶</a></p>
 <p id="section-6.4-17.4.4">
-This construct avoids ambiguity with the length of the old_nonce field encoded in the y field and results in a more efficient compression of the old_nonce field.<a href="#section-6.4-17.4.4" class="pilcrow">¶</a></p>
+This construct avoids ambiguity with the length of the nonce field encoded in the x field and results in a more efficient compression of the nonce field.<a href="#section-6.4-17.4.4" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.4-17.5">
+            <p id="section-6.4-17.5.1">If the old_nonce field is present, then the corresponding Field Descriptor in the SCHC Rule has the TV not set, while the MO is set to "ignore" and the CDA is set to "value-sent".<a href="#section-6.4-17.5.1" class="pilcrow">¶</a></p>
+<p id="section-6.4-17.5.2">
+For the value of the old_nonce field, SCHC <span class="bcp14">MUST NOT</span> send it as variable-length data in the Compression Residue. As a result, SCHC does not send the size of the residue resulting from the compression of the old_nonce field, which is otherwise requested for variable-size fields when the CDA specified in the Field Descriptor is "value-sent" or LSB (see <span><a href="https://rfc-editor.org/rfc/rfc8724#section-7.4.2" class="relref">Section 7.4.2</a> of [<a href="#RFC8724" class="cite xref">RFC8724</a>]</span>).<a href="#section-6.4-17.5.2" class="pilcrow">¶</a></p>
+<p id="section-6.4-17.5.3">
+Instead, SCHC <span class="bcp14">MUST</span> use the w sub-field of the y field to define the size of the Compression Residue. SCHC designates a specific function, "osc.y.w", that the Rule <span class="bcp14">MUST</span> use to complete the Field Descriptor. During the decompression, this function returns the length of the old_nonce field in bytes, as the value of the w sub-field of the y field, plus 1.<a href="#section-6.4-17.5.3" class="pilcrow">¶</a></p>
+<p id="section-6.4-17.5.4">
+This construct avoids ambiguity with the length of the old_nonce field encoded in the y field and results in a more efficient compression of the old_nonce field.<a href="#section-6.4-17.5.4" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -2362,7 +2369,7 @@ This construct avoids ambiguity with the length of the old_nonce field encoded i
               <td class="text-left" rowspan="1" colspan="1">16</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
-              <td class="text-left" rowspan="1" colspan="1">0000</td>
+              <td class="text-left" rowspan="1" colspan="1">0x0000</td>
               <td class="text-left" rowspan="1" colspan="1">MSB(7)</td>
               <td class="text-left" rowspan="1" colspan="1">LSB</td>
               <td class="text-left" rowspan="1" colspan="1">MID</td>
@@ -3083,7 +3090,7 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1">16</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
-              <td class="text-left" rowspan="1" colspan="1">0000</td>
+              <td class="text-left" rowspan="1" colspan="1">0x0000</td>
               <td class="text-left" rowspan="1" colspan="1">MSB(12)</td>
               <td class="text-left" rowspan="1" colspan="1">LSB</td>
               <td class="text-left" rowspan="1" colspan="1">MMMM</td>
@@ -3110,7 +3117,7 @@ Original message length: 10 bytes
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_piv</td>
-              <td class="text-left" rowspan="1" colspan="1">var <br> (bit)</td>
+              <td class="text-left" rowspan="1" colspan="1">osc.piv</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1">0x00</td>
@@ -3296,22 +3303,16 @@ Payload:
 <pre>
 Compressed message:
 ==================
-0x01148889458a9fc3686852f6c4 (13 bytes)
+0x0114889458a9fc3686852f6c40 (13 bytes)
 0x01 RuleID
-    148889 compression residue
-          458a9fc3686852f6c4 padded payload
+    148894 compression residue
+          58a9fc3686852f6c40 padded payload
 
 Compression Residue:
-0b 0001 010
-    mid tkn
+0b0001 010 0100  0100 0100
+   mid tkn  piv   kid (residue size and residue)
 
-   0100 0100
-         piv (residue size and residue)
-
-   0100 0100
-         kid (residue size and residue)
-
-   (23 bits -&gt; 3 bytes with padding)
+  (19 bits -&gt; 3 bytes with padding)
 
 Payload
 0xa2c54fe1b434297b62 (9 bytes)
@@ -3438,7 +3439,7 @@ Payload
               <td class="text-left" rowspan="1" colspan="1">16</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
-              <td class="text-left" rowspan="1" colspan="1">0000</td>
+              <td class="text-left" rowspan="1" colspan="1">0x0000</td>
               <td class="text-left" rowspan="1" colspan="1">MSB(12)</td>
               <td class="text-left" rowspan="1" colspan="1">LSB</td>
               <td class="text-left" rowspan="1" colspan="1">MMMM</td>
@@ -3782,7 +3783,7 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1">16</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
-              <td class="text-left" rowspan="1" colspan="1">0x00</td>
+              <td class="text-left" rowspan="1" colspan="1">0x0000</td>
               <td class="text-left" rowspan="1" colspan="1">MSB(12)</td>
               <td class="text-left" rowspan="1" colspan="1">LSB</td>
               <td class="text-left" rowspan="1" colspan="1">MMMM</td>
@@ -3922,7 +3923,7 @@ Original message length: 10 bytes
               <td class="text-left" rowspan="1" colspan="1">16</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
-              <td class="text-left" rowspan="1" colspan="1">0x00</td>
+              <td class="text-left" rowspan="1" colspan="1">0x0000</td>
               <td class="text-left" rowspan="1" colspan="1">MSB(12)</td>
               <td class="text-left" rowspan="1" colspan="1">LSB</td>
               <td class="text-left" rowspan="1" colspan="1">MMMM</td>
@@ -4301,7 +4302,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1">16</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
-              <td class="text-left" rowspan="1" colspan="1">0x00</td>
+              <td class="text-left" rowspan="1" colspan="1">0x0000</td>
               <td class="text-left" rowspan="1" colspan="1">MSB(12)</td>
               <td class="text-left" rowspan="1" colspan="1">LSB</td>
               <td class="text-left" rowspan="1" colspan="1">MMMM</td>
@@ -4338,7 +4339,7 @@ Compressed message length: 7 bytes
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_piv</td>
-              <td class="text-left" rowspan="1" colspan="1">var <br> (bit)</td>
+              <td class="text-left" rowspan="1" colspan="1">osc.piv</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1">0x00</td>
@@ -4541,7 +4542,7 @@ Compressed message length: 7 bytes
               <td class="text-left" rowspan="1" colspan="1">16</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Bi</td>
-              <td class="text-left" rowspan="1" colspan="1">0x00</td>
+              <td class="text-left" rowspan="1" colspan="1">0x0000</td>
               <td class="text-left" rowspan="1" colspan="1">MSB(12)</td>
               <td class="text-left" rowspan="1" colspan="1">LSB</td>
               <td class="text-left" rowspan="1" colspan="1">MMMM</td>
@@ -4578,7 +4579,7 @@ Compressed message length: 7 bytes
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">CoAP <br> OSCORE_piv</td>
-              <td class="text-left" rowspan="1" colspan="1">var <br> (bit)</td>
+              <td class="text-left" rowspan="1" colspan="1">osc.piv</td>
               <td class="text-left" rowspan="1" colspan="1">1</td>
               <td class="text-left" rowspan="1" colspan="1">Up</td>
               <td class="text-left" rowspan="1" colspan="1">0x00</td>
@@ -4939,29 +4940,24 @@ Payload:
 <pre>
 Compressed message:
 =================
-0x03156caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 (26 bytes)
+0x03156caf0c2dae0d8ca5cc6deda88b459f8a9fc3686852f6c4 (25 bytes)
 0x03 RuleID
-    156caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 compression
-                                                       residue and
-                                                       padded payload
-
+    156caf0c2dae0d8ca5cc6deda88b compression residue
+                                459f8a9fc3686852f6c4 padded payload
 
 Compression Residue
-0b 0001 010      1011  |  0x6578616d706c652e636f6d  |
-    mid tkn  Uri-Host (residue size and residue)
+0b0001 010      1011 | 0x6578616d706c652e636f6d |
+   mid tkn  Uri-Host (residue size and residue)
 
-0b 0100 0100
-         piv (residue size and residue)
+0b0100  0100 0101
+   piv   kid (residue size and residue)
 
-   0100 0101
-         kid (residue size and residue)
-
-   (115 bits -&gt; 15 bytes with padding)
+   (111 bits -&gt; 14 bytes with padding)
 
 Payload
 0xa2cfc54fe1b434297b62 (10 bytes)
 
-Compressed message length: 26 bytes
+Compressed message length: 25 bytes
 
 </pre>
 </div>
@@ -5024,30 +5020,26 @@ Payload:
 <pre>
 Compressed message:
 =================
-0x044b6caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 (26 bytes)
+0x044b6caf0c2dae0d8ca5cc6deda88b459f8a9fc3686852f6c4 (25 bytes)
 0x04 RuleID
-    4b6caf0c2dae0d8ca5cc6deda888b459f8a9fc3686852f6c40 compression
-                                                       residue and
-                                                       padded payload
+    4b6caf0c2dae0d8ca5cc6deda88b compression residue
+                                459f8a9fc3686852f6c4 padded payload
 
 
 Compression Residue
-0b 0100 101      1011  |  0x6578616d706c652e636f6d
-    mid tkn  Uri-Host (residue size and residue)
+0b0100 101      1011 | 0x6578616d706c652e636f6d |
+   mid tkn  Uri-Host (residue size and residue)
 
-0b 0100 0100
-         piv (residue size and residue)
+0b0100  0100 0101
+   piv   kid (residue size and residue)
 
-0b 0100 0101
-         kid (residue size and residue)
-
-   (115 bits -&gt; 15 bytes with padding)
+   (111 bits -&gt; 14 bytes with padding)
 
 
 Payload
 0xa2cfc54fe1b434297b62 (10 bytes)
 
-Compressed message length: 26 bytes
+Compressed message length: 25 bytes
 
 </pre>
 </div>
@@ -5954,16 +5946,22 @@ module ietf-schc-coap {
             <p id="appendix-B.1-1.1.1">Clarified the rationale for using the "tkl" function.<a href="#appendix-B.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-B.1-1.2">
-            <p id="appendix-B.1-1.2.1">Consistent formulation of "tkl", "osc.x.m", and "osc.y.w".<a href="#appendix-B.1-1.2.1" class="pilcrow">¶</a></p>
+            <p id="appendix-B.1-1.2.1">Added the "osc.piv" function to determine the length of the OSCORE piv field.<a href="#appendix-B.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-B.1-1.3">
-            <p id="appendix-B.1-1.3.1">Use "bit" instead of "b" as symbol for bit (per ISO/IEC 80000-13).<a href="#appendix-B.1-1.3.1" class="pilcrow">¶</a></p>
+            <p id="appendix-B.1-1.3.1">Consistent formulation of "tkl", "osc.x.m", and "osc.y.w".<a href="#appendix-B.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-B.1-1.4">
-            <p id="appendix-B.1-1.4.1">Updated references.<a href="#appendix-B.1-1.4.1" class="pilcrow">¶</a></p>
+            <p id="appendix-B.1-1.4.1">Fixed format of TV in Rule Descriptors for CoAP MID.<a href="#appendix-B.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-B.1-1.5">
-            <p id="appendix-B.1-1.5.1">Fixes and editorial improvements.<a href="#appendix-B.1-1.5.1" class="pilcrow">¶</a></p>
+            <p id="appendix-B.1-1.5.1">Use "bit" instead of "b" as symbol for bit (per ISO/IEC 80000-13).<a href="#appendix-B.1-1.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-B.1-1.6">
+            <p id="appendix-B.1-1.6.1">Updated references.<a href="#appendix-B.1-1.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-B.1-1.7">
+            <p id="appendix-B.1-1.7.1">Fixes and editorial improvements.<a href="#appendix-B.1-1.7.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
