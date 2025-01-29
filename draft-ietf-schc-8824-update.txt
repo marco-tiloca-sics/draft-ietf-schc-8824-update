@@ -1673,11 +1673,14 @@ Table of Contents
    | CoAP            | var     |1 |Up| 0x09     | equal   |not-|      |
    | OSCORE_flags    |         |  |  |          |         |sent|      |
    +-----------------+---------+--+--+----------+---------+----+------+
+   | CoAP            | var     |1 |Dw| b''      | equal   |not-|      |
+   | OSCORE_flags    |         |  |  |          |         |sent|      |
+   +-----------------+---------+--+--+----------+---------+----+------+
    | CoAP            | osc.piv |1 |Up| 0x00     | MSB(4)  |LSB |PPPP  |
    | OSCORE_piv      |         |  |  |          |         |    |      |
    +-----------------+---------+--+--+----------+---------+----+------+
-   | CoAP            | var     |1 |Up| 0x636c69 | MSB(44) |LSB |KKKK  |
-   | OSCORE_kid      | (bit)   |  |  | 656e70   |         |    |      |
+   | CoAP            | var     |1 |Dw| b''      | equal   |not-|      |
+   | OSCORE_piv      |         |  |  |          |         |sent|      |
    +-----------------+---------+--+--+----------+---------+----+------+
    | CoAP            | var     |1 |Bi| b''      | equal   |not-|      |
    | OSCORE_kidctx   |         |  |  |          |         |sent|      |
@@ -1694,11 +1697,8 @@ Table of Contents
    | CoAP            | osc.y.w |1 |Bi| b''      | equal   |not-|      |
    | OSCORE_oldnonce |         |  |  |          |         |sent|      |
    +-----------------+---------+--+--+----------+---------+----+------+
-   | CoAP            | var     |1 |Dw| b''      | equal   |not-|      |
-   | OSCORE_flags    |         |  |  |          |         |sent|      |
-   +-----------------+---------+--+--+----------+---------+----+------+
-   | CoAP            | var     |1 |Dw| b''      | equal   |not-|      |
-   | OSCORE_piv      |         |  |  |          |         |sent|      |
+   | CoAP            | var     |1 |Up| 0x636c69 | MSB(44) |LSB |KKKK  |
+   | OSCORE_kid      | (bit)   |  |  | 656e70   |         |    |      |
    +-----------------+---------+--+--+----------+---------+----+------+
    | CoAP            | var     |1 |Dw| b''      | equal   |not-|      |
    | OSCORE_kid      |         |  |  |          |         |sent|      |
@@ -2456,11 +2456,14 @@ Table of Contents
    | CoAP            |var    |1 |Up|0x09  | equal   | not-sent |      |
    | OSCORE_flags    |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
+   | CoAP            |var    |1 |Dw|b''   | equal   | not-sent |      |
+   | OSCORE_flags    |       |  |  |      |         |          |      |
+   +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |osc.piv|1 |Up|0x00  | MSB(4)  | LSB      |PPPP  |
    | OSCORE_piv      |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
-   | CoAP            |var    |1 |Up|0x0000| MSB(12) | LSB      |KKKK  |
-   | OSCORE_kid      |(bit)  |  |  |      |         |          |      |
+   | CoAP            |var    |1 |Dw|b''   | equal   | not-sent |      |
+   | OSCORE_piv      |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |var    |1 |Bi|b''   | equal   | not-sent |      |
    | OSCORE_kidctx   |       |  |  |      |         |          |      |
@@ -2477,11 +2480,8 @@ Table of Contents
    | CoAP            |osc.y.w|1 |Bi|b''   | equal   | not-sent |      |
    | OSCORE_oldnonce |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
-   | CoAP            |var    |1 |Dw|b''   | equal   | not-sent |      |
-   | OSCORE_flags    |       |  |  |      |         |          |      |
-   +-----------------+-------+--+--+------+---------+----------+------+
-   | CoAP            |var    |1 |Dw|b''   | equal   | not-sent |      |
-   | OSCORE_piv      |       |  |  |      |         |          |      |
+   | CoAP            |var    |1 |Up|0x0000| MSB(12) | LSB      |KKKK  |
+   | OSCORE_kid      |(bit)  |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |var    |1 |Dw|b''   | equal   | not-sent |      |
    | OSCORE_kid      |       |  |  |      |         |          |      |
@@ -2535,11 +2535,14 @@ Table of Contents
    | CoAP            |var    |1 |Up|0x09  | equal   | not-sent |      |
    | OSCORE_flags    |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
+   | CoAP            |var    |1 |Dw|b''   | equal   | not-sent |      |
+   | OSCORE_flags    |       |  |  |      |         |          |      |
+   +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |osc.piv|1 |Up|0x00  | MSB(4)  | LSB      |PPPP  |
    | OSCORE_piv      |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
-   | CoAP            |var    |1 |Up|0x0000| MSB(12) | LSB      |KKKK  |
-   | OSCORE_kid      |(bit)  |  |  |      |         |          |      |
+   | CoAP            |var    |1 |Dw|b''   | equal   | not-sent |      |
+   | OSCORE_piv      |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |var    |1 |Bi|b''   | equal   | not-sent |      |
    | OSCORE_kidctx   |       |  |  |      |         |          |      |
@@ -2556,11 +2559,8 @@ Table of Contents
    | CoAP            |osc.y.w|1 |Bi|b''   | equal   | not-sent |      |
    | OSCORE_oldnonce |       |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
-   | CoAP            |var    |1 |Dw|b''   | equal   | not-sent |      |
-   | OSCORE_flags    |       |  |  |      |         |          |      |
-   +-----------------+-------+--+--+------+---------+----------+------+
-   | CoAP            |var    |1 |Dw|b''   | equal   | not-sent |      |
-   | OSCORE_piv      |       |  |  |      |         |          |      |
+   | CoAP            |var    |1 |Up|0x0000| MSB(12) | LSB      |KKKK  |
+   | OSCORE_kid      |(bit)  |  |  |      |         |          |      |
    +-----------------+-------+--+--+------+---------+----------+------+
    | CoAP            |var    |1 |Dw|b''   | equal   | not-sent |      |
    | OSCORE_kid      |       |  |  |      |         |          |      |
@@ -3683,6 +3683,8 @@ B.1.  Version -03 to -04
    *  Consistent formulation of "tkl", "osc.x.m", and "osc.y.w".
 
    *  Fixed format of TV in Rule Descriptors for CoAP MID.
+
+   *  Fixed order of OSCORE-related Field Descriptors in examples Rules.
 
    *  Use "bit" instead of "b" as symbol for bit (per ISO/IEC 80000-13).
 
