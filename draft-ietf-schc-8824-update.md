@@ -268,6 +268,8 @@ CoAP compression differs from IPv6 and UDP compression in the following aspects:
 
 This section discusses the SCHC compression of the CoAP header fields (see {{Section 3 of RFC7252}}), building on what is specified in {{Section 7.1 of RFC8724}}.
 
+In a SCHC Rule, the first Field Descriptors MUST be those related to the CoAP header fields discussed in this section. In particular, such Field Descriptors MUST be listed in the same order according to which the related CoAP header fields are specified in a CoAP message, i.e.: Version; Type; Token Length; Code; Message ID; and Token (if any). In the rest of this section, those CoAP header fields are discussed according to such an order.
+
 ## CoAP Version Field # {#ssec-coap-version-field}
 
 The Version field is described as bidirectional in a SCHC Rule, and it MUST be elided during SCHC compression, since it always contains the same value. In the future, or if a new version of CoAP is defined, new Rules will be needed to avoid ambiguities between versions.
@@ -314,7 +316,9 @@ CoAP defines options placed after the mandatory header and the Token field, orde
 
 In particular, the Option Delta is used to express the option number of a CoAP option within a CoAP message, as the difference between the Option Number of that option and the Option Number of the previous option in that message (or zero for the first option). Also, the Option Length specifies the length of the Option Value, in bytes.
 
-In a SCHC Rule, the Field Descriptor related to a CoAP option is as follows:
+In a SCHC Rule, the Field Descriptors related to CoAP options MUST be specified after the Field Descriptors related to the CoAP header fields discussed in {{sec-coap-fields-compression}}. In particular, the Field Descriptors related to CoAP options MUST be listed in the same order according to which the related CoAP options are specified in the CoAP message (i.e., ordered by option number). If a SCHC Rule is intended to compress a CoAP message where a repeatable CoAP option is specified multiple times, then the SCHC Rule MUST include different Field Descriptors that separately correspond to the different instances of that CoAP option, and those Field Descriptors MUST be listed in the same order of the corresponding CoAP option instances in the CoAP message.
+
+The Field Descriptor related to a CoAP option is as follows:
 
 * the FID is set to an unambiguous identifier of the CoAP option associated with the corresponding option number;
 
@@ -436,6 +440,8 @@ The EDHOC Option occurs at most once and is always empty. The SCHC Rule MUST des
 
 # Compression of CoAP Extensions # {#sec-coap-extensions}
 
+The following sections present how SCHC compresses some specific CoAP options that, when used, play a major role in the processing and exchange of CoAP messages.
+
 ## Block-Wise Transfers # {#ssec-coap-extensions-block}
 
 When a CoAP message uses a Block1 or Block2 Option {{RFC7959}} or a Q-Block1 or Q-Block2 Option {{RFC9177}}, SCHC compression MUST send its content in the Compression Residue. In the SCHC Rule, the TV is not set, while the MO is set to "ignore" and the CDA is set to "value-sent".
@@ -555,6 +561,8 @@ Conceptually, it discerns up to eight distinct pieces of information within the 
 * CoAP OSCORE_y
 * CoAP OSCORE_oldnonce
 * CoAP OSCORE_kid
+
+If a SCHC Rule is intended to compress a CoAP message that specififes the OSCORE Option, then the related Field Descriptors defined above MUST be listed in the same order according to which the corresponding pieces of information appear in the OSCORE Option.
 
 {{fig-oscore-option}} shows the original format of the OSCORE Option with the four fields OSCORE_flags, OSCORE_piv, OSCORE_kidctx, and OSCORE_kid superimposed on it. Also, {{fig-oscore-option-kudos}} shows the extended format of the OSCORE option with all the eight fields superimposed on it.
 
@@ -2324,9 +2332,11 @@ module ietf-schc-coap {
 
 * Consistent formulation of "tkl", "osc.x.m", and "osc.y.w".
 
+* Explicitly stated that Field Descriptors have to be ordered in a determistic way.
+
 * Fixed format of TV in Rule Descriptors for CoAP MID.
 
-* Fixed order of OSCORE-related Field Descriptors in examples Rules.
+* Fixed order of OSCORE-related Field Descriptors in example Rules.
 
 * Use "bit" instead of "b" as symbol for bit (per ISO/IEC 80000-13).
 
