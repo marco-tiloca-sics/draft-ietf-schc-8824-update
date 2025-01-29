@@ -322,7 +322,7 @@ In a SCHC Rule, the Field Descriptor related to a CoAP option is as follows:
 
 * the TV is set to the Option Value V of the CoAP option.
 
-Note that the MO and the CDA specified in the Field Descriptor operates only on the Option Value V. That is, SCHC compression produces a residue from the Option Value V, while ignoring the option number, the Option Delta, and the Option Length. Therefore, the residue of a SCHC packet conveying a compressed CoAP header does not include the option number, the Option Delta, and the Option Length, which the recipient will be able to reconstruct by performing SCHC Decompression.
+Note that the MO and the CDA specified in the Field Descriptor operates only on the Option Value V. That is, SCHC compression produces a residue from the Option Value V, while ignoring the option number, the Option Delta, and the Option Length. Therefore, the residue of a SCHC packet conveying a compressed CoAP header does not include the option number, the Option Delta, and the Option Length, which the recipient will be able to reconstruct by performing SCHC decompression.
 
 When the Option Length has a well-known value, the Rule may specify the Option Length value in the FL of the Field Descriptor (see above). In such a case, SCHC compression treats the Option Value as a fixed-length field (see {{Section 7.4.1 of RFC8724}}).
 
@@ -1965,7 +1965,7 @@ The Device decrypts and verifies such a response, which results in the same Comp
 
 # CoAP Fields # {#sec-coap-fields}
 
-{{table-coap-fields}} lists the CoAP fields and subfields for which SCHC Compression has been defined or revised in this document.
+{{table-coap-fields}} lists the CoAP fields and subfields for which SCHC compression has been defined or revised in this document.
 
 | Field                    | Description                                                                        |
 |--------------------------|------------------------------------------------------------------------------------|
@@ -2366,9 +2366,9 @@ module ietf-schc-coap {
 
 * Clarified what SCHC compression considers for CoAP options.
 
-* Revised SCHC Compression of the ETag and If-Match CoAP option.
+* Revised SCHC compression of the ETag and If-Match CoAP option.
 
-* Revised SCHC Compression of the If-None-Match CoAP option.
+* Revised SCHC compression of the If-None-Match CoAP option.
 
 * Added YANG data model for the YANG module.
 
