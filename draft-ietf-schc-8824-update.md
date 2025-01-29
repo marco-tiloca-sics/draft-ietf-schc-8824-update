@@ -960,15 +960,15 @@ The Outer SCHC Rule shown in {{table-Outer-Rules}} is used, also to process the 
 | CoAP <br> MID             | 16             | 1  | Bi | 0x0000               | MSB(12) | LSB            | MMMM               |
 | CoAP <br> Token           | tkl            | 1  | Bi | 0x80                 | MSB(5)  | LSB            | TTT                |
 | CoAP <br> OSCORE_flags    | var            | 1  | Up | 0x09                 | equal   | not- <br> sent |                    |
+| CoAP <br> OSCORE_flags    | var            | 1  | Dw | b''                  | equal   | not- <br> sent |                    |
 | CoAP <br> OSCORE_piv      | osc.piv        | 1  | Up | 0x00                 | MSB(4)  | LSB            | PPPP               |
-| CoAP <br> OSCORE_kid      | var <br> (bit) | 1  | Up | 0x636c69 <br> 656e70 | MSB(44) | LSB            | KKKK               |
+| CoAP <br> OSCORE_piv      | var            | 1  | Dw | b''                  | equal   | not- <br> sent |                    |
 | CoAP <br> OSCORE_kidctx   | var            | 1  | Bi | b''                  | equal   | not- <br> sent |                    |
 | CoAP <br> OSCORE_x        | 8              | 1  | Bi | b''                  | equal   | not- <br> sent |                    |
 | CoAP <br> OSCORE_nonce    | osc.x.m        | 1  | Bi | b''                  | equal   | not- <br> sent |                    |
 | CoAP <br> OSCORE_y        | 8              | 1  | Bi | b''                  | equal   | not- <br> sent |                    |
 | CoAP <br> OSCORE_oldnonce | osc.y.w        | 1  | Bi | b''                  | equal   | not- <br> sent |                    |
-| CoAP <br> OSCORE_flags    | var            | 1  | Dw | b''                  | equal   | not- <br> sent |                    |
-| CoAP <br> OSCORE_piv      | var            | 1  | Dw | b''                  | equal   | not- <br> sent |                    |
+| CoAP <br> OSCORE_kid      | var <br> (bit) | 1  | Up | 0x636c69 <br> 656e70 | MSB(44) | LSB            | KKKK               |
 | CoAP <br> OSCORE_kid      | var            | 1  | Dw | b''                  | equal   | not- <br> sent |                    |
 {: #table-Outer-Rules title="Outer SCHC Rule" align="center"}
 
@@ -1526,15 +1526,15 @@ The Device and the proxy share the SCHC Rule shown in {{fig-rules-oscore-device-
 | CoAP <br> Token           | tkl            | 1  | Bi | 0x80     | MSB(5)              | LSB                | TTT                |
 | CoAP <br> Uri-Host        | var <br> (B)   | 1  | Up |          | ignore              | value- <br> sent   |                    |
 | CoAP <br> OSCORE_flags    | var            | 1  | Up | 0x09     | equal               | not-sent           |                    |
+| CoAP <br> OSCORE_flags    | var            | 1  | Dw | b''      | equal               | not-sent           |                    |
 | CoAP <br> OSCORE_piv      | osc.piv        | 1  | Up | 0x00     | MSB(4)              | LSB                | PPPP               |
-| CoAP <br> OSCORE_kid      | var <br> (bit) | 1  | Up | 0x0000   | MSB(12)             | LSB                | KKKK               |
+| CoAP <br> OSCORE_piv      | var            | 1  | Dw | b''      | equal               | not-sent           |                    |
 | CoAP <br> OSCORE_kidctx   | var            | 1  | Bi | b''      | equal               | not-sent           |                    |
 | CoAP <br> OSCORE_x        | 8              | 1  | Bi | b''      | equal               | not-sent           |                    |
 | CoAP <br> OSCORE_nonce    | osc.x.m        | 1  | Bi | b''      | equal               | not-sent           |                    |
 | CoAP <br> OSCORE_y        | 8              | 1  | Bi | b''      | equal               | not-sent           |                    |
 | CoAP <br> OSCORE_oldnonce | osc.y.w        | 1  | Bi | b''      | equal               | not-sent           |                    |
-| CoAP <br> OSCORE_flags    | var            | 1  | Dw | b''      | equal               | not-sent           |                    |
-| CoAP <br> OSCORE_piv      | var            | 1  | Dw | b''      | equal               | not-sent           |                    |
+| CoAP <br> OSCORE_kid      | var <br> (bit) | 1  | Up | 0x0000   | MSB(12)             | LSB                | KKKK               |
 | CoAP <br> OSCORE_kid      | var            | 1  | Dw | b''      | equal               | not-sent           |                    |
 | CoAP <br> Proxy-Scheme    | var            | 1  | Up | "coap"   | equal               | not-sent           |                    |
 {: #fig-rules-oscore-device-proxy title="Outer SCHC Rule between the Device and the Proxy" align="center"}
@@ -1559,15 +1559,15 @@ The proxy and the Application Server share the SCHC Rule shown in {{fig-rules-os
 | CoAP <br> Token           | tkl            | 1  | Bi | 0x70     | MSB(5)              | LSB                | TTT                |
 | CoAP <br> Uri-Host        | var <br> (B)   | 1  | Up |          | ignore              | value- <br> sent   |                    |
 | CoAP <br> OSCORE_flags    | var            | 1  | Up | 0x09     | equal               | not-sent           |                    |
+| CoAP <br> OSCORE_flags    | var            | 1  | Dw | b''      | equal               | not-sent           |                    |
 | CoAP <br> OSCORE_piv      | osc.piv        | 1  | Up | 0x00     | MSB(4)              | LSB                | PPPP               |
-| CoAP <br> OSCORE_kid      | var <br> (bit) | 1  | Up | 0x0000   | MSB(12)             | LSB                | KKKK               |
+| CoAP <br> OSCORE_piv      | var            | 1  | Dw | b''      | equal               | not-sent           |                    |
 | CoAP <br> OSCORE_kidctx   | var            | 1  | Bi | b''      | equal               | not-sent           |                    |
 | CoAP <br> OSCORE_x        | 8              | 1  | Bi | b''      | equal               | not-sent           |                    |
 | CoAP <br> OSCORE_nonce    | osc.x.m        | 1  | Bi | b''      | equal               | not-sent           |                    |
 | CoAP <br> OSCORE_y        | 8              | 1  | Bi | b''      | equal               | not-sent           |                    |
 | CoAP <br> OSCORE_oldnonce | osc.y.w        | 1  | Bi | b''      | equal               | not-sent           |                    |
-| CoAP <br> OSCORE_flags    | var            | 1  | Dw | b''      | equal               | not-sent           |                    |
-| CoAP <br> OSCORE_piv      | var            | 1  | Dw | b''      | equal               | not-sent           |                    |
+| CoAP <br> OSCORE_kid      | var <br> (bit) | 1  | Up | 0x0000   | MSB(12)             | LSB                | KKKK               |
 | CoAP <br> OSCORE_kid      | var            | 1  | Dw | b''      | equal               | not-sent           |                    |
 {: #fig-rules-oscore-proxy-server title="Outer SCHC Rule between the Proxy and the Application Server" align="center"}
 
@@ -2325,6 +2325,8 @@ module ietf-schc-coap {
 * Consistent formulation of "tkl", "osc.x.m", and "osc.y.w".
 
 * Fixed format of TV in Rule Descriptors for CoAP MID.
+
+* Fixed order of OSCORE-related Field Descriptors in examples Rules.
 
 * Use "bit" instead of "b" as symbol for bit (per ISO/IEC 80000-13).
 
