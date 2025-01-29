@@ -6,11 +6,11 @@ SCHC Working Group                                             M. Tiloca
 Internet-Draft                                                   RISE AB
 Obsoletes: 8824 (if approved)                                 L. Toutain
 Intended status: Standards Track                          IMT Atlantique
-Expires: 1 August 2025                                       I. Martinez
+Expires: 2 August 2025                                       I. Martinez
                                                          Nokia Bell Labs
                                                              A. Minaburo
                                                               Consultant
-                                                         28 January 2025
+                                                         29 January 2025
 
 
 Static Context Header Compression (SCHC) for the Constrained Application
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 August 2025.
+   This Internet-Draft will expire on 2 August 2025.
 
 Copyright Notice
 
@@ -592,7 +592,7 @@ Table of Contents
    residue of a SCHC packet conveying a compressed CoAP header does not
    include the option number, the Option Delta, and the Option Length,
    which the recipient will be able to reconstruct by performing SCHC
-   Decompression.
+   decompression.
 
    When the Option Length has a well-known value, the Rule may specify
    the Option Length value in the FL of the Field Descriptor (see
@@ -2996,7 +2996,7 @@ Table of Contents
 11.  CoAP Fields
 
    Table 12 lists the CoAP fields and subfields for which SCHC
-   Compression has been defined or revised in this document.
+   compression has been defined or revised in this document.
 
    +=====================+============================================+
    | Field               | Description                                |
@@ -3726,9 +3726,9 @@ B.4.  Version -00 to -01
 
    *  Clarified what SCHC compression considers for CoAP options.
 
-   *  Revised SCHC Compression of the ETag and If-Match CoAP option.
+   *  Revised SCHC compression of the ETag and If-Match CoAP option.
 
-   *  Revised SCHC Compression of the If-None-Match CoAP option.
+   *  Revised SCHC compression of the If-None-Match CoAP option.
 
    *  Added YANG data model for the YANG module.
 
